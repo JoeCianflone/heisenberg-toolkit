@@ -1,8 +1,8 @@
-# Heisenberg.js
+# Heisenberg Reborn
 
-## A project base for building modern JavaScript applications
 
-Please note that current Heisenberg is under _very_ active development. Large changes may happen often until we hit V1.0.0.
+
+
 
 ### Features
 
@@ -10,17 +10,18 @@ Please note that current Heisenberg is under _very_ active development. Large ch
 * Templating built in - Handlebars is included but feel free to change engines.
 * Included: jQuery, Underscore.js and Handlebars.
 * A fully commented source to show you why it's doing what it's doing and how to build upon it's foundation.
-* The JavaScript version of the HTML5 Boilerplate
+
 
 ### Getting Started
-The best place to start is on the [wiki](https://github.com/Heisenbergjs/heisenberg/wiki).
+The best place to start is on the [wiki](https://github.com/joecianflone/heisenberg/wiki).
 
-* [Download the ZIP](https://github.com/Heisenbergjs/heisenberg/archive/master.zip)
+* [Download the ZIP](https://github.com/joecianflone/heisenberg/archive/master.zip)
 * Extract the ZIP, and get started.
 
 ### Changelog
 
-All releases our [tagged and listed here on Github](https://github.com/Heisenbergjs/heisenberg/tags).
+All releases our [tagged and listed here on Github](https://github.com/joecianflone/heisenberg/tags).
+
 
 ##### V0.9.1
 - remove cruft from gitignore
