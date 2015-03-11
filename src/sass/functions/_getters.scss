@@ -1,0 +1,12 @@
+@function getByKey($key, $map) {
+    @if map-has-key($map, $key) {
+        @return map-get($map, $key);
+    }
+
+    @warn "Unknown `#{$key}` in $map.";
+    @return null;
+}
+
+@function getValue($n) {
+    @return $n / ($n * 0 + 1);
+}

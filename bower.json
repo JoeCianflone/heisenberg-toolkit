@@ -13,7 +13,9 @@
     "modernizr": "~2.8.3",
     "fontawesome": "~4.3.0",
     "include-media": "~1.1.2",
-    "susy": "~2.2.2"
+    "susy": "~2.2.2",
+    "html5-boilerplate": "~5.0.0",
+    "normalize-scss": "~3.0.2"
   },
   "license": "MIT",
   "private": true,

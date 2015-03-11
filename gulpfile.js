@@ -44,7 +44,7 @@ var scripts = {
    modernizr: ["./src/bower/modernizr/modernizr.js"],
    smash: [
       "./src/bower/underscore/underscore.js",
-      //"./src/bower/jquery-validation/dist/jquery.validate.js",
+      "./src/bower/jquery-validation/dist/jquery.validate.js",
       "./src/bower/handlebars/handlebars.js",
       "./src/js/app.js",
       "./src/js/helpers/toCanonicalMonth.js",
@@ -76,7 +76,7 @@ gulp.task('js', function() {
     gulp.src(scripts.smash)
         .pipe(plumber())
         .pipe(concat("application.min.js"))
-        //.pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(config.pub.js));
 
 });
@@ -87,5 +87,5 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['watch']);
-gulp.task('run', ['sass', 'scripts']);
+gulp.task('run', ['sass', 'js']);
 
