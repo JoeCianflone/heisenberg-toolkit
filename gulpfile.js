@@ -1,8 +1,8 @@
-var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    shell = require('gulp-shell'),
-    concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
+var gulp    = require('gulp'),
+    sass    = require('gulp-sass'),
+    shell   = require('gulp-shell'),
+    concat  = require('gulp-concat'),
+    uglify  = require('gulp-uglify'),
     plumber = require('gulp-plumber');
 
 var config = {
@@ -55,24 +55,23 @@ gulp.task('handlebars', function () {
 
 gulp.task('js', ['handlebars'], function() {
 
-    gulp.src(scripts.modernizr)
-        .pipe(plumber())
-        .pipe(concat("modernizr.min.js"))
-        .pipe(uglify())
-        .pipe(gulp.dest(config.pub.js));
+   gulp.src(scripts.modernizr)
+       .pipe(plumber())
+       .pipe(concat("modernizr.min.js"))
+       .pipe(uglify())
+       .pipe(gulp.dest(config.pub.js));
 
-    gulp.src(scripts.jquery)
-        .pipe(plumber())
-        .pipe(concat("jquery.min.js"))
-        .pipe(uglify())
-        .pipe(gulp.dest(config.pub.js));
+   gulp.src(scripts.jquery)
+       .pipe(plumber())
+       .pipe(concat("jquery.min.js"))
+       .pipe(uglify())
+       .pipe(gulp.dest(config.pub.js));
 
-    gulp.src(scripts.app)
-        .pipe(plumber())
-        .pipe(concat("app.min.js"))
-        .pipe(uglify())
-        .pipe(gulp.dest(config.pub.js));
-
+   gulp.src(scripts.app)
+       .pipe(plumber())
+       .pipe(concat("app.min.js"))
+       .pipe(uglify())
+       .pipe(gulp.dest(config.pub.js));
 });
 
 gulp.task('sass', function () {
@@ -82,13 +81,13 @@ gulp.task('sass', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(config.src.sass + '**/*.scss', ['sass']);
-    gulp.watch(config.src.js + '**/*.js', ['js']);
-    gulp.watch(config.src.js + '**/*.handlebars', ['hbs']);
+   gulp.watch(config.src.sass + '**/*.scss', ['sass']);
+   gulp.watch(config.src.js + '**/*.js', ['js']);
+   gulp.watch(config.src.js + '**/*.handlebars', ['hbs']);
 });
 
+gulp.task('scss',    ['sass']);
+gulp.task('hbs',     ['handlebars', 'js']);
 gulp.task('default', ['hbs', 'sass', 'watch']);
-gulp.task('scss', ['sass']);
-gulp.task('hbs', ['handlebars', 'js']);
 
 

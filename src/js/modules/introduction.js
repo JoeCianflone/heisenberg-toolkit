@@ -9,8 +9,8 @@ App.Modules.introduction = function () {
    };
 
    var bindEvents =  function () {
-     App.Events.subscribe('app/init', hello);
-     App.Events.subscribe('app/init', render);
+      App.Events.subscribe('app/init', hello);
+      App.Events.subscribe('app/init', render);
    };
 
    var hello = function() {
@@ -24,6 +24,7 @@ App.Modules.introduction = function () {
 
    return {
       init: init
-   }
+   };
+
 }();
 
