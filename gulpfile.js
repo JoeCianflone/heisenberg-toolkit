@@ -1,51 +1,34 @@
-/**
- * We are going to start off with some basic gulp tasks
- * you can customize these to your liking, but we want to
- * make sure that you're doing some basic things:
- * 1. compiling your Sass
- * 2. uglify your scripts
- * 3. concatenate your scripts
- */
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    uglify = require('gulp-uglify'),
+    shell = require('gulp-shell'),
     concat = require('gulp-concat'),
-    rename = require('gulp-rename'),
-    plumber = require('gulp-plumber'),
-    handlebars = require('gulp-compile-handlebars');
+    uglify = require('gulp-uglify'),
+    plumber = require('gulp-plumber');
 
-/**
- * Default configuration. If you've decided to move your files
- * to different folders it's not a problem, just change the paths
- * in here and everything will output correctly
- */
 var config = {
    pub: {
-      js: "./assets/js/",
-      css: "./assets/css/",
-      fonts: "./assets/fonts/",
+      js:     "./assets/js/",
+      css:    "./assets/css/",
+      fonts:  "./assets/fonts/",
       images: "./assets/images/"
    },
    src: {
-      js: "./src/js/",
-      sass: "./src/sass/"
+      js:   "./src/js/",
+      hbs:  "./src/js/templates/"
+      sass: "./src/sass/",
    }
 };
 
-/**
- * All your scripts.  There are a bunch of different ways to do this
- * this is the way that I've found to be most convenient.
- * Scripts that you do not want compiled together, create as separate
- * objects.  If you want scripts concatenated together create an array
- *
- */
+
 var scripts = {
-   jquery:    ["./src/bower/jquery/dist/jquery.js"],
-   modernizr: ["./src/bower/modernizr/modernizr.js"],
-   smash: [
-      "./src/bower/underscore/underscore.js",
+   jquery:     ["./src/bower/jquery/dist/jquery.js"],
+   modernizr:  ["./src/bower/modernizr/modernizr.js"],
+   app: [
       "./src/bower/jquery-validation/dist/jquery.validate.js",
-      "./src/bower/handlebars/handlebars.js",
+      "./src/bower/underscore/underscore.js",
+      "./src/bower/handlebars/handlebars.runtime.js",
+      "./src/bower/amplify/lib/amplify.js",
+      "./src/js/templates.hbs",
       "./src/js/app.js",
       "./src/js/helpers/toCanonicalMonth.js",
       "./src/js/modules/introduction.js",
@@ -53,13 +36,24 @@ var scripts = {
    ]
 };
 
-gulp.task('sass', function () {
-   gulp.src(config.src.sass + '*.scss')
-       .pipe(sass())
-       .pipe(gulp.dest(config.pub.css));
+/**
+ * gulp-handlebars sucks so I'm just using the shell to execute the
+ * handlebars command
+ *
+ * Note: this is a half-step and it creates a file called templates.hbs
+ * why an hbs instead of handlebars or js?  Good question.  We write this
+ * file to the src/js directory which is being watched by gulp so if I wrote
+ * a .handlebars or .js file into that directory you'd get stuck in an
+ * infinate loop because it would see a file being written to and changed.
+ *
+ * Trust me on this one.
+ */
+gulp.task('handlebars', function () {
+  gulp.src(config.src.hbs, {read: false})
+      .pipe(shell('handlebars  <%= file.path %> -f src/js/templates.hbs -k each -k if -k unless'));
 });
 
-gulp.task('js', function() {
+gulp.task('js', ['handlebars'], function() {
 
     gulp.src(scripts.modernizr)
         .pipe(plumber())
@@ -73,19 +67,28 @@ gulp.task('js', function() {
         .pipe(uglify())
         .pipe(gulp.dest(config.pub.js));
 
-    gulp.src(scripts.smash)
+    gulp.src(scripts.app)
         .pipe(plumber())
-        .pipe(concat("application.min.js"))
+        .pipe(concat("app.min.js"))
         .pipe(uglify())
         .pipe(gulp.dest(config.pub.js));
 
 });
 
+gulp.task('sass', function () {
+   gulp.src(config.src.sass + '*.scss')
+       .pipe(sass())
+       .pipe(gulp.dest(config.pub.css));
+});
+
 gulp.task('watch', function () {
     gulp.watch(config.src.sass + '**/*.scss', ['sass']);
     gulp.watch(config.src.js + '**/*.js', ['js']);
+    gulp.watch(config.src.js + '**/*.handlebars', ['hbs']);
 });
 
-gulp.task('default', ['watch']);
-gulp.task('run', ['sass', 'js']);
+gulp.task('default', ['hbs', 'sass', 'watch']);
+gulp.task('scss', ['sass']);
+gulp.task('hbs', ['handlebars', 'js']);
+
 

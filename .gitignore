@@ -1,5 +1,10 @@
 .DS_Store
-node_modules
+/node_modules
 src/bower/
+src/js/templates.hbs
 assets/css/
 assets/js/
+.sass-cache
+/vendor
+*.sublime-*
+
