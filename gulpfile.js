@@ -14,7 +14,7 @@ var config = {
    },
    src: {
       js:   "./src/js/",
-      hbs:  "./src/js/templates/"
+      hbs:  "./src/js/templates/",
       sass: "./src/sass/",
    }
 };
