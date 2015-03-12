@@ -3,7 +3,7 @@
 src/bower/
 src/js/templates.hbs
 assets/css/
-
+assets/js/
 .sass-cache
 /vendor
 *.sublime-*
