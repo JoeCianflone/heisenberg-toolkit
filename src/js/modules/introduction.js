@@ -17,7 +17,6 @@ App.Modules.introduction = function () {
       console.log('caught even app/init');
    };
 
-
    var render = function() {
       options.page.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
    };
@@ -27,4 +26,5 @@ App.Modules.introduction = function () {
    };
 
 }();
+
 
