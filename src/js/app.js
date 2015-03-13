@@ -2,6 +2,7 @@
    var App = {
       Modules: {},
       Helpers: {},
+      Templates: {},
       Events: amplify, // pub/sub is being handled by Amplify
 
       init: function () {
