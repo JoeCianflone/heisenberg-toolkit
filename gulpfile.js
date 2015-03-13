@@ -5,6 +5,8 @@ var gulp    = require('gulp'),
     uglify  = require('gulp-uglify'),
     plumber = require('gulp-plumber'),
     declare = require('gulp-declare'),
+    imagemin = require('gulp-imagemin'),
+    //pngquant = require('imagemin-pngquant'),
     handlebars = require('gulp-handlebars');
 
 var config = {
@@ -15,9 +17,10 @@ var config = {
       images: "./assets/images/"
    },
    src: {
-      js:   "./src/js/",
-      hbs:  "./src/js/templates/",
-      sass: "./src/sass/",
+      js:        "./src/js/",
+      hbs:       "./src/js/templates/",
+      sass:      "./src/sass/",
+      images:    "./src/images/",
       templates: "templates.tpl"
    }
 };
@@ -38,6 +41,17 @@ var scripts = {
       "./src/js/main.js"
    ]
 };
+
+gulp.task('imagemin', function () {
+    return gulp.src(config.src.images + '*')
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}]
+            //use: [pngquant()]
+        }))
+        .pipe(gulp.dest(config.pub.images));
+});
+
 
 gulp.task('handlebars', function () {
     gulp.src(config.src.hbs+'*.hbs')
@@ -78,14 +92,16 @@ gulp.task('sass', function () {
        .pipe(gulp.dest(config.pub.css));
 });
 
-gulp.task('watch', ['scss', 'hbs'], function () {
-   gulp.watch(config.src.sass + '**/*.scss', ['sass']);
-   gulp.watch(config.src.js + '**/*.js', ['js']);
-   gulp.watch(config.src.js + '**/*.hbs', ['handlebars']);
+gulp.task('watch', ['scss', 'hbs', 'imgmin'], function () {
+   gulp.watch(config.src.js     + '**/*.js',   ['js']);
+   gulp.watch(config.src.hbs    + '**/*.hbs',  ['handlebars']);
+   gulp.watch(config.src.sass   + '**/*.scss', ['sass']);
+   gulp.watch(config.src.images + '**/*.*',    ['imgmin']);
 });
 
 gulp.task('scss',    ['sass']);
 gulp.task('hbs',     ['js']);
+gulp.task('imgmin',  ['imagemin']);
 gulp.task('default', ['hbs', 'sass', 'watch']);
 
 

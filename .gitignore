@@ -4,6 +4,7 @@ src/bower/
 src/js/templates.tpl
 assets/css/
 assets/js/
+assets/images/
 .sass-cache
 /vendor
 *.sublime-*
