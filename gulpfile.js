@@ -47,7 +47,6 @@ gulp.task('imagemin', function () {
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}]
-            //use: [pngquant()]
         }))
         .pipe(gulp.dest(config.pub.images));
 });
@@ -92,16 +91,14 @@ gulp.task('sass', function () {
        .pipe(gulp.dest(config.pub.css));
 });
 
-gulp.task('watch', ['scss', 'hbs', 'imgmin'], function () {
+gulp.task('watch', function () {
    gulp.watch(config.src.js     + '**/*.js',   ['js']);
    gulp.watch(config.src.hbs    + '**/*.hbs',  ['handlebars']);
    gulp.watch(config.src.sass   + '**/*.scss', ['sass']);
    gulp.watch(config.src.images + '**/*.*',    ['imgmin']);
 });
 
-gulp.task('scss',    ['sass']);
-gulp.task('hbs',     ['js']);
-gulp.task('imgmin',  ['imagemin']);
-gulp.task('default', ['hbs', 'sass', 'watch']);
+
+gulp.task('default', ['js', 'sass', 'imagemin','watch']);
 
 
