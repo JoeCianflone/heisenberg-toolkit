@@ -1,3 +1,14 @@
+/**
+ * Heisenberg Reborn Gulpfile
+ *
+ * USAGE local:
+ * gulp
+ *
+ * USAGE production:
+ * gulp --production
+ *
+ * In production heisenberg will uglify your JS and minify your SASS
+ */
 var gulp       = require('gulp'),
     gulpif     = require('gulp-if'),
     wrap       = require('gulp-wrap'),
@@ -12,6 +23,12 @@ var gulp       = require('gulp'),
     handlebars = require('gulp-handlebars'),
     pngquant   = require('imagemin-pngquant');
 
+/**
+ * Configuration object
+ * Various folders that Gulp is going to need to know about.
+ * Feel free to move all this stuff around, just make sure you
+ * keep this file up-to-date
+ */
 var config = {
    pub: {
       js:     "./assets/js/",
@@ -23,18 +40,35 @@ var config = {
       js:        "./src/js/",
       hbs:       "./src/js/templates/",
       sass:      "./src/sass/",
+      // When you crate a new image you should put them in the SRC directory
+      // from there imagemin will see it and compress the image and copy the
+      // image into the /assets/images folder where you can call it.
       images:    "./src/images/",
+      // when handlebars compiles all your scripts together, it needs a place to put them.
+      // it goes into this .tpl file before getting compiled into the main JS file.
+      // Why .tpl? If you name it .js then the gulp watcher goes crazy because it sees
+      // you writing a new JS file.
       templates: "templates.tpl"
    }
 };
 
-
+/**
+ * Scripts object-array
+ * These are the various JS scripts that are being used in the site.
+ * There are a couple of things going on here so let's take a look
+ */
 var scripts = {
+   // jQuery and Modernizr should not be concatenated with everything else
+   // Why? Modernizer needs to be in the <head> and jQuery only needs to be
+   // loaded IF the google CDN version fails to load
    jquery:     ["./src/bower/jquery/dist/jquery.js"],
    modernizr:  ["./src/bower/modernizr/modernizr.js"],
+
+   // All these scripts will be concatenated together and the order is important
    app: [
       "./src/bower/jquery-validation/dist/jquery.validate.js",
       "./src/bower/underscore/underscore.js",
+      // You only need the handlebars runtime because we compile all our templates
       "./src/bower/handlebars/handlebars.runtime.js",
       "./src/bower/amplify/lib/amplify.js",
       config.src.js + config.src.templates,
@@ -55,7 +89,6 @@ gulp.task('imagemin', function () {
         .pipe(gulp.dest(config.pub.images));
 });
 
-
 gulp.task('handlebars', function () {
     gulp.src(config.src.hbs+'*.hbs')
       .pipe(handlebars())
@@ -69,7 +102,6 @@ gulp.task('handlebars', function () {
 });
 
 gulp.task('js', ['handlebars'], function() {
-
    gulp.src(scripts.modernizr)
        .pipe(plumber())
        .pipe(concat("modernizr.min.js"))
@@ -107,7 +139,6 @@ gulp.task('watch', function () {
    gulp.watch(config.src.sass   + '**/*.scss', ['sass']);
    gulp.watch(config.src.images + '**/*.*',    ['imgmin']);
 });
-
 
 gulp.task('default', ['js', 'sass', 'imagemin','watch']);
 
