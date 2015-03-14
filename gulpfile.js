@@ -8,6 +8,7 @@ var gulp       = require('gulp'),
     plumber    = require('gulp-plumber'),
     declare    = require('gulp-declare'),
     imagemin   = require('gulp-imagemin'),
+    sourcemaps = require('gulp-sourcemaps'),
     handlebars = require('gulp-handlebars'),
     pngquant   = require('imagemin-pngquant');
 
@@ -83,14 +84,20 @@ gulp.task('js', ['handlebars'], function() {
 
    gulp.src(scripts.app)
        .pipe(plumber())
-       .pipe(concat("app.min.js"))
-       .pipe(gulpif(yargs.production, uglify()))
+       .pipe(sourcemaps.init())
+          .pipe(concat("app.min.js"))
+          .pipe(gulpif(yargs.production, uglify()))
+       .pipe(sourcemaps.write("./maps"))
        .pipe(gulp.dest(config.pub.js));
 });
 
 gulp.task('sass', function () {
    gulp.src(config.src.sass + '*.scss')
-       .pipe(sass())
+       .pipe(sourcemaps.init())
+          .pipe(sass({
+             outputStyle: yargs.production ? "compressed" : "nested"
+          }))
+       .pipe(sourcemaps.write("./maps"))
        .pipe(gulp.dest(config.pub.css));
 });
 
