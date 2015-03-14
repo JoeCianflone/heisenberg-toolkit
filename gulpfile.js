@@ -1,13 +1,15 @@
-var gulp    = require('gulp'),
-    wrap = require('gulp-wrap'),
-    sass    = require('gulp-sass'),
-    concat  = require('gulp-concat'),
-    uglify  = require('gulp-uglify'),
-    plumber = require('gulp-plumber'),
-    declare = require('gulp-declare'),
-    imagemin = require('gulp-imagemin'),
-    //pngquant = require('imagemin-pngquant'),
-    handlebars = require('gulp-handlebars');
+var gulp       = require('gulp'),
+    gulpif     = require('gulp-if'),
+    wrap       = require('gulp-wrap'),
+    sass       = require('gulp-sass'),
+    yargs      = require('yargs').argv
+    concat     = require('gulp-concat'),
+    uglify     = require('gulp-uglify'),
+    plumber    = require('gulp-plumber'),
+    declare    = require('gulp-declare'),
+    imagemin   = require('gulp-imagemin'),
+    handlebars = require('gulp-handlebars'),
+    pngquant   = require('imagemin-pngquant');
 
 var config = {
    pub: {
@@ -46,7 +48,8 @@ gulp.task('imagemin', function () {
     return gulp.src(config.src.images + '*')
         .pipe(imagemin({
             progressive: true,
-            svgoPlugins: [{removeViewBox: false}]
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
         }))
         .pipe(gulp.dest(config.pub.images));
 });
@@ -69,19 +72,19 @@ gulp.task('js', ['handlebars'], function() {
    gulp.src(scripts.modernizr)
        .pipe(plumber())
        .pipe(concat("modernizr.min.js"))
-       .pipe(uglify())
+       .pipe(gulpif(yargs.production, uglify()))
        .pipe(gulp.dest(config.pub.js));
 
    gulp.src(scripts.jquery)
        .pipe(plumber())
        .pipe(concat("jquery.min.js"))
-       .pipe(uglify())
+       .pipe(gulpif(yargs.production, uglify()))
        .pipe(gulp.dest(config.pub.js));
 
    gulp.src(scripts.app)
        .pipe(plumber())
        .pipe(concat("app.min.js"))
-       //.pipe(uglify())
+       .pipe(gulpif(yargs.production, uglify()))
        .pipe(gulp.dest(config.pub.js));
 });
 
