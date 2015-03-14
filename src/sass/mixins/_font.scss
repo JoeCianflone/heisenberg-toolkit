@@ -1,9 +1,9 @@
 /**
  * font-size mixin
- * @param  {[type]} $fontSize          [description]
- * @param  {[type]} $toUnit:           rem           [description]
- * @param  {[type]} $fromUnitSpecific: px            [description]
- * @return {[type]}                    [description]
+ * @param  {[type]} $fontSize               [description]
+ * @param  {[type]} $toUnit:           rem  [description]
+ * @param  {[type]} $fromUnitSpecific: px   [description]
+ * @return {[type]}                         [description]
  */
 @mixin font-size($fontSize, $toUnit: rem, $fromUnitSpecific: px) {
     $currentUnit: unit($fontSize);

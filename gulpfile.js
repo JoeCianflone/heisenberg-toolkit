@@ -125,6 +125,7 @@ gulp.task('js', ['handlebars'], function() {
 
 gulp.task('sass', function () {
    gulp.src(config.src.sass + '*.scss')
+       .pipe(plumber())
        .pipe(sourcemaps.init())
           .pipe(sass({
              outputStyle: yargs.production ? "compressed" : "nested"

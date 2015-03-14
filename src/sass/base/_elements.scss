@@ -1,0 +1,27 @@
+html {
+   box-sizing: border-box;
+   font: {
+      family: $font-copy;
+      weight: $font-weight-light
+   }
+   height: 100%;
+}
+
+* {
+   &:before, &:after {
+      box-sizing: inherit;
+   }
+}
+
+body {
+   height: 100%;
+   margin: 0;
+}
+
+a {
+   text-decoration: none;
+}
+
+#{headings()} {
+   font-weight: 700;
+}
