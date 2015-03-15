@@ -1,11 +1,11 @@
-/vendor
 .DS_Store
-assets/js/
-src/bower/
-assets/css/
-.sass-cache
 *.sublime-*
+.sass-cache
+/vendor
 /node_modules
+src/bower/
+assets/js/
+assets/css/
+assets/fonts/
 assets/images/
 src/js/templates.tpl
-

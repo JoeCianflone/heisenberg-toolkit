@@ -21,6 +21,15 @@
  * Firefox Plugin:
  * https://addons.mozilla.org/en-us/firefox/addon/livereload/
  */
+
+/**
+ * Why don't I use gulp-load-plugins here?  Wouldn't that make
+ * this easier? Sure, except for the fact that the plugin list
+ * then becomes a black box.  Personally, I don't like that
+ * plugin because it forces me to have to look in a different file
+ * to find out if you have a specific plugin and I'm lazy.
+ *
+ */
 var gulp       = require('gulp'),
     gulpif     = require('gulp-if'),
     wrap       = require('gulp-wrap'),
@@ -34,6 +43,7 @@ var gulp       = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     handlebars = require('gulp-handlebars'),
     livereload = require('gulp-livereload'),
+    prefixer   = require('gulp-autoprefixer'),
     pngquant   = require('imagemin-pngquant');
 
 /**
@@ -81,8 +91,7 @@ var scripts = {
    app: [
       "./src/bower/jquery-validation/dist/jquery.validate.js",
       "./src/bower/underscore/underscore.js",
-      // You only need the handlebars runtime because we compile all our templates
-      "./src/bower/handlebars/handlebars.runtime.js",
+      "./src/bower/handlebars/handlebars.runtime.js", // You only need the handlebars runtime because we compile all our templates
       "./src/bower/amplify/lib/amplify.js",
       config.src.js + config.src.templates,
       "./src/js/app.js",
@@ -92,6 +101,13 @@ var scripts = {
    ]
 };
 
+// Copy fonts to public fonts folder ..........................................
+gulp.task('fonts', function () {
+    return gulp.src(['./src/bower/fontawesome/fonts/fontawesome-webfont.*'])
+         .pipe(gulp.dest(config.pub.fonts));
+});
+
+// Minify images ..............................................................
 gulp.task('imagemin', function () {
     return gulp.src(config.src.images + '*')
         .pipe(plumber())
@@ -104,6 +120,7 @@ gulp.task('imagemin', function () {
         .pipe(livereload());
 });
 
+// Compile handlebars templates ...............................................
 gulp.task('handlebars', function () {
     gulp.src(config.src.hbs+'*.hbs')
       .pipe(handlebars())
@@ -117,6 +134,7 @@ gulp.task('handlebars', function () {
       .pipe(livereload());
 });
 
+// Do everything to JavaScript ................................................
 gulp.task('js', ['handlebars'], function() {
    gulp.src(scripts.modernizr)
        .pipe(plumber())
@@ -142,6 +160,7 @@ gulp.task('js', ['handlebars'], function() {
        .pipe(livereload());
 });
 
+// Compile the Sass ...........................................................
 gulp.task('sass', function () {
    gulp.src(config.src.sass + '*.scss')
        .pipe(plumber())
@@ -149,11 +168,13 @@ gulp.task('sass', function () {
           .pipe(sass({
              outputStyle: yargs.production ? "compressed" : "nested"
           }))
+          .pipe(prefixer())
        .pipe(sourcemaps.write("./maps"))
        .pipe(gulp.dest(config.pub.css))
        .pipe(livereload());
 });
 
+// Watch for changes ..........................................................
 gulp.task('watch', function () {
    if (!yargs.noreload && !yargs.production) {
       livereload.listen();
@@ -164,6 +185,6 @@ gulp.task('watch', function () {
    gulp.watch(config.src.images + '**/*.*',    ['imagemin']);
 });
 
-gulp.task('default', ['js', 'sass', 'imagemin','watch']);
+gulp.task('default', ['fonts', 'js', 'sass', 'imagemin','watch']);
 
 

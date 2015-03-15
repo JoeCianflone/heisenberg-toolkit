@@ -7,9 +7,10 @@
 html {
    box-sizing: border-box;
    font: {
-      //family: $font-copy;
-      //weight: $font-weight-normal;
+      family: $font-copy;
+      weight: $font-weight-normal;
    }
+   letter-spacing: $letter-spacing;
    height: 100%;
 }
 
@@ -25,15 +26,14 @@ body {
 }
 
 img {
-   height: auto;
-   max-width: 100%;
+   height: 100%;
+   width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
    font: {
-      //family: $font-headlines;
-      //weight: $font-weight-bold;
+      family: $font-headlines;
+      weight: $font-weight-bold;
    }
    margin: 0;
 }
-

@@ -5,6 +5,7 @@
   "main": "index.html",
   "dependencies": {
     "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
     "gulp-concat": "^2.5.2",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^4.0.0",

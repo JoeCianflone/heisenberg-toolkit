@@ -1,6 +1,21 @@
+/**
+ * Fonts
+ * ----------------------------------------------------------------------------
+ * I'm a simple guy with simple needs, I don't like to mix a lot of different
+ * fonts in my designs.  To keep it simple, I have two different font types:
+ * copy and headlines.  They are exactly what they sound like.
+ *
+ * Make sure you also define "fallbacks" on the off chance Google fonts goes
+ * down or your user is on a crappy connection.
+ *
+ */
 $font-copy:      "Open Sans", "Helvetica Neue", sans-serif;
-$font-headlines: "Bitter", Verdana, sans-serif;
+$font-headlines: "Bitter", Georgia, serif;
 
-$font-weight-bold: 700;
+// If you have the ability to use variables, damnit, use them.  The concept of
+// "bold" and "light" can mean different things to different fonts, by defining
+// variables it's easier to change later on
+$font-weight-bold:   700;
 $font-weight-normal: 300;
 
+$letter-spacing: 0.1em;
