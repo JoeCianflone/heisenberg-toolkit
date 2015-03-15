@@ -1,3 +1,9 @@
+/**
+ * Simple function for working with Sass maps.
+ * @param  {String} $key  - the key you're looking to find
+ * @param  {Map} $map     - the sass map you're looking in
+ * @return {String|null}
+ */
 @function getByKey($key, $map) {
     @if map-has-key($map, $key) {
         @return map-get($map, $key);
@@ -7,6 +13,11 @@
     @return null;
 }
 
+/**
+ * Takes a non-number and turns it into a number
+ * @param  {Mixed} $n - your non-number ie - 10px or "22"
+ * @return {Number}
+ */
 @function getValue($n) {
     @return $n / ($n * 0 + 1);
 }

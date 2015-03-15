@@ -1,8 +1,14 @@
+/**
+ * Elements are global styles.  They are very generic, in fact, you
+ * should think long and hard before adding anything to this stylesheet.
+ * Do not add font sizes or colors in here...yes even if it's global
+ * because the truth is it probably isn't as global as you think.
+ */
 html {
    box-sizing: border-box;
    font: {
-      family: $font-copy;
-      weight: $font-weight-light
+      //family: $font-copy;
+      //weight: $font-weight-normal;
    }
    height: 100%;
 }
@@ -18,10 +24,16 @@ body {
    margin: 0;
 }
 
-a {
-   text-decoration: none;
+img {
+   height: auto;
+   max-width: 100%;
 }
 
-#{headings()} {
-   font-weight: 700;
+h1, h2, h3, h4, h5, h6 {
+   font: {
+      //family: $font-headlines;
+      //weight: $font-weight-bold;
+   }
+   margin: 0;
 }
+

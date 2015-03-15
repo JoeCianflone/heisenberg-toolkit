@@ -1,9 +1,21 @@
 /**
- * font-size mixin
- * @param  {[type]} $fontSize               [description]
- * @param  {[type]} $toUnit:           rem  [description]
- * @param  {[type]} $fromUnitSpecific: px   [description]
- * @return {[type]}                         [description]
+ * Resize font from one type to another
+ * @param  {[type]} $fontSize               the font size that you want
+ * @param  {[type]} $toUnit:           rem  the unit you want to convert to
+ * @param  {[type]} $fromUnitSpecific: px   default unit we're going to convert from (if you don't set it)
+ *
+ * Example 1:
+ *    @include  font-size(22px);
+ *    Result
+ *    font-size: 22px; // generates a fallback for rems
+ *    font-size: 2.2rem
+ *
+ *
+ * Example 2:
+ *    @include  font-size(22em, "px");
+ *    Result:
+ *    font-size: 22px;
+ *
  */
 @mixin font-size($fontSize, $toUnit: rem, $fromUnitSpecific: px) {
     $currentUnit: unit($fontSize);
@@ -34,12 +46,12 @@
 
 /**
  * font-face mixin
- * @param  {[type]} $font-family     [description]
- * @param  {[type]} $font-file-name: false         [description]
- * @param  {[type]} $weight:         normal        [description]
- * @param  {[type]} $style:          normal        [description]
- * @param  {[type]} $otf:            false         [description]
- * @return {[type]}                  [description]
+ * @param  {[type]} $font-family                   Name of the font
+ * @param  {[type]} $font-file-name: false         If the name of the font differs from the name of the familiy
+ * @param  {[type]} $weight:         normal        Font weight
+ * @param  {[type]} $style:          normal        Font style
+ * @param  {[type]} $otf:            false         If you aren't using a TTF, but OTF set to true
+ *
  */
 @mixin font-face($font-family, $font-file-name: false, $weight: normal, $style: normal, $otf: false) {
     @font-face {
