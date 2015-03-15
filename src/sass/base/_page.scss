@@ -1,0 +1,32 @@
+=======
+body {
+   color: $color-dark-gray;
+   background-color: $color-dark-gray;
+}
+
+.site-header,
+.site-content,
+.site-footer {
+   @include container;
+   padding: 10px;
+}
+
+.site-header {
+   background-color: $color-light-green;
+   border-bottom: 10px solid $color-dark-gray;
+
+   .logo {
+      @include span(2 of 16);
+   }
+}
+
+.site-content {
+   background-color: $color-off-white;
+   min-height: 350px;
+   padding-bottom: 20px;
+}
+
+.site-footer {
+   @include font-size(8px);
+   color: $color-off-white;
+}

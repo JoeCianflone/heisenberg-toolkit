@@ -1,4 +1,24 @@
-/**
- * Nothing here, just wanted to give you an idea of what a module
- * would be named.
- */
+.site-navigation ul {
+   @include span(last 4 of 16);
+   font-family: $font-headlines;
+   margin: 0;
+   padding: 0;
+   text-align: right;
+
+   li {
+      display: inline-block;
+
+      a {
+         padding: 0 10px;
+         font-weight: $font-weight-bold;
+
+         &:first-of-type {
+            padding-left: 0;
+         }
+
+         &:last-of-type {
+            margin-right: 0;
+         }
+      }
+   }
+}
