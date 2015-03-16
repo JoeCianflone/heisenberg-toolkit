@@ -1,11 +1,10 @@
-# Heisenberg Reborn
+# Heisenberg Toolkit
 
-Inspired by [https://github.com/Heisenbergjs/heisenberg](https://github.com/Heisenbergjs/heisenberg) and adds a lot of stuff to it.  Need to get this into a stable state and I'll release more information.  Right now, you're going to need to look at the source.
-
-##Usage
+Inspired by [https://github.com/Heisenbergjs/heisenberg](https://github.com/Heisenbergjs/heisenberg)
 
 
-### License
+
+## License
 
 The MIT License (MIT)
 Copyright (c) 2015 Joe Cianflone
