@@ -1,5 +1,5 @@
 /**
- * Heisenberg Reborn Gulpfile
+ * Heisenberg Toolkit Gulpfile
  *
  * USAGE local:
  * gulp
@@ -7,7 +7,19 @@
  * USAGE production:
  * gulp --production
  *
- * In production heisenberg will uglify your JS and minify your SASS
+ * In production heisenberg will uglify your JS and minify your SASS and
+ * obviously not turn on live reload
+ *
+ * Live Reload is turned on by default, if you DO NOT want to use it:
+ * gulp --noreload
+ * - or -
+ * gulp --production
+ *
+ * Chrome Plugin:
+ * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en
+ *
+ * Firefox Plugin:
+ * https://addons.mozilla.org/en-us/firefox/addon/livereload/
  */
 var gulp       = require('gulp'),
     gulpif     = require('gulp-if'),
@@ -21,6 +33,7 @@ var gulp       = require('gulp'),
     imagemin   = require('gulp-imagemin'),
     sourcemaps = require('gulp-sourcemaps'),
     handlebars = require('gulp-handlebars'),
+    livereload = require('gulp-livereload'),
     pngquant   = require('imagemin-pngquant');
 
 /**
@@ -81,12 +94,14 @@ var scripts = {
 
 gulp.task('imagemin', function () {
     return gulp.src(config.src.images + '*')
+        .pipe(plumber())
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest(config.pub.images));
+        .pipe(gulp.dest(config.pub.images))
+        .pipe(livereload());
 });
 
 gulp.task('handlebars', function () {
@@ -98,7 +113,8 @@ gulp.task('handlebars', function () {
           noRedeclare: true,
       }))
       .pipe(concat(config.src.templates))
-      .pipe(gulp.dest(config.src.js));
+      .pipe(gulp.dest(config.src.js))
+      .pipe(livereload());
 });
 
 gulp.task('js', ['handlebars'], function() {
@@ -106,13 +122,15 @@ gulp.task('js', ['handlebars'], function() {
        .pipe(plumber())
        .pipe(concat("modernizr.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
-       .pipe(gulp.dest(config.pub.js));
+       .pipe(gulp.dest(config.pub.js))
+       .pipe(livereload());
 
    gulp.src(scripts.jquery)
        .pipe(plumber())
        .pipe(concat("jquery.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
-       .pipe(gulp.dest(config.pub.js));
+       .pipe(gulp.dest(config.pub.js))
+       .pipe(livereload());
 
    gulp.src(scripts.app)
        .pipe(plumber())
@@ -120,7 +138,8 @@ gulp.task('js', ['handlebars'], function() {
           .pipe(concat("app.min.js"))
           .pipe(gulpif(yargs.production, uglify()))
        .pipe(sourcemaps.write("./maps"))
-       .pipe(gulp.dest(config.pub.js));
+       .pipe(gulp.dest(config.pub.js))
+       .pipe(livereload());
 });
 
 gulp.task('sass', function () {
@@ -131,14 +150,18 @@ gulp.task('sass', function () {
              outputStyle: yargs.production ? "compressed" : "nested"
           }))
        .pipe(sourcemaps.write("./maps"))
-       .pipe(gulp.dest(config.pub.css));
+       .pipe(gulp.dest(config.pub.css))
+       .pipe(livereload());
 });
 
 gulp.task('watch', function () {
+   if (!yargs.noreload && !yargs.production) {
+      livereload.listen();
+   }
    gulp.watch(config.src.js     + '**/*.js',   ['js']);
    gulp.watch(config.src.hbs    + '**/*.hbs',  ['handlebars']);
    gulp.watch(config.src.sass   + '**/*.scss', ['sass']);
-   gulp.watch(config.src.images + '**/*.*',    ['imgmin']);
+   gulp.watch(config.src.images + '**/*.*',    ['imagemin']);
 });
 
 gulp.task('default', ['js', 'sass', 'imagemin','watch']);
