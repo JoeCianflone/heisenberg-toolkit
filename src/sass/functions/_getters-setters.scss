@@ -21,3 +21,12 @@
 @function getValue($n) {
     @return $n / ($n * 0 + 1);
 }
+
+/**
+ * Global way of incrementing/decrementing z-index values
+ * @param {Ingeger} $increment: 1 - the amount you are increasing/decreasing
+ * the z-index by.  This number can be negative.
+ */
+@function setZIndex($increment: 1) {
+   @return $currentZIndex + $increment;
+}

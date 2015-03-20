@@ -1,4 +1,3 @@
-@charset "utf-8";
 
 /**
  * Delete/Addition friendly.  These are different libraries that I like and use
@@ -7,7 +6,7 @@
  * If you want to use Bootstrap strip out all of these guys.  Normalize is
  * redundant (it's included in bootstrap) and Bootstrap comes with a grid.
  * Font awesome isn't needed either, so you can strip that out too, but I
- * personally like those fonts better and I know most developers and up putting
+ * personally like those fonts better and I know most developers end up putting
  * that in at some point anyway.  Include-media is a great tool for working
  * with media queries, I think you should look into it, but again, with Bootstrap
  * it may not be needed.
@@ -25,7 +24,7 @@
  * everwhere.
  */
 // Functions & Mixins .........................................................
-@import "functions/_getters";
+@import "functions/_getters-setters.scss";
 @import "mixins/_font";
 @import "mixins/_pseudo-elements";
 
@@ -36,7 +35,27 @@
 // Base .......................................................................
 @import "base/_variables";
 @import "base/_elements";
-@import "base/_page";
+
+/**
+ * Most of your code *should* nicely fit into modules, but I'd the truth is that
+ * not everything is a module.  Sometimes, things are really related to a specific
+ * page. So, when you have content that is only for a specific page, it should go
+ * into this section.
+ *
+ * Now, if you have a small site one single _page.scss file should be enough.
+ * However, if you've got a big site, don't try and cram everythning into one
+ * file.  Break your _page.scss up into logical page modules:
+ *
+ * pages/_login
+ * pages/_landing
+ *
+ * Now this might seem silly to say, but try very hard to *not* use pages.
+ * You want your CSS to be like little legos that can move from page-to-page
+ * and section-to-section.  When you find yourself dumping stuff in the
+ * page section, ask yourself, "would this be better as a module?"
+ *
+ */
+@import "pages/_page";
 
 /**
  * This is Sass, don't just dump eveything in a file called "styles" or "main" FFS.
