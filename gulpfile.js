@@ -36,6 +36,7 @@ var gulp       = require('gulp'),
     sass       = require('gulp-sass'),
     yargs      = require('yargs').argv
     concat     = require('gulp-concat'),
+    notify     = require('gulp-notify'),
     uglify     = require('gulp-uglify'),
     plumber    = require('gulp-plumber'),
     declare    = require('gulp-declare'),
@@ -110,7 +111,7 @@ gulp.task('fonts', function () {
 // Minify images ..............................................................
 gulp.task('imagemin', function () {
     return gulp.src(config.src.images + '*')
-        .pipe(plumber())
+        .pipe(plumber({errorHandler: notify.onError("Imagemin Error:\n<%= error.message %>")}))
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
@@ -123,6 +124,7 @@ gulp.task('imagemin', function () {
 // Compile handlebars templates ...............................................
 gulp.task('handlebars', function () {
     gulp.src(config.src.hbs+'*.hbs')
+      .pipe(plumber({errorHandler: notify.onError("Handlebars Error:\n<%= error.message %>")}))
       .pipe(handlebars())
       .pipe(wrap('Handlebars.template(<%= contents %>)'))
       .pipe(declare({
@@ -137,21 +139,21 @@ gulp.task('handlebars', function () {
 // Do everything to JavaScript ................................................
 gulp.task('js', ['handlebars'], function() {
    gulp.src(scripts.modernizr)
-       .pipe(plumber())
+       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("modernizr.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
        .pipe(gulp.dest(config.pub.js))
        .pipe(livereload());
 
    gulp.src(scripts.jquery)
-       .pipe(plumber())
+       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("jquery.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
        .pipe(gulp.dest(config.pub.js))
        .pipe(livereload());
 
    gulp.src(scripts.app)
-       .pipe(plumber())
+       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
           .pipe(concat("app.min.js"))
           .pipe(gulpif(yargs.production, uglify()))
@@ -163,7 +165,7 @@ gulp.task('js', ['handlebars'], function() {
 // Compile the Sass ...........................................................
 gulp.task('sass', function () {
    gulp.src(config.src.sass + '*.scss')
-       .pipe(plumber())
+       .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
           .pipe(sass({
              outputStyle: yargs.production ? "compressed" : "nested"

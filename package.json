@@ -32,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/joecianflone/heisenberg-toolkit/issues"
   },
-  "homepage": "https://github.com/joecianflone/heisenberg-toolkit"
+  "homepage": "https://github.com/joecianflone/heisenberg-toolkit",
+  "devDependencies": {
+    "gulp-notify": "^2.2.0"
+  }
 }
