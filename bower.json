@@ -16,7 +16,8 @@
     "susy": "~2.2.2",
     "html5-boilerplate": "~5.0.0",
     "normalize-scss": "~3.0.2",
-    "amplify": "~1.1.2"
+    "amplify": "~1.1.2",
+    "momentjs": "~2.10.2"
   },
   "license": "MIT",
   "private": true,

@@ -35,6 +35,7 @@ var gulp       = require('gulp'),
     wrap       = require('gulp-wrap'),
     sass       = require('gulp-sass'),
     yargs      = require('yargs').argv
+    bower      = require('gulp-bower'),
     concat     = require('gulp-concat'),
     notify     = require('gulp-notify'),
     uglify     = require('gulp-uglify'),
@@ -54,7 +55,7 @@ var gulp       = require('gulp'),
  * keep this file up-to-date
  */
 var config = {
-   pub: {
+   dest: {
       js:     "./assets/js/",
       css:    "./assets/css/",
       fonts:  "./assets/fonts/",
@@ -63,6 +64,9 @@ var config = {
    src: {
       js:        "./src/js/",
       hbs:       "./src/js/templates/",
+      // If you change where bower installs files, make sure you also
+      // update the .bowerrc file too.
+      bower:     "./src/bower",
       sass:      "./src/sass/",
       // When you crate a new image you should put them in the SRC directory
       // from there imagemin will see it and compress the image and copy the
@@ -92,24 +96,32 @@ var scripts = {
    app: [
       "./src/bower/jquery-validation/dist/jquery.validate.js",
       "./src/bower/underscore/underscore.js",
+      "./src/bower/momentjs/moment.js",
       "./src/bower/handlebars/handlebars.runtime.js", // You only need the handlebars runtime because we compile all our templates
-      "./src/bower/amplify/lib/amplify.js",
       config.src.js + config.src.templates,
+      "./src/bower/amplify/lib/amplify.js",
       "./src/js/app.js",
+      "./src/js/events.js",
       "./src/js/helpers/toCanonicalMonth.js",
       "./src/js/modules/introduction.js",
       "./src/js/main.js"
    ]
 };
 
-// Copy fonts to public fonts folder ..........................................
-gulp.task('fonts', function () {
-    return gulp.src(['./src/bower/fontawesome/fonts/fontawesome-webfont.*'])
-         .pipe(gulp.dest(config.pub.fonts));
+// Grab latest from Bower .....................................................
+gulp.task('bower', function() {
+    return bower()
+        .pipe(gulp.dest(config.src.bower));
+});
+
+// Copy assets to public fonts folder ..........................................
+gulp.task('copy', ['bower'], function () {
+   gulp.src(['./src/bower/fontawesome/fonts/fontawesome-webfont.*'])
+      .pipe(gulp.dest(config.dest.fonts));
 });
 
 // Minify images ..............................................................
-gulp.task('imagemin', function () {
+gulp.task('imagemin', ['bower'], function () {
     return gulp.src(config.src.images + '*')
         .pipe(plumber({errorHandler: notify.onError("Imagemin Error:\n<%= error.message %>")}))
         .pipe(imagemin({
@@ -117,7 +129,7 @@ gulp.task('imagemin', function () {
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest(config.pub.images))
+        .pipe(gulp.dest(config.dest.images))
         .pipe(livereload());
 });
 
@@ -137,19 +149,19 @@ gulp.task('handlebars', function () {
 });
 
 // Do everything to JavaScript ................................................
-gulp.task('js', ['handlebars'], function() {
+gulp.task('js', ['bower','handlebars'], function() {
    gulp.src(scripts.modernizr)
        .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("modernizr.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
-       .pipe(gulp.dest(config.pub.js))
+       .pipe(gulp.dest(config.dest.js))
        .pipe(livereload());
 
    gulp.src(scripts.jquery)
        .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("jquery.min.js"))
        .pipe(gulpif(yargs.production, uglify()))
-       .pipe(gulp.dest(config.pub.js))
+       .pipe(gulp.dest(config.dest.js))
        .pipe(livereload());
 
    gulp.src(scripts.app)
@@ -158,12 +170,12 @@ gulp.task('js', ['handlebars'], function() {
           .pipe(concat("app.min.js"))
           .pipe(gulpif(yargs.production, uglify()))
        .pipe(sourcemaps.write("./maps"))
-       .pipe(gulp.dest(config.pub.js))
+       .pipe(gulp.dest(config.dest.js))
        .pipe(livereload());
 });
 
 // Compile the Sass ...........................................................
-gulp.task('sass', function () {
+gulp.task('sass', ['bower'], function () {
    gulp.src(config.src.sass + '*.scss')
        .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
@@ -172,7 +184,7 @@ gulp.task('sass', function () {
           }))
           .pipe(prefixer())
        .pipe(sourcemaps.write("./maps"))
-       .pipe(gulp.dest(config.pub.css))
+       .pipe(gulp.dest(config.dest.css))
        .pipe(livereload());
 });
 
@@ -187,6 +199,10 @@ gulp.task('watch', function () {
    gulp.watch(config.src.images + '**/*.*',    ['imagemin']);
 });
 
-gulp.task('default', ['fonts', 'js', 'sass', 'imagemin','watch']);
+// just say $> gulp
+gulp.task('default', ['bower', 'copy', 'js', 'sass', 'imagemin','watch']);
+
+// just say $> gulp compile
+gulp.task('compile', ['bower', 'copy', 'js', 'sass', 'imagemin']);
 
 

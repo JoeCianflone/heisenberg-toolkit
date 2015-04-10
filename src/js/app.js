@@ -1,16 +1,19 @@
 (function() {
    var App = {
+      Config: {},
       Modules: {},
       Helpers: {},
-      Templates: {},
-      Events: amplify, // pub/sub is being handled by Amplify
+      Events: {},
+      PubSub: amplify, // pub/sub is being handled by Amplify
 
       init: function () {
-         for(var x in App.Modules) {
-            App.Modules[x].init();
-         }
+         _.each(App.Modules, function(key, value) {
+            App.Modules[value].init().events();
 
-         App.Events.publish('app/init');
+            console.log("Loading Module/Events: "+value);
+         });
+
+         App.Events.bind();
       }
    };
 

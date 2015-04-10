@@ -3,26 +3,37 @@ App.Modules.introduction = function () {
       el: '.js-introduction'
    };
 
-   var init = function() {
-      options.page = $(options.el);
-      bindEvents();
-   };
-
-   var bindEvents =  function () {
-      App.Events.subscribe('app/init', hello);
-      App.Events.subscribe('app/init', render);
-   };
-
    var hello = function() {
-      console.log('caught even app/init');
+      $('.js-date').html(moment().year());
    };
 
    var render = function() {
       options.page.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
    };
 
+   var foo = function(data) {
+      console.log('Clicked');
+   }
+
    return {
-      init: init
+      init: function() {
+         options.page = $(options.el);
+
+         return this;
+      },
+      events: function() {
+         App.PubSub.subscribe('app/init', function() {
+            hello();
+            render();
+         });
+
+         // App.Event.bind()
+         App.PubSub.subscribe('app/click/foo', function(data) {
+            foo(data);
+         });
+
+         return this;
+      }
    };
 
 }();
