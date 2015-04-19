@@ -11,28 +11,13 @@ App.Modules.introduction = function () {
       options.page.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
    };
 
-   var foo = function(data) {
-      console.log('Clicked');
-   }
-
    return {
-      init: function() {
-         options.page = $(options.el);
+      init: function() { options.page = $(options.el); return this; },
+      events: function() { return this; },
 
-         return this;
-      },
-      events: function() {
-         App.PubSub.subscribe('app/init', function() {
-            hello();
-            render();
-         });
-
-         // App.Event.bind()
-         App.PubSub.subscribe('app/click/foo', function(data) {
-            foo(data);
-         });
-
-         return this;
+      hello: function(data) {
+         console.log("hello intro");
+         console.log(data);
       }
    };
 
