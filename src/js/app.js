@@ -13,9 +13,6 @@
             console.log("Loading Module/Events: "+value);
          });
 
-         // PubSub events...
-         App.Events.bindTo('click', '.js-foo-clicked', "app/foo/clicked", "App.Modules.introduction.hello");
-
       }
    };
 

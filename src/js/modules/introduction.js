@@ -8,17 +8,34 @@ App.Modules.introduction = function () {
    };
 
    var render = function() {
-      options.page.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
+      options.module.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
+   };
+
+   var clicker = function(data) {
+      console.log("CLICKED");
+   }
+
+   var clicker2 = function(data) {
+      console.log("CLICKED 2");
    };
 
    return {
-      init: function() { options.page = $(options.el); return this; },
-      events: function() { return this; },
+      init: function() {
+         options.module = $(options.el);
 
-      hello: function(data) {
-         console.log("hello intro");
-         console.log(data);
-      }
+         return this;
+      },
+      events: function() {
+
+         App.Events.bind("load").to("app/init").andCall([
+            "App.Modules.introduction.render",
+            "App.Modules.introduction.hello"
+         ]);
+
+         return this;
+      },
+      render: render,
+      hello: hello
    };
 
 }();

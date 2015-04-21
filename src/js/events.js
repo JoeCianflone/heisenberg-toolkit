@@ -1,11 +1,42 @@
 App.Events = function() {
 
-   /**
-    * [executeFunctionByName description]
-    * @param  {[type]} functionName [description]
-    * @param  {[type]} context      [description]
-    * @return {[type]}              [description]
-    */
+   var listenFor = function(eventName, userFunction) {
+      App.PubSub.subscribe(eventName, function(data) {
+         if (_.isArray(userFunction)) {
+            _.each(userFunction, function(userFunc) {
+               executeFunctionByName(userFunc, window, data);
+            });
+
+            return false;
+         }
+         executeFunctionByName(userFunction, window, data);
+      });
+   };
+
+   var bindToDocument = function(eventType, selector, eventName, userData) {
+      $(document).on(eventType, selector, function(e) {
+         App.PubSub.publish(eventName, _.extend({
+            eventElement: $(this)
+         }, userData));
+
+         e.preventDefault();
+      });
+   };
+
+   var bindToWindow = function(eventType, selector, eventName, userData) {
+      $(window).on(eventType, selector, function() {
+         App.PubSub.publish(eventName, _.extend({
+            eventElement: $(this)
+         }, userData));
+      });
+   };
+
+   var bindToLoad = function(eventName, userData) {
+      $(document).ready(function() {
+         App.PubSub.publish(eventName, userData);
+      });
+   };
+
    var executeFunctionByName = function(functionName, context) {
       var args = Array.prototype.slice.call(arguments, 2),
           namespaces = functionName.split("."),
@@ -18,61 +49,50 @@ App.Events = function() {
       return context[func].apply(context, args);
    };
 
+   var binder = function(eventType, windowEvent, selector, eventName, funcName, userData) {
+      console.log("Binder: "+eventName);
+      if (eventType === "load") {
+         bindToLoad(eventName, userData);
+      } else if (windowEvent) {
+         bindToWindow(eventType, selector, eventName, userData);
+      } else {
+         bindToDocument(eventType, selector, eventName, userData);
+      }
+
+      listenFor(eventName, funcName);
+
+      return false;
+   };
+
    return {
-      /**
-       * [bindTo description]
-       * @param  {[type]} eventType [description]
-       * @param  {[type]} element   [description]
-       * @param  {[type]} pubsub    [description]
-       * @param  {[type]} userFunc  [description]
-       * @param  {[type]} userData  [description]
-       * @return {[type]}           [description]
-       */
-      bindTo: function(eventType, element, pubsub, userFunc, userData) {
-         this.bind(eventType, element, pubsub, userData);
-         this.listen(pubsub, userFunc);
+
+      bind: function(eventType, selector) {
+         var evts = eventType.split(".");
+
+         this.isWindowEvent = evts[0] == "window" ? true : false;
+         this.eventType = evts.length > 1 ? evts[1] : evts[0];
+         this.selector = _.isUndefined(selector) ? null : selector;
+
+         return this;
       },
 
-      /**
-       * [bind description]
-       * @param  {[type]} eventType [description]
-       * @param  {[type]} element   [description]
-       * @param  {[type]} pubsub    [description]
-       * @param  {[type]} userData  [description]
-       * @return {[type]}           [description]
-       */
-      bind: function(eventType, element, pubsub, userData) {
-         $(document).on(eventType, element, function(e) {
-            App.PubSub.publish(pubsub, _.extend({
-               eventElement: $(this)
-            }, userData));
+      to: function(eventName) {
+         this.eventName = eventName;
 
-            e.preventDefault();
-         });
+         return this;
       },
 
-      /**
-       * [bindOnLoad description]
-       * @param  {[type]} pubsub   [description]
-       * @param  {[type]} userData [description]
-       * @return {[type]}          [description]
-       */
-      bindOnLoad: function(pubsub, userData) {
-         $(document).ready(function() {
-            App.PubSub.publish(pubsub, userData);
-         });
+      andCall: function(funcName, userData) {
+         binder(this.eventType, this.isWindowEvent, this.selector, this.eventName, funcName, userData);
+         return false;
       },
 
-      /**
-       * [listen description]
-       * @param  {[type]} pubsub [description]
-       * @param  {[type]} func   [description]
-       * @return {[type]}        [description]
-       */
-      listen: function(pubsub, func) {
-         App.PubSub.subscribe(pubsub, function(data) {
-            executeFunctionByName(func, window, data)
-         });
+      bindTo: function(eventType, selector, eventName, funcName, userData) {
+         this.bind(eventType, selector)
+             .to(eventName)
+             .andCall(funcName, userData);
+
+         return false;
       }
    };
 
