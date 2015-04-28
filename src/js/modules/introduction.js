@@ -11,9 +11,13 @@ App.Modules.introduction = function () {
       options.module.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
    };
 
+   var resizer = function(data) {
+      console.log("resizer!");
+   };
+
    var clicker = function(data) {
       console.log("CLICKED");
-   }
+   };
 
    var clicker2 = function(data) {
       console.log("CLICKED 2");
@@ -26,16 +30,12 @@ App.Modules.introduction = function () {
          return this;
       },
       events: function() {
-
-         App.Events.bind("load").to("app/init").andCall([
-            "App.Modules.introduction.render",
-            "App.Modules.introduction.hello"
-         ]);
+         Events.bind("click", ".js-foo-clicked").to(clicker, this);
+         Events.bind("window.resize").to(resizer);
+         Events.bind("window.keyup", 13).to(clicker2, this);
 
          return this;
-      },
-      render: render,
-      hello: hello
+      }
    };
 
 }();

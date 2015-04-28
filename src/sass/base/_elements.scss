@@ -8,7 +8,7 @@ html {
    box-sizing: border-box;
    font: {
       family: $font-copy;
-      weight: $font-weight-normal;
+      weight: $font-weight-extra-light;
    }
    letter-spacing: $letter-spacing;
    height: 100%;
@@ -33,7 +33,7 @@ img {
 h1, h2, h3, h4, h5, h6 {
    font: {
       family: $font-headlines;
-      weight: $font-weight-bold;
+      weight: $font-weight-ultra-bold;
    }
    margin: 0;
 }
