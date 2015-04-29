@@ -24,15 +24,15 @@ App.Modules.introduction = function () {
    };
 
    return {
-      init: function() {
+      load: function() {
          options.module = $(options.el);
 
          return this;
       },
       events: function() {
          Events.bind("click", ".js-foo-clicked").to(clicker, this);
-         Events.bind("window.resize").to(resizer);
-         Events.bind("window.keyup", 13).to(clicker2, this);
+         //Events.bind("window.resize").to(resizer);
+         //Events.bind("window.keyup", 13).to(clicker2, this);
 
          return this;
       }

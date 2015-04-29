@@ -1,5 +1,4 @@
 var Events = (function() {
-
    "use strict";
 
    /**
@@ -73,7 +72,7 @@ var Events = (function() {
       bindEventContext.on(bindEvent, selector, function(e) {
 
          if (_.isUndefined(keyPress) || e.keyCode === keyPress || String.fromCharCode(e.which) === keyPress) {
-            GW.PubSub.publish(asEventName, _.extend({
+            App.PubSub.publish(asEventName, _.extend({
                eventElement: $(this),
                eventKey: e.keyCode || null
             }, toUserData));
@@ -112,12 +111,11 @@ var Events = (function() {
     * @return {Function}
     */
    var doSubscribe = function(asEventName, funcName, context) {
-      GW.PubSub.subscribe(asEventName, function(data) {
+      App.PubSub.subscribe(asEventName, function(data) {
          if (_.isArray(funcName)) {
             _.each(funcName, function(userFunc) {
                userFunc.call(context, data);
             });
-
             return false;
          }
 
