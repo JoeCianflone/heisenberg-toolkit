@@ -1,4 +1,5 @@
 var Events = (function() {
+
    "use strict";
 
    /**
@@ -70,17 +71,15 @@ var Events = (function() {
    var doBind = function(bindEventContext, bindEvent, keyPress, selector, asEventName, toUserData) {
 
       bindEventContext.on(bindEvent, selector, function(e) {
-
-         if (_.isUndefined(keyPress) || e.keyCode === keyPress || String.fromCharCode(e.which) === keyPress) {
-            App.PubSub.publish(asEventName, _.extend({
-               eventElement: $(this),
+         if (_.isNull(keyPress) || e.keyCode === keyPress || String.fromCharCode(e.which) === keyPress) {
+            PubSub.publish(asEventName, _.extend({
+               eventElement: this,
                eventKey: e.keyCode || null
             }, toUserData));
 
             e.preventDefault();
          }
       });
-
    };
 
    /**
@@ -111,11 +110,12 @@ var Events = (function() {
     * @return {Function}
     */
    var doSubscribe = function(asEventName, funcName, context) {
-      App.PubSub.subscribe(asEventName, function(data) {
+      PubSub.subscribe(asEventName, function(data) {
          if (_.isArray(funcName)) {
             _.each(funcName, function(userFunc) {
                userFunc.call(context, data);
             });
+
             return false;
          }
 

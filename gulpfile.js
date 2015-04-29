@@ -102,6 +102,7 @@ var scripts = {
       "./src/bower/amplify/lib/amplify.js",
       "./src/js/app.js",
       "./src/js/resources/events.js",
+      "./src/js/resources/pubsub.js",
       "./src/js/helpers/toCanonicalMonth.js",
       "./src/js/modules/introduction.js",
       "./src/js/main.js"

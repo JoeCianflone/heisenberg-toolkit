@@ -1,1 +1,1 @@
-$(App.init);
+App.init();

@@ -1,4 +1,6 @@
-App.Modules.introduction = function () {
+App.Modules = App.Modules || {};
+
+App.Modules.Introduction = function () {
    var options = {
       el: '.js-introduction'
    };
@@ -16,7 +18,7 @@ App.Modules.introduction = function () {
    };
 
    var clicker = function(data) {
-      console.log("CLICKED");
+      console.log(data.eventElement);
    };
 
    var clicker2 = function(data) {
@@ -26,13 +28,13 @@ App.Modules.introduction = function () {
    return {
       load: function() {
          options.module = $(options.el);
-
+         render();
          return this;
       },
       events: function() {
          Events.bind("click", ".js-foo-clicked").to(clicker, this);
-         //Events.bind("window.resize").to(resizer);
-         //Events.bind("window.keyup", 13).to(clicker2, this);
+         Events.bind("window.resize").to(resizer);
+         Events.bind("window.keyup", 13).to(clicker2, this);
 
          return this;
       }
