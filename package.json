@@ -1,9 +1,10 @@
 {
   "name": "HeisenbergToolkit",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "description": "A project base for building large apps with lots of JavaScript and Sass but no framework",
   "main": "index.html",
   "dependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",
     "gulp-bower": "0.0.10",

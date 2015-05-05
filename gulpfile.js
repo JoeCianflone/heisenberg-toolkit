@@ -31,12 +31,12 @@
  *
  */
 var gulp       = require('gulp'),
+    del        = require('del'),
     gulpif     = require('gulp-if'),
     wrap       = require('gulp-wrap'),
     sass       = require('gulp-sass'),
     yargs      = require('yargs').argv
     bower      = require('gulp-bower'),
-    clean      = require('gulp-clean'),
     concat     = require('gulp-concat'),
     notify     = require('gulp-notify'),
     uglify     = require('gulp-uglify'),
@@ -93,17 +93,21 @@ var scripts = {
    jquery:     ["./src/bower/jquery/dist/jquery.js"],
    modernizr:  ["./src/bower/modernizr/modernizr.js"],
 
-   // All these scripts will be concatenated together and the order is important
-   app: [
+   // These will get concactenated together with your files in app, but the
+   // gist is if you didn't write it, it should go in here as a vendor file
+   vendor: [
       "./src/bower/jquery-validation/dist/jquery.validate.js",
       "./src/bower/underscore/underscore.js",
       "./src/bower/momentjs/moment.js",
-      "./src/bower/handlebars/handlebars.runtime.js", // You only need the handlebars runtime because we compile all our templates
+      "./src/bower/handlebars/handlebars.runtime.js",
       config.src.js + config.src.templates,
       "./src/bower/amplify/lib/amplify.js",
       "./src/js/app.js",
       "./src/js/resources/events.js",
       "./src/js/resources/pubsub.js",
+   ],
+
+   app: [
       "./src/js/helpers/toCanonicalMonth.js",
       "./src/js/modules/introduction.js",
       "./src/js/main.js"
@@ -118,14 +122,16 @@ gulp.task('bower', function() {
 
 // Blow out the destination files on fresh compile ............................
 gulp.task('cleaner', function () {
-   gulp.src([config.dest.css + "*.*",
-             config.dest.js + "*.*",
-             config.dest.images + "*.*"], {read: false})
-       .pipe(clean({force: true}));
+   del([
+      config.dest.css + "**/*.*",
+      config.dest.js + "**/*.*",
+      config.dest.images + "**/*.*",
+      config.dest.fonts + "**/*.*"
+   ]);
 });
 
 // Copy assets to public fonts folder ..........................................
-gulp.task('copy', ['bower'], function () {
+gulp.task('copy', ['bower', 'cleaner'], function () {
    gulp.src(['./src/bower/fontawesome/fonts/fontawesome-webfont.*'])
       .pipe(gulp.dest(config.dest.fonts));
 });
@@ -174,7 +180,7 @@ gulp.task('js', ['bower','handlebars', 'cleaner'], function() {
        .pipe(gulp.dest(config.dest.js))
        .pipe(livereload());
 
-   gulp.src(scripts.app)
+   gulp.src(scripts.vendor.concat(scripts.app))
        .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
           .pipe(concat("app.min.js"))
