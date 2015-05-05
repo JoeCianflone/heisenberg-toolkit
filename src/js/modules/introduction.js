@@ -3,14 +3,10 @@ App.Modules = App.Modules || {};
 App.Modules.Introduction = function () {
    var options = {
       el: '.js-introduction'
-   };
+      };
 
-   var hello = function() {
-      $('.js-date').html(moment().year());
-   };
-
-   var render = function() {
-      options.module.html(Handlebars.templates.introduction({title: "Say my name", body: "Heisenberg!"}));
+   var render = function(data) {
+      options.module.html(Handlebars.templates.introduction(data));
    };
 
    var resizer = function(data) {
@@ -18,23 +14,26 @@ App.Modules.Introduction = function () {
    };
 
    var clicker = function(data) {
-      console.log(data.eventElement);
+      console.log("CLICKER 1!!");
    };
 
    var clicker2 = function(data) {
-      console.log("CLICKED 2");
+      console.log("CLICKER 2!!")
    };
 
    return {
-      load: function() {
+      init: function() {
          options.module = $(options.el);
-         render();
+
          return this;
       },
       events: function() {
          Events.bind("click", ".js-foo-clicked").to(clicker, this);
          Events.bind("window.resize").to(resizer);
-         Events.bind("window.keyup", 13).to(clicker2, this);
+         Events.bind("window.keypress" , 13).to(clicker, this);
+         Events.bind("keypress", ".js-foo-text", ",").to(clicker2, this);
+         Events.bind("keypress", ".js-foo-text", 13).to(clicker2, this);
+         Events.bind("load").to(render, this, {title: "Hello World", body: "Oh, hello there"});
 
          return this;
       }

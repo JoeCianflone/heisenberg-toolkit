@@ -36,6 +36,7 @@ var gulp       = require('gulp'),
     sass       = require('gulp-sass'),
     yargs      = require('yargs').argv
     bower      = require('gulp-bower'),
+    clean      = require('gulp-clean'),
     concat     = require('gulp-concat'),
     notify     = require('gulp-notify'),
     uglify     = require('gulp-uglify'),
@@ -115,6 +116,14 @@ gulp.task('bower', function() {
         .pipe(gulp.dest(config.src.bower));
 });
 
+// Blow out the destination files on fresh compile ............................
+gulp.task('cleaner', function () {
+   gulp.src([config.dest.css + "*.*",
+             config.dest.js + "*.*",
+             config.dest.images + "*.*"], {read: false})
+       .pipe(clean({force: true}));
+});
+
 // Copy assets to public fonts folder ..........................................
 gulp.task('copy', ['bower'], function () {
    gulp.src(['./src/bower/fontawesome/fonts/fontawesome-webfont.*'])
@@ -122,7 +131,7 @@ gulp.task('copy', ['bower'], function () {
 });
 
 // Minify images ..............................................................
-gulp.task('imagemin', ['bower'], function () {
+gulp.task('imagemin', ['bower', 'cleaner'], function () {
     return gulp.src(config.src.images + '*')
         .pipe(plumber({errorHandler: notify.onError("Imagemin Error:\n<%= error.message %>")}))
         .pipe(imagemin({
@@ -150,7 +159,7 @@ gulp.task('handlebars', function () {
 });
 
 // Do everything to JavaScript ................................................
-gulp.task('js', ['bower','handlebars'], function() {
+gulp.task('js', ['bower','handlebars', 'cleaner'], function() {
    gulp.src(scripts.modernizr)
        .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("modernizr.min.js"))
@@ -176,7 +185,7 @@ gulp.task('js', ['bower','handlebars'], function() {
 });
 
 // Compile the Sass ...........................................................
-gulp.task('sass', ['bower'], function () {
+gulp.task('sass', ['bower', 'cleaner'], function () {
    gulp.src(config.src.sass + '*.scss')
        .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
@@ -201,9 +210,9 @@ gulp.task('watch', function () {
 });
 
 // just say $> gulp
-gulp.task('default', ['bower', 'copy', 'js', 'sass', 'imagemin','watch']);
+gulp.task('default', ['cleaner', 'bower', 'copy', 'js', 'sass', 'imagemin','watch']);
 
 // just say $> gulp compile
-gulp.task('compile', ['bower', 'copy', 'js', 'sass', 'imagemin']);
+gulp.task('compile', ['cleaner', 'bower', 'copy', 'js', 'sass', 'imagemin']);
 
 
