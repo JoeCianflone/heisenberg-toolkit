@@ -3,7 +3,7 @@ App.Modules = App.Modules || {};
 App.Modules.Introduction = function () {
    var options = {
       el: '.js-introduction'
-      };
+   };
 
    var render = function(data) {
       options.module.html(Handlebars.templates.introduction(data));

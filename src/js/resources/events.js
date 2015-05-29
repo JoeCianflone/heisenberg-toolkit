@@ -1,6 +1,16 @@
 var Events = (function() {
    "use strict";
 
+   var eventObject = {
+      whereKey:         "",
+      keyPress:         "",
+      selector:         "",
+      bindEvent:        "",
+      whereValue:       "",
+      asEventName:      "",
+      bindEventContext: ""
+   };
+
    var utils = {
       generateUUID: function() {
          var d = Date.now();
@@ -29,6 +39,7 @@ var Events = (function() {
 
          return false;
       },
+
       asKeyPress: function(bindEventContext, bindEvent, keyPress, selector, asEventName, toUserData) {
          $(document).on("keydown", selector, function(e) {
             var charCode = (e.which ? e.which : e.keyCode);
@@ -40,22 +51,28 @@ var Events = (function() {
                }
             });
          });
+
+         return false;
       },
+
       asScroll: function(bindEventContext, bindEvent, keyPress, selector, asEventName, toUserData) {
          $(selector).scroll(function() {
             PubSub.publish(asEventName, _.extend({
                eventElement: $(this)
             }, toUserData));
          });
+
+         return false;
       },
+
       asNormal: function(bindEventContext, bindEvent, selector, asEventName, toUserData) {
          bindEventContext.on(bindEvent, selector, function(e) {
             PubSub.publish(asEventName, _.extend({
-               eventElement: $(this),
+               eventElement: $(this)
             }, toUserData));
 
+            e.stopImmediatePropagation();
             e.preventDefault();
-            e.stopPropagation();
          });
 
          return false;
@@ -82,6 +99,8 @@ var Events = (function() {
       if (_.isUndefined(whereKey) || $(whereKey).hasClass(whereValue)) {
          triggerBind(bindEventContext, bindEvent, keyPress, selector, asEventName, toUserData);
       }
+
+      return false;
    };
 
    var doSubscribe = function(asEventName, funcName, context) {
@@ -102,14 +121,14 @@ var Events = (function() {
       bind: function(bindEvent, selector, key) {
          var splitEvents = bindEvent.split(".");
 
-         this.bindEventContext = splitEvents.length > 1 ? $(window) : $(document);
-         this.bindEvent        = splitEvents.length > 1 ? splitEvents[1] : splitEvents[0];
-         this.selector         = _.isUndefined(selector) ? null : selector;
-         this.keyPress         = _.isUndefined(key) ? null : key;
+         eventObject.bindEventContext = splitEvents.length > 1 ? $(window) : $(document);
+         eventObject.bindEvent        = splitEvents.length > 1 ? splitEvents[1] : splitEvents[0];
+         eventObject.selector         = _.isUndefined(selector) ? null : selector;
+         eventObject.keyPress         = _.isUndefined(key) ? null : key;
 
-         if (this.bindEvent.indexOf("key") === 0 && _.isNull(this.keyPress)) {
-            this.keyPress = this.selector;
-            this.selector = null;
+         if (eventObject.bindEvent.indexOf("key") === 0 && _.isNull(eventObject.keyPress)) {
+            eventObject.keyPress = eventObject.selector;
+            eventObject.selector = null;
          }
 
          return this;
@@ -117,53 +136,53 @@ var Events = (function() {
 
       where: function(key, value) {
          if (_.isUndefined(value)) {
-            this.whereKey = "body";
-            this.whereValue = key;
+            eventObject.whereKey = "body";
+            eventObject.whereValue = key;
 
             return this;
          }
 
-         this.whereKey    = key;
-         this.whereValue  = value;
+         eventObject.whereKey    = key;
+         eventObject.whereValue  = value;
 
          return this;
       },
 
       as: function(eventName) {
-         this.asEventName = eventName;
+         eventObject.asEventName = eventName;
 
          return this;
       },
 
       to: function(funcName, context, userData) {
-         var asEventName = utils.generateEventName(this.asEventName);
-             userData = _.isUndefined(userData) ? {} : userData;
-             context = _.isUndefined(context) ? window : context;
+         var asEventName = utils.generateEventName(eventObject.asEventName);
 
-         doPublish(this.bindEventContext, this.bindEvent, this.keyPress, this.selector, this.whereKey, this.whereValue, asEventName, userData);
+         userData = _.isUndefined(userData) ? {} : userData;
+         context = _.isUndefined(context) ? window : context;
+         doPublish(eventObject.bindEventContext, eventObject.bindEvent, eventObject.keyPress, eventObject.selector, eventObject.whereKey, eventObject.whereValue, asEventName, userData);
 
          if (_.isFunction(funcName) ||  _.isArray(funcName)) {
             doSubscribe(asEventName, funcName, context);
          }
 
-         return false;
-      },
-
-      andBoradcast: function(data) {
-         this.to(data);
+         // Kill everything before you go out...
+         eventObject = {};
 
          return false;
       },
 
-      listenFor: function(asEventName) {
-         this.as(asEventName);
-
-         return this;
+      trigger: function(eventType, element) {
+         $(element).trigger(eventType);
       },
 
-      andCall: function(funcName, context) {
-         doSubscribe(this.asEventName, funcName, context);
-         return false;
+      publish: function(eventName, userData) {
+         PubSub.publish(eventName, userData);
+      },
+
+      subscribe: function(eventName, funcName, context) {
+         PubSub.subscribe(eventName, function(data) {
+            return funcName.call(context, data);
+         });
       }
    };
 })();
