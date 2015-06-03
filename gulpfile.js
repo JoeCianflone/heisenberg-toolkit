@@ -101,7 +101,7 @@ var scripts = {
       config.src.bower + "amplify/lib/amplify.js",
       config.src.js    + config.src.templates,
       config.src.js    + "app.js",
-      config.src.js    + "resources/**/*.js"
+      config.src.js    + "resources/**/*.js",
       config.src.js    + "helpers/**/*.js",
       config.src.js    + "modules/**/*.js",
       config.src.js    + "main.js"
@@ -192,11 +192,11 @@ gulp.task('sass', ['bower'], function () {
           .pipe(sass({
              outputStyle: yargs.production ? "compressed" : "nested"
           }))
-          .pipe(prefixer([
+          .pipe(prefixer({
              browsers: ['last 2 versions'],
              cascade: false,
              remove: true
-           ]))
+           }))
        .pipe(sourcemaps.write("maps"))
        .pipe(gulp.dest(config.dest.css))
        .pipe(livereload());
