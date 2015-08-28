@@ -1,32 +1,35 @@
-/**
- * Simple function for working with Sass maps.
- * @param  {String} $key  - the key you're looking to find
- * @param  {Map} $map     - the sass map you're looking in
- * @return {String|null}
- */
-@function getByKey($key, $map) {
+@function get-bu($key, $map) {
     @if map-has-key($map, $key) {
         @return map-get($map, $key);
     }
+    @else {
+       @each $k, $v in $map {
+         @if ($v == $key) {
+            @return $v;
+         }
+       }
+    }
 
-    @warn "Unknown `#{$key}` in $map.";
+    @error "Unknown `#{$key}` in `#{$map}` map.";
     @return null;
 }
 
-/**
- * Takes a non-number and turns it into a number
- * @param  {Mixed} $n - your non-number ie - 10px or "22"
- * @return {Number}
- */
-@function getValue($n) {
+@function get-zindex($increment: 1) {
+   @return $current-zindex + $increment;
+}
+
+@function get-value($n) {
     @return $n / ($n * 0 + 1);
 }
 
-/**
- * Global way of incrementing/decrementing z-index values
- * @param {Ingeger} $increment: 1 - the amount you are increasing/decreasing
- * the z-index by.  This number can be negative.
- */
-@function setZIndex($increment: 1) {
-   @return $currentZIndex + $increment;
+@function get-color($name) {
+   @return get-by($name, $colors);
+}
+
+@function get-font-weight($size) {
+   @return get-by($size, $font-weights);
+}
+
+@function get-stack($setting) {
+   @return get-by($setting, $stack-settings);
 }

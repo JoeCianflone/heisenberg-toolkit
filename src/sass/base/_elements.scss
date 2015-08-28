@@ -7,10 +7,11 @@
 html {
    box-sizing: border-box;
    font: {
-      family: $font-copy;
-      weight: $font-weight-extra-light;
+      family: get-stack(sans-serif);
+      size: get-stack(base-size);
+      weight: get-weight(light);
    }
-   letter-spacing: $letter-spacing;
+   letter-spacing: get-stack(letter-spacing);
    height: 100%;
 }
 
@@ -25,6 +26,8 @@ html {
 body {
    height: 100%;
    margin: 0;
+   -webkit-font-smoothing: antialiased !important;
+   -moz-osx-font-smoothing: grayscale !important;
 }
 
 img {
@@ -34,8 +37,41 @@ img {
 
 h1, h2, h3, h4, h5, h6 {
    font: {
-      family: $font-headlines;
-      weight: $font-weight-ultra-bold;
+      family: get-stack(serif);
+      weight: get-weight(bold);
    }
+   letter-spacing: 0;
    margin: 0;
+}
+
+b, strong {
+   font-weight: get-weight(bold);
+}
+
+p, ul, ol {
+   font-size: inherit;
+}
+
+a {
+   color: inherit;
+   font: {
+      family: inherit;
+      weight: inherit;
+   }
+}
+
+p {
+   margin: 0;
+   padding: 0;
+}
+
+nav {
+   ol, ul {
+      list-style-type: none;
+      margin: 0;
+      li {
+         margin: 0;
+         padding: 0;
+      }
+   }
 }

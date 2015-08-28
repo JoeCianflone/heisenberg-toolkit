@@ -18,111 +18,138 @@ var Utils = (function(){
          }
 
          return asEventName;
-      },
-      splitter: function() {
-
       }
    };
-})();
+}());
 
 var Binder = (function() {
    "use strict";
 
    return {
       asLoad: function(eo) {
-         if (eo.bindEvent !== "unload") {
+         if (eo.bindEvent === "unload") {
             $(document).unload(function() {
-               PubSub.publish(eo.asEventName, eo.toUserData);
+               PubSub.publish(eo.asEventName, eo.userData);
+            });
+
+            return false;
+         }
+
+         if (eo.context == window) {
+            $(window).load(function() {
+               PubSub.publish(eo.asEventName, eo.userData);
             });
 
             return false;
          }
 
          $(document).ready(function() {
-            PubSub.publish(eo.asEventName, eo.toUserData);
+            PubSub.publish(eo.asEventName, eo.userData);
          });
 
          return false;
       },
+
       asKeyboard: function(eo) {
          var keyType = (eo.bindEvent === "key" || eo.bindEvent === "keydown") ? "keydown" : eo.bindEvent;
-
          $(document).on(keyType, eo.selector, function(e) {
             var charCode = (e.which ? e.which : e.keyCode);
             _.each(eo.keyPress, function(element, index, list){
                if (element === charCode) {
                   PubSub.publish(eo.asEventName, _.extend({
                      eventElement: $(eo.selector +":focus") || null
-                  }, eo.toUserData));
+                  }, eo.userData));
                }
             });
          });
       },
+
+      asTyping: function(eo) {
+         $(document).on("keyup", eo.selector, function(e) {
+            PubSub.publish(eo.asEventName, _.extend({
+               eventElement: $(eo.selector +":focus") || null
+            }, eo.userData));
+         });
+      },
+
       asDocument: function(eo) {
          $(document).on(eo.bindEvent, eo.selector, function(e) {
+
             PubSub.publish(eo.asEventName, _.extend({
                eventElement: $(this)
-            }, eo.toUserData));
+            }, eo.userData));
 
             e.stopImmediatePropagation();
             e.preventDefault();
          });
+
       },
 
       asWindow: function(eo) {
          $(window).on(eo.bindEvent, eo.selector, function(e) {
             PubSub.publish(eo.asEventName, _.extend({
                eventElement: $(this)
-            }, eo.toUserData));
+            }, eo.userData));
             e.preventDefault();
          });
 
          return false;
       },
 
-      asBrowser: function(eo) {
-         //window.resize...
-         if (eo.bindEvent === "resize") {
-            return this.asWindow(eo);
-         }
-
-         // scroll
-         $(eo.selector).scroll(function() {
-            PubSub.publish(eo.asEventName, _.extend({
-               eventElement: $(this)
-            }, eo.toUserData));
-         });
-
-         return false;
-      },
       asMouse: function(eo) {
          return this.asDocument(eo);
       },
+
       asForm: function(eo) {
          return this.asDocument(eo);
+      },
+
+      generic: function(eo) {
+         $(document).on(eo.bindEvent, eo.selector, function(e) {
+            PubSub.publish(eo.asEventName, _.extend({
+               eventElement: $(this)
+            }, eo.userData));
+         });
       }
+
     };
-})();
+}());
 
 var Events = (function() {
    "use strict";
 
    var eventObject = {
-      context:          "",
-      keyPress:         "",
-      selector:         "",
-      whereKey:         "",
-      userData:         "",
-      bindEvent:        "",
-      whereValue:       "",
-      asEventName:      "",
-      bindEventContext: ""
+      context:          undefined,
+      keyPress:         undefined,
+      selector:         undefined,
+      whereKey:         undefined,
+      userData:         undefined,
+      bindEvent:        undefined,
+      whereType:        undefined,
+      whereValue:       undefined,
+      asEventName:      undefined,
+      bindEventContext: undefined
    };
 
    var triggers = {
       pub: function(eo) {
-         if (_.isUndefined(eo.whereKey) || $(eo.whereKey).hasClass(eo.whereValue)) {
+         if (_.isUndefined(eo.whereKey) || eo.whereKey.length <= 0) {
             bindEventAs(eo);
+         } else {
+            var whereKey   = eo.whereKey.shift();
+            var whereValue = eo.whereValue.shift();
+            var whereType  = eo.whereType.shift();
+            var attribute  = whereKey.match(/\[(.*?)\]/);
+
+            if (whereType == "equal" && $(whereKey).attr(attribute[1]) == whereValue) {
+                  this.pub(eo);
+            }
+
+            if (whereType == "not-equal" && $(whereKey).attr(attribute[1]) != whereValue) {
+               this.pub(eo);
+            }
+
+            return false;
          }
       },
       sub: function(eo, funcName) {
@@ -148,7 +175,7 @@ var Events = (function() {
       }
 
       if (eo.bindEvent === "resize" || eo.bindEvent === "scroll") {
-         return Binder.asBrowser(eo);
+         return Binder.asWindow(eo);
       }
 
       if (eo.bindEvent.indexOf("mouse") === 0 || eo.bindEvent === "hover" || eo.bindEvent === "click" || eo.bindEvent === "dblclick") {
@@ -159,7 +186,13 @@ var Events = (function() {
          return Binder.asForm(eo);
       }
 
+      if (eo.bindEvent === "typing") {
+         return Binder.asTyping(eo);
+      }
 
+      // we don't kow wtf you're trying to bind so
+      // lets do something and see what happens
+      return Binder.generic(eo);
    };
 
    return {
@@ -178,10 +211,27 @@ var Events = (function() {
       },
 
       where: function(key, value) {
-         eventObject.whereKey    = _.isUndefined(value) ? "body" : key;
-         eventObject.whereValue  = _.isUndefined(value) ? key : value;
+         this.whereType("equal", key, _.isUndefined(value) ? key : value);
 
          return this;
+      },
+
+      whereNot: function(key, value) {
+         this.whereType("not-equal", key, _.isUndefined(value) ? key : value);
+
+         return this;
+      },
+
+      whereType: function(type, key, value) {
+         if (_.isUndefined(eventObject.whereType)) {
+            eventObject.whereType = [];
+            eventObject.whereKey = [];
+            eventObject.whereValue = [];
+         }
+
+         eventObject.whereType.push(type);
+         eventObject.whereKey.push(key);
+         eventObject.whereValue.push(value);
       },
 
       as: function(eventName) {
@@ -200,7 +250,6 @@ var Events = (function() {
             triggers.sub(eventObject, funcName);
          }
 
-         // Kill everything before you go out...
          eventObject = {};
          return false;
       },
@@ -215,4 +264,4 @@ var Events = (function() {
          });
       }
    };
-})();
+}());

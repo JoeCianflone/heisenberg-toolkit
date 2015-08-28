@@ -30,9 +30,9 @@ App.Modules.Introduction = function () {
       events: function() {
          Events.bind("click", ".js-foo-clicked").to(clicker, this);
          Events.bind("window.resize").to(resizer);
-         Events.bind("window.keypress" , 13).to(clicker, this);
-         Events.bind("keypress", ".js-foo-text", ",").to(clicker2, this);
-         Events.bind("keypress", ".js-foo-text", 13).to(clicker2, this);
+         Events.bind("key" , 13).to(clicker, this);
+         Events.bind("key", ".js-foo-text", ",").to(clicker2, this);
+         Events.bind("key", ".js-foo-text", 13).to(clicker2, this);
          Events.bind("load").to(render, this, {title: "Hello World", body: "Oh, hello there"});
 
          return this;
