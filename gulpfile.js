@@ -107,7 +107,6 @@ var scripts = {
       config.src.js    + "main.js"
    ],
 };
-
 // Grab latest from Bower .....................................................
 gulp.task('bower', function() {
     return bower()
@@ -131,7 +130,7 @@ gulp.task('copy', ['bower'], function () {
 });
 
 // Minify images ..............................................................
-gulp.task('imagemin', ['bower'], function () {
+gulp.task('imagemin', function () {
     return gulp.src(config.src.imgs + '**/*.*')
         .pipe(plumber({errorHandler: notify.onError("Imagemin Error:\n<%= error.message %>")}))
         .pipe(imagemin({
@@ -159,7 +158,7 @@ gulp.task('handlebars', function () {
 });
 
 // Do everything to JavaScript ................................................
-gulp.task('js', ['bower','handlebars'], function() {
+gulp.task('js', ['handlebars'], function() {
    gulp.src(scripts.modernizr)
        .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
        .pipe(concat("modernizr.min.js"))
@@ -185,7 +184,7 @@ gulp.task('js', ['bower','handlebars'], function() {
 });
 
 // Compile the Sass ...........................................................
-gulp.task('sass', ['bower'], function () {
+gulp.task('sass', function () {
    gulp.src(config.src.sass + '*.scss')
        .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
@@ -214,13 +213,11 @@ gulp.task('watch', function () {
 });
 
 // just say $> gulp
-gulp.task('default', ['bower', 'copy', 'js', 'sass', 'imagemin','watch']);
+gulp.task('default', ['js', 'sass', 'imagemin', 'watch']);
 
 // Does a little spring cleaning if you ever need it...
 // just say $> gulp boot
-gulp.task('boot', ['cleaner']);
+gulp.task('boot', ['cleaner', 'bower', 'copy']);
 
 // just say $> gulp compile
-gulp.task('compile', ['bower', 'copy', 'js', 'sass', 'imagemin']);
-
-
+gulp.task('compile', ['boot', 'js', 'sass', 'imagemin']);

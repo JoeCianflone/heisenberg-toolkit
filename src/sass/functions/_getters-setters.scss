@@ -1,4 +1,4 @@
-@function get-bu($key, $map) {
+@function get-by($key, $map) {
     @if map-has-key($map, $key) {
         @return map-get($map, $key);
     }
