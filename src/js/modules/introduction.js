@@ -1,21 +1,21 @@
 App.Modules = App.Modules || {};
 App.Modules.Introduction = function () {
-   var options = {
+   var o = {
       el: '.js-introduction'
    };
 
    return {
       init: function() {
-         options.module = $(options.el);
+         o.module = $(o.el);
 
          return this;
       },
       events: function() {
+
 
          return this;
       }
    };
 
 }();
-
 
