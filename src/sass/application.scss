@@ -24,9 +24,9 @@
  * everwhere.
  */
 // Functions & Mixins .........................................................
-@import "functions/_getters-setters";
-@import "mixins/_font";
-@import "mixins/_pseudo-elements";
+@import "utilities/_getters-setters";
+@import "utilities/_font";
+@import "utilities/_pseudo-elements";
 
 /**
  * This is where you start editing.  We don't make any assumptions so these are
@@ -71,8 +71,3 @@
 // Modules ....................................................................
 @import "modules/_site-navigation";
 
-/**
- * I use a BEM style of CSS development, so sometimes I have classes that don't
- * really fit or span multiple modules.  Those go here.
- */
-// Utility Classes ............................................................

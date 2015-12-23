@@ -8,7 +8,7 @@ var AjaxRoute = (function() {
       callType: "",
       userData: {},
       useQueryParams: false,
-      extraAjaxParams: null;
+      extraAjaxParams: null,
    };
 
    var mergeParams = function(response, userData) {
@@ -72,7 +72,7 @@ var AjaxRoute = (function() {
       },
 
       to: function(url, data) {
-         ro.name = Utilities.generateEventName();
+         ro.name = Utils.generateEventName();
          ro.url = url;
          ro.data = JSON.stringify(data);
 

@@ -20,13 +20,13 @@ var Events = (function() {
             var whereKey   = eo.whereKey.shift();
             var whereValue = eo.whereValue.shift();
             var whereType  = eo.whereType.shift();
-            var attribute  = whereKey.match(/\[(.*?)\]/);
+            var attribute  = _.isNull(whereKey.match(/\[(.*?)\]/)) ? "class" : whereKey.match(/\[(.*?)\]/)[1];
 
-            if (whereType == "equal" && $(whereKey).attr(attribute[1]) == whereValue) {
-                  this.pub(eo);
+            if (whereType == "equal" && s.include($(whereKey).attr(attribute), whereValue)) {
+               this.pub(eo);
             }
 
-            if (whereType == "not-equal" && $(whereKey).attr(attribute[1]) != whereValue) {
+            if (whereType == "not-equal" && ! s.include($(whereKey).attr(attribute), whereValue)) {
                this.pub(eo);
             }
 
@@ -137,6 +137,7 @@ var Events = (function() {
 
       publish: function(eventName, userData) {
          PubSub.publish(eventName, userData);
+
       },
 
       subscribe: function(eventName, funcName, context) {

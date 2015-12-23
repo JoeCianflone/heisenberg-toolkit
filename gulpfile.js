@@ -96,13 +96,16 @@ var scripts = {
    main: [
       config.src.bower + "jquery-validation/dist/jquery.validate.js",
       config.src.bower + "underscore/underscore.js",
+      config.src.bower + "underscore.string/dist/underscore.string.js",
       config.src.bower + "momentjs/moment.js",
       config.src.bower + "handlebars/handlebars.runtime.js",
       config.src.bower + "amplify/lib/amplify.js",
+      config.src.bower + "jQuery-linkify/dist/jquery.linkify.js",
       config.src.js    + config.src.templates,
       config.src.js    + "app.js",
       config.src.js    + "resources/**/*.js",
       config.src.js    + "helpers/**/*.js",
+      config.src.js    + "transformers/**/*.js",
       config.src.js    + "modules/**/*.js",
       config.src.js    + "main.js"
    ],
@@ -146,7 +149,9 @@ gulp.task('imagemin', function () {
 gulp.task('handlebars', function () {
     gulp.src(config.src.hbs+'*.hbs')
       .pipe(plumber({errorHandler: notify.onError("Handlebars Error:\n<%= error.message %>")}))
-      .pipe(handlebars())
+      .pipe(handlebars({
+            handlebars: require('handlebars')
+       }))
       .pipe(wrap('Handlebars.template(<%= contents %>)'))
       .pipe(declare({
           namespace: 'Handlebars.templates',
@@ -184,7 +189,7 @@ gulp.task('js', ['handlebars'], function() {
 });
 
 // Compile the Sass ...........................................................
-gulp.task('sass', function () {
+gulp.task('sass', ['bower'], function () {
    gulp.src(config.src.sass + '*.scss')
        .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
        .pipe(sourcemaps.init())
@@ -213,7 +218,7 @@ gulp.task('watch', function () {
 });
 
 // just say $> gulp
-gulp.task('default', ['js', 'sass', 'imagemin', 'watch']);
+gulp.task('default', ['compile', 'watch']);
 
 // Does a little spring cleaning if you ever need it...
 // just say $> gulp boot
