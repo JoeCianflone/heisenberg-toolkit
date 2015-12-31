@@ -11,11 +11,12 @@
  */
 
 $stack-settings: (
-   serif:          #{"Patua One", Georgia, serif},
-   sans-serif:     #{"Roboto", "Helvetica Neue", sans-serif},
-   base-size:      62.5%,
-   line-height:    1.3
-   letter-spacing: 0,
+   serif:                    #{"Patua One", Georgia, serif},
+   sans-serif:               #{"Hind", "Helvetica Neue", sans-serif},
+   base-size:                62.5%,
+   line-height:              1.3,
+   letter-spacing:           0,
+   letter-spacing-headlines: -1px,
 );
 
 $font-weights: (
@@ -25,34 +26,31 @@ $font-weights: (
    normal:       400,
    medium:       500,
    semi-bold:    600,
-   bold:         700
+   bold:         700,
    extra-bold:   800,
-   ultra-bold:   900
+   ultra-bold:   900,
 );
 
 $breakpoints: (
-   'puny':         240px,
-   'tiny':         320px,
-   'bitty':        480px,
-   'small':        640px,
-   'bantam':       768px,
-   'medium':       980px,
-   'large':        1024px,
-   'xlarge':       1160px,
-   'xxlarge':      1280px,
-   'jumbo':        1440px,
-   'hulking':      1600px,
-   'titanic':      1920px
+   'puny':      240px,
+   'tiny':      320px,
+   'bitty':     480px,
+   'small':     640px,
+   'bantam':    768px,
+   'medium':    980px,
+   'large':     1024px,
+   'xlarge':    1160px,
+   'xxlarge':   1280px,
+   'jumbo':     1440px,
+   'hulking':   1600px,
+   'titanic':   1920px
 );
 
 $colors: (
-   white:          #fff,
-   charcoal:       #444,
-   mercury:        #e8e8e8,
-   dove-gray:      #6f6e6e,
-   gallery:        #eeeeee,
-   picton-blue:    #68aad5,
-   silver-chalice: #a6a5a5
+   white:     #fff,
+   charcoal:  #444,
+   mercury:   #e8e8e8,
+   black:     #000,
 );
 
 @include layout((

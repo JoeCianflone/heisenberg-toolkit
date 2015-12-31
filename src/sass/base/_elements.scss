@@ -9,10 +9,11 @@ html {
    font: {
       family: get-stack(sans-serif);
       size: get-stack(base-size);
-      weight: get-weight(light);
+      weight: get-font-weight(normal);
+
    }
-   letter-spacing: get-stack(letter-spacing);
    height: 100%;
+   letter-spacing: get-stack(letter-spacing);
 }
 
 * {
@@ -23,9 +24,16 @@ html {
    }
 }
 
+:focus {
+   outline: none;
+}
+
 body {
+   background: get-color(white);
+   color: get-color(charcoal);
    height: 100%;
    margin: 0;
+   min-width: 250px;
    -webkit-font-smoothing: antialiased !important;
    -moz-osx-font-smoothing: grayscale !important;
 }
@@ -37,15 +45,16 @@ img {
 
 h1, h2, h3, h4, h5, h6 {
    font: {
-      family: get-stack(serif);
-      weight: get-weight(bold);
+      family: get-stack(sans-serif);
+      weight: get-font-weight(bold);
    }
-   letter-spacing: 0;
+   padding: 0;
+   letter-spacing: get-stack(letter-spacing-headlines);
    margin: 0;
 }
 
 b, strong {
-   font-weight: get-weight(bold);
+   font-weight: get-font-weight(bold);
 }
 
 p, ul, ol {
@@ -58,6 +67,7 @@ a {
       family: inherit;
       weight: inherit;
    }
+   text-decoration: none;
 }
 
 p {
@@ -69,6 +79,7 @@ nav {
    ol, ul {
       list-style-type: none;
       margin: 0;
+      padding: 0;
 
       li {
          margin: 0;

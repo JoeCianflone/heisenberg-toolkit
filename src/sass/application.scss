@@ -30,11 +30,13 @@
 
 /**
  * This is where you start editing.  We don't make any assumptions so these are
- * all just bare files.  With a little text to explain the thoughts behind it all/
+ * all just bare files.  With a little text to explain the thoughts behind it all
  */
 // Base .......................................................................
 @import "base/_variables";
 @import "base/_elements";
+@import "base/_input";
+@import "base/_text";
 
 /**
  * Most of your code *should* nicely fit into modules, but I'd the truth is that
