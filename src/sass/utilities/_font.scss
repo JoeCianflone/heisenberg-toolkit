@@ -1,5 +1,10 @@
 /**
- * Resize font from one type to another
+ * Designers working in any program are going to be working with fonts in pixels
+ * and this can cause a little some issues for developers who want to be coding
+ * in REMs/EMs. This mixin will convert a font from one unit type to another.
+ * Your designers can continue to work in pixels and you can too, but you'll
+ * have the benefit of having everything converted to a non-fixed unit.
+ *
  * @param  {[type]} $fontSize               the font size that you want
  * @param  {[type]} $toUnit:           rem  the unit you want to convert to
  * @param  {[type]} $fromUnitSpecific: px   default unit we're going to convert from (if you don't set it)
@@ -44,7 +49,10 @@
 }
 
 /**
- * font-face mixin
+ * Bringing in fonts that you need to load from your own server isn't difficult
+ * but it has a bit of tedium to it. If you need to bring in a bunch of fonts
+ * then it's easier to use this mixin.
+ *
  * @param  {[type]} $font-family                   Name of the font
  * @param  {[type]} $font-file-name: false         If the name of the font differs from the name of the familiy
  * @param  {[type]} $weight:         normal        Font weight

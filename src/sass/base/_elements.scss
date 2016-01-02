@@ -24,13 +24,13 @@ html {
    }
 }
 
-:focus {
-   outline: none;
-}
+// :focus {
+//    outline: none;
+// }
 
 body {
    background: get-color(white);
-   color: get-color(charcoal);
+   color: get-color(black);
    height: 100%;
    margin: 0;
    min-width: 250px;
@@ -48,9 +48,9 @@ h1, h2, h3, h4, h5, h6 {
       family: get-stack(sans-serif);
       weight: get-font-weight(bold);
    }
-   padding: 0;
    letter-spacing: get-stack(letter-spacing-headlines);
    margin: 0;
+   padding: 0;
 }
 
 b, strong {
