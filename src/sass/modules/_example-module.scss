@@ -1,0 +1,27 @@
+/**
+ * This is an example module using BEM styes
+ */
+
+
+
+.person {
+   padding: 10px;
+
+   &--handsome {
+      padding: 20px;
+   }
+
+   @at-root & {
+      padding: 15px;
+
+      &--handsome2 {
+         padding: 25px;
+
+         @at-root & {
+            &__face {
+               padding: 20px;
+            }
+         }
+      }
+   }
+}

@@ -1,3 +1,14 @@
+/**
+ * This is a simple mixin that helps you create a flexbox container. With a
+ * simple way of overriding the things that you find yourself overriding
+ * most of the time. If you want to understand flexbox better take a
+ * look at:
+ * https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ *
+ * @param  {String} $content: center        flexbox align-content property
+ * @param  {String} $items:   center        flexbox align-items property
+ * @param  {String} $justify: space-between flexbox justify-content property
+ */
 @mixin flex-container($content: center, $items: center, $justify: space-between) {
    align-content: $content;
    align-items: $items;
