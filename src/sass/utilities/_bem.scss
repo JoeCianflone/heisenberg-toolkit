@@ -1,0 +1,17 @@
+@mixin e($name) {
+   &__#{$name} {
+      @content;
+   }
+}
+
+@mixin m($name) {
+   &--#{$name} {
+      @content;
+   }
+}
+
+@mixin sm($name) {
+   &--#{$name} & {
+      @content;
+   }
+}

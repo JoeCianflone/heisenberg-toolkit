@@ -1,0 +1,7 @@
+linters:
+  BorderZero:
+    enabled: true
+
+  Indentation:
+    severity: warning
+    width: 3
