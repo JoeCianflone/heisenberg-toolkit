@@ -28,14 +28,13 @@
  * then becomes a black box.  Personally, I don't like that
  * plugin because it forces me to have to look in a different file
  * to find out if you have a specific plugin and I'm lazy.
- *
  */
 var gulp       = require('gulp'),
     del        = require('del'),
     gulpif     = require('gulp-if'),
     wrap       = require('gulp-wrap'),
     sass       = require('gulp-sass'),
-    yargs      = require('yargs').argv
+    yargs      = require('yargs').argv,
     bower      = require('gulp-bower'),
     concat     = require('gulp-concat'),
     notify     = require('gulp-notify'),
