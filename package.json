@@ -1,6 +1,6 @@
 {
   "name": "HeisenbergToolkit",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "A project base for building large apps with lots of JavaScript and Sass but no framework",
   "main": "index.html",
   "dependencies": {
@@ -14,12 +14,14 @@
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-livereload": "^3.8.1",
+    "gulp-modernizr": "^1.0.0-alpha",
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-wrap": "^0.11.0",
     "imagemin-pngquant": "^4.1.2",
+    "require-dir": "^0.3.0",
     "yargs": "^3.31.0"
   },
   "scripts": {
