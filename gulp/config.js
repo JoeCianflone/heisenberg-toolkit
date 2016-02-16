@@ -11,6 +11,7 @@ var src = {
    bower:     "src/bower/",
    sass:      "src/sass/",
    imgs:      "src/images/",
+   fonts:     "src/fonts/",
    templates: "templates.tpl"
 };
 
