@@ -40,6 +40,7 @@
   "homepage": "https://github.com/joecianflone/heisenberg-toolkit",
   "devDependencies": {
     "gulp-notify": "^2.2.0",
+    "gulp-svg-sprite": "^1.2.19",
     "handlebars": "^4.0.5"
   }
 }
