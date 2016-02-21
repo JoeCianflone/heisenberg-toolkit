@@ -1,4 +1,5 @@
 var dest = {
+   base:   "assets/",
    js:     "assets/js/",
    css:    "assets/css/",
    imgs:   "assets/images/",
