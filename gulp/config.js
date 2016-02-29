@@ -1,4 +1,5 @@
 var dest = {
+   base:   "assets/",
    js:     "assets/js/",
    css:    "assets/css/",
    imgs:   "assets/images/",
@@ -11,6 +12,7 @@ var src = {
    bower:     "src/bower/",
    sass:      "src/sass/",
    imgs:      "src/images/",
+   fonts:     "src/fonts/",
    templates: "templates.tpl"
 };
 

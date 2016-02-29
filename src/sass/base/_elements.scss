@@ -4,6 +4,14 @@
  * Do not add font sizes or colors in here...yes even if it's global
  * because the truth is it probably isn't as global as you think.
  */
+* {
+   box-sizing: inherit;
+   -webkit-overflow-scrolling: touch;
+   &:before, &:after {
+      box-sizing: inherit;
+   }
+}
+
 html {
    box-sizing: border-box;
    font: {
@@ -16,14 +24,6 @@ html {
    letter-spacing: get-stack(letter-spacing);
 }
 
-* {
-   box-sizing: inherit;
-   -webkit-overflow-scrolling: touch;
-   &:before, &:after {
-      box-sizing: inherit;
-   }
-}
-
 // :focus {
 //    outline: none;
 // }
@@ -33,13 +33,13 @@ body {
    color: get-color(black);
    height: 100%;
    margin: 0;
-   min-width: 250px;
+   min-width: get-breakpoint(tiny);
    -webkit-font-smoothing: antialiased !important;
    -moz-osx-font-smoothing: grayscale !important;
 }
 
 img {
-   height: 100%;
+   height: auto;
    width: 100%;
 }
 

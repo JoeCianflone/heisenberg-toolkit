@@ -9,3 +9,5 @@ assets/css/
 assets/fonts/
 assets/images/
 src/js/templates.tpl
+src/sass/modules/_sprite.scss
+src/sass/modules/_sprites.scss

@@ -1,45 +1,15 @@
-/// Designers working in any program are going to be working with fonts in pixels
-/// and this can cause a little some issues for developers who want to be coding
-/// in REMs/EMs. This mixin will convert a font from one unit type to another.
-/// Your designers can continue to work in pixels and you can too, but you'll
-/// have the benefit of having everything converted to a non-fixed unit.
-///
-/// @param  String|Number $font-size               the font size that you want
-/// @param  String        $to-unit:           rem  the unit you want to convert to
-/// @param  String        $from-unit: px   default unit we're going to convert from (if you don't set it)
-///
-/// @example
-///    @include  font-size(22px);
-///    Result
-///    font-size: 22px; // generates a fallback for rems
-///    font-size: 2.2rem
-///
-/// @example
-///    @include  font-size(22em, 'px');
-///    Result:
-///    font-size: 22px;
-@mixin font-size($font-size, $to-unit: rem, $from-unit: px) {
-   $current-unit: unit($font-size);
-   $current-value: get-value($font-size);
+/// Correctly convert your pixel fonts into REMS.
+/// This uses your base font size (set in _variables.scss) to correctly
+/// calculate the REM size your font needs to be and this will also
+/// give you the correct pixel based fallback for super-old
+/// browsers
+/// @param String|Number $font-size:   The pixel based font size you'd like an element to be
+@mixin font-size($font-size) {
+   $base-size: get-value(get-stack(base-size) / 100);
+   $base-px-size: 16 * $base-size; // 16 is a constant because 16px is the base sie of all browser text, everything scales from there
 
-   @if $current-unit == '' {
-      $current-unit: $from-unit;
-   }
-
-   @if $current-unit == 'px' {
-      @if $to-unit == 'rem' {
-         font-size: unquote(($current-value) + px);
-         font-size: unquote(($current-value / 10) + $to-unit);
-      } @else if $to-unit == 'em' {
-         font-size: unquote(($current-value / 10) + $to-unit);
-      }
-   } @else if $current-unit == 'rem' or $current-unit == 'em' {
-      @if $to-unit == 'px' {
-         font-size: unquote(($current-value * 10) + px);
-      } @else {
-         font-size: unquote(($current-value) + $to-unit);
-      }
-   }
+   font-size: unquote($font-size);
+   font-size: unquote((get-value($font-size) / $base-px-size) + rem);
 }
 
  /// Bringing in fonts that you need to load from your own server isn't difficult
