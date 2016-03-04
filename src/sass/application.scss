@@ -14,6 +14,13 @@
 @import '../bower/susy/sass/susy';
 @import '../bower/include-media/dist/include-media';
 
+// Now with baked in spriting, even if you're not going to use any sprites
+// leave these blank files in place, Sass won't skip over the files
+// if they don't happen to exist
+
+// Sprites ....................................................................
+@import 'sprites/bitmapSprite';
+@import 'sprites/svgSprite';
 
 /// These are just some functions and mixins that I end up bringing into
 /// every project I create. Particulary I use the @include font-size() mixin
