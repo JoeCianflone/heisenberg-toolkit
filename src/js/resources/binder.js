@@ -2,22 +2,21 @@ var Binder = (function() {
    return {
       asLoad: function(eo) {
          if (eo.bindEvent === "unload") {
-            $(document).unload(function() {
+            document.removeEventListener(eo.asEventName, function() {
                PubSub.publish(eo.asEventName, eo.userData);
             });
-
             return false;
          }
 
          if (eo.context == window) {
-            $(window).load(function() {
+            window.onload(function() {
                PubSub.publish(eo.asEventName, eo.userData);
             });
 
             return false;
          }
 
-         $(document).ready(function() {
+         document.addEventListener("DOMContentLoaded", function() {
             PubSub.publish(eo.asEventName, eo.userData);
          });
 
@@ -47,24 +46,32 @@ var Binder = (function() {
       },
 
       asDocument: function(eo) {
-         $(document).on(eo.bindEvent, eo.selector, function(e) {
-
-            PubSub.publish(eo.asEventName, _.extend({
-               eventElement: $(this)
-            }, eo.userData));
-
-            e.preventDefault();
+         var el = document.querySelectorAll(eo.selector);
+         _.each(el, function(item) {
+            item.addEventListener(eo.bindEvent, function(e) {
+               PubSub.publish(eo.asEventName, _.extend({
+                  eventElement: item
+               }, eo.userData));
+               e.preventDefault();
+            });
          });
-
       },
 
       asWindow: function(eo) {
-         $(window).on(eo.bindEvent, eo.selector, function(e) {
-            PubSub.publish(eo.asEventName, _.extend({
-               eventElement: $(this)
-            }, eo.userData));
-            e.preventDefault();
-         });
+         // var el = document.querySelectorAll(eo.selector);
+         // _.each(el, function(item) {
+         //    item.addEventListener(eo.bindEvent, function() {
+         //       PubSub.publish(eo.asEventName, _.extend({
+         //          eventElement: item
+         //       }, eo.userData));
+         //    });
+         // });
+         // $(window).on(eo.bindEvent, eo.selector, function(e) {
+         //    PubSub.publish(eo.asEventName, _.extend({
+         //       eventElement: $(this)
+         //    }, eo.userData));
+         //    e.preventDefault();
+         // });
 
          return false;
       },
@@ -78,11 +85,12 @@ var Binder = (function() {
       },
 
       generic: function(eo) {
-         $(document).on(eo.bindEvent, eo.selector, function(e) {
-            PubSub.publish(eo.asEventName, _.extend({
-               eventElement: $(this)
-            }, eo.userData));
-         });
+
+         // $(document).on(eo.bindEvent, eo.selector, function(e) {
+         //    PubSub.publish(eo.asEventName, _.extend({
+         //       eventElement: $(this)
+         //    }, eo.userData));
+         // });
       }
     };
 }());

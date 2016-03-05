@@ -127,7 +127,7 @@ var Events = (function() {
          eventObject.context     = _.isUndefined(context) ? window : context;
          triggers.pub(eventObject);
 
-         if (_.isFunction(funcName) ||  _.isArray(funcName)) {
+         if (_.isFunction(funcName) || _.isArray(funcName)) {
             triggers.sub(eventObject, funcName);
          }
 

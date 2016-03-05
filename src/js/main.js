@@ -1,3 +1,9 @@
 "use strict";
 
-$(App.init);
+(function ready(fn) {
+  if (document.readyState != 'loading') {
+    App.init;
+  } else {
+    document.addEventListener('DOMContentLoaded', App.init);
+  }
+})();
