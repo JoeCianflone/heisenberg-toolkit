@@ -7,6 +7,7 @@ var dest = {
 };
 
 var src = {
+   base:      "src/",
    js:        "src/js/",
    hbs:       "src/js/templates/",
    bower:     "src/bower/",

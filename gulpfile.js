@@ -28,5 +28,6 @@ var gulp       = require('gulp'),
 requireDir('./gulp/tasks', { recurse: true });
 
 gulp.task('boot',    ['cleaner', 'bower', 'copy', 'modernizr']);
-gulp.task('compile', ['boot', 'scripts', 'imageProcess', 'sass']);
+gulp.task('sprites', ['svgSprite', 'bitmapSprite', 'minification']);
+gulp.task('compile', ['boot', 'scripts', 'sprites', 'sass']);
 gulp.task('default', ['compile', 'watch']);
