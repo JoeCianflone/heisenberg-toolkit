@@ -115,12 +115,6 @@ var Events = (function() {
          eventObject.whereValue.push(value);
       },
 
-      as: function(eventName) {
-         eventObject.asEventName = eventName;
-
-         return this;
-      },
-
       to: function(funcName, context, userData) {
          eventObject.asEventName = Utils.generateEventName(eventObject.asEventName);
          eventObject.userData    = _.isUndefined(userData) ? {} : userData;
