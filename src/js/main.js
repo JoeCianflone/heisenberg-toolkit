@@ -1,9 +1,12 @@
 "use strict";
 
-(function ready(fn) {
-  if (document.readyState != 'loading') {
-    App.init;
-  } else {
-    document.addEventListener('DOMContentLoaded', App.init);
-  }
+(function() {
+   var App = {};
+   window.App = App;
+
+   document.addEventListener('DOMContentLoaded', function(e) {
+     for (var module in App.Modules) {
+        App.Modules[module].init().events();
+     }
+   });
 })();
