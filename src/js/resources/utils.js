@@ -12,11 +12,22 @@ var Utils = (function(){
          return uuid;
       },
       generateEventName: function(asEventName) {
-         if (_.isUndefined(asEventName)) {
+         if (! asEventName) {
             return "app/event/" + Utils.generateUUID();
          }
 
          return asEventName;
+      },
+      mergeObjects: function(obj, src) {
+         Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+
+         return obj;
+      },
+
+      forEach: function(array, callback, scope) {
+         for (var i = 0, len=array.length; i < len; ++i) {
+            callback.call(scope, i, array[i]); // passes back stuff we need
+         }
       }
    };
 }());

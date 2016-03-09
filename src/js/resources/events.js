@@ -1,137 +1,40 @@
 var Events = (function() {
-   var eventObject = {
-      context:          undefined,
-      keyPress:         undefined,
-      selector:         undefined,
-      whereKey:         undefined,
-      userData:         undefined,
-      bindEvent:        undefined,
-      whereType:        undefined,
-      whereValue:       undefined,
-      asEventName:      undefined,
-      bindEventContext: undefined
-   };
 
-   var triggers = {
-      pub: function(eo) {
-         if (_.isUndefined(eo.whereKey) || eo.whereKey.length <= 0) {
-            bindEventAs(eo);
-         } else {
-            var whereKey   = eo.whereKey.shift();
-            var whereValue = eo.whereValue.shift();
-            var whereType  = eo.whereType.shift();
-            var attribute  = _.isNull(whereKey.match(/\[(.*?)\]/)) ? "class" : whereKey.match(/\[(.*?)\]/)[1];
-
-            if (whereType == "equal" && s.include($(whereKey).attr(attribute), whereValue)) {
-               this.pub(eo);
-            }
-
-            if (whereType == "not-equal" && ! s.include($(whereKey).attr(attribute), whereValue)) {
-               this.pub(eo);
-            }
-
-            return false;
-         }
-      },
-      sub: function(eo, funcName) {
-         PubSub.subscribe(eo.asEventName, function(data) {
-            if (_.isArray(funcName)) {
-               _.each(funcName, function(userFunc) {
-                  userFunc.call(eo.context, data);
-               });
-               return false;
-            }
-            return funcName.call(eo.context, data);
-         });
-      }
-   };
-
-   var bindEventAs = function(eo) {
-      if (eo.bindEvent === "ready" || eo.bindEvent === "load" || eo.bindEvent === "unload") {
-         return Binder.asLoad(eo);
-      }
-
-      if (eo.bindEvent.indexOf("key") === 0) {
-         return Binder.asKeyboard(eo);
-      }
-
-      if (eo.bindEvent === "resize" || eo.bindEvent === "scroll") {
-         return Binder.asWindow(eo);
-      }
-
-      if (eo.bindEvent.indexOf("mouse") === 0 || eo.bindEvent === "hover" || eo.bindEvent === "click" || eo.bindEvent === "dblclick") {
-         return Binder.asMouse(eo);
-      }
-
-      if (eo.bindEvent.indexOf("focus") === 0 || eo.bindEvent === "blur" || eo.bindEvent === "change" || eo.bindEvent === "select" || eo.bindEvent === "submit") {
-         return Binder.asForm(eo);
-      }
-
-      if (eo.bindEvent === "typing") {
-         return Binder.asTyping(eo);
-      }
-
-      // we don't kow wtf you're trying to bind so
-      // lets do something and see what happens
-      return Binder.generic(eo);
-   };
+   // eventObject
+   var eo = {};
 
    return {
 
       bind: function(bindEvent, selector, key) {
-         eventObject.bindEvent = bindEvent;
-         eventObject.selector  = _.isUndefined(selector) ? null : selector;
-         eventObject.keyPress  = _.isUndefined(key) ? null : key;
+         eo.bindEvent = bindEvent;
+         eo.selector  = ! selector ? false : selector;
+         eo.keyPress  = ! key ? false : key;
 
-         if (eventObject.bindEvent.indexOf("key") === 0 && _.isNull(eventObject.keyPress)) {
-            eventObject.keyPress = eventObject.selector;
-            eventObject.selector = null;
+         // Basically we're checking to see if the user is trying to
+         // globally capture some keystrokes, this is probably a
+         // pretty rare thing, so instead of making the tirnary
+         // operator crazy to read we just add an if after
+         if (Array.isArray(eo.selector)) {
+            eo.keyPress = eo.selector;
+            eo.selector = false;
          }
 
          return this;
-      },
-
-      where: function(key, value) {
-         this.whereType("equal", key, _.isUndefined(value) ? key : value);
-
-         return this;
-      },
-
-      whereNot: function(key, value) {
-         this.whereType("not-equal", key, _.isUndefined(value) ? key : value);
-
-         return this;
-      },
-
-      whereType: function(type, key, value) {
-         if (_.isUndefined(eventObject.whereType)) {
-            eventObject.whereType = [];
-            eventObject.whereKey = [];
-            eventObject.whereValue = [];
-         }
-
-         eventObject.whereType.push(type);
-         eventObject.whereKey.push(key);
-         eventObject.whereValue.push(value);
       },
 
       to: function(funcName, context, userData) {
-         eventObject.asEventName = Utils.generateEventName(eventObject.asEventName);
-         eventObject.userData    = _.isUndefined(userData) ? {} : userData;
-         eventObject.context     = _.isUndefined(context) ? window : context;
-         triggers.pub(eventObject);
+         eo.asEventName = Utils.generateEventName();
+         eo.userData    = ! userData ? {} : userData;
+         eo.context     = ! context ? window : context;
 
-         if (_.isFunction(funcName) || _.isArray(funcName)) {
-            triggers.sub(eventObject, funcName);
-         }
+         Binder.bindEvent(eo, funcName);
 
-         eventObject = {};
-         return false;
+         eo = {};
+         return eo;
       },
 
       publish: function(eventName, userData) {
          PubSub.publish(eventName, userData);
-
       },
 
       subscribe: function(eventName, funcName, context) {

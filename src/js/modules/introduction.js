@@ -6,16 +6,24 @@ App.Modules.Introduction = function () {
       console.log(data.eventElement);
    };
 
+   var world = function(data) {
+      console.log("WORLD!");
+   };
+
    return {
       init: function() {
 
          return this;
       },
       events: function() {
-         Events.bind("click", ".foo").to(hello);
+         Events.bind("resize").to(world, window);
+         Events.bind("click", "#footer").to(hello, this);
+         Events.bind("click", "p").to(hello, this);
          return this;
       }
    };
+
+
 
 }();
 
