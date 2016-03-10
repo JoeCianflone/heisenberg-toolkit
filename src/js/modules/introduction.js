@@ -10,6 +10,10 @@ App.Modules.Introduction = function () {
       console.log("WORLD!");
    };
 
+   var textCheck = function(data) {
+      console.log("KEY");
+   };
+
    return {
       init: function() {
 
@@ -19,6 +23,8 @@ App.Modules.Introduction = function () {
          Events.bind("resize").to(world, window);
          Events.bind("click", "#footer").to(hello, this);
          Events.bind("click", "p").to(hello, this);
+
+         Events.bind("keypress", ".js-text", [13]).to(textCheck, this);
          return this;
       }
    };
