@@ -14,9 +14,14 @@ App.Modules.Introduction = function () {
       console.log("KEY");
    };
 
+   var testMouse = function(data) {
+      console.log("MOUSE");
+   };
+   var testMouseOut = function(data) {
+      console.log("MOUSE OOOUTTT");
+   };
    return {
       init: function() {
-
          return this;
       },
       events: function() {
@@ -24,7 +29,12 @@ App.Modules.Introduction = function () {
          Events.bind("click", "#footer").to(hello, this);
          Events.bind("click", "p").to(hello, this);
 
-         Events.bind("keypress", ".js-text", [13]).to(textCheck, this);
+         Events.bind("keypress", ".js-text", [51, 13]).to(textCheck, this);
+
+         Events.bind("mouseover", '.js-mouse-test').to(testMouse, this);
+         Events.bind("mouseout", '.js-mouse-test').to(testMouseOut, this);
+
+
          return this;
       }
    };
