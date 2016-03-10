@@ -1,11 +1,7 @@
 var Binder = (function() {
 
    var asWindowEvent = function(eo) {
-      window.addEventListener(eo.bindEvent, function(e) {
-         PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.userData, {
-            eventElement: e.target
-         }));
-      });
+      Attach.singleEvent(window, eo);
    };
 
    var asDocumentEvent = function(eo) {
