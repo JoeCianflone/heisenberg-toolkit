@@ -1,14 +1,14 @@
 var Events = (function() {
-
    // eventObject
    var eo = {};
 
    return {
 
       bind: function(bindEvent, selector, key) {
-         eo.bindEvent = bindEvent;
-         eo.selector  = ! selector ? false : selector;
-         eo.keyPress  = ! key ? false : key;
+         eo.bindEvent  = bindEvent;
+         eo.selector   = ! selector ? false : selector;
+         eo.keyPress   = ! key ? false : key;
+         eo.isKeyEvent = eo.bindEvent.startsWith("key") ? true : false;
 
          // Basically we're checking to see if the user is trying to
          // globally capture some keystrokes, this is probably a
