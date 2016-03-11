@@ -2,7 +2,7 @@ var Attach = (function() {
 
    var pub = function(eo, event) {
       PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.userData, {
-         eventElement: event.target
+         eventElement: event.target || event.srcElement
       }));
    };
 

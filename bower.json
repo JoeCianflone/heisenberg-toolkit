@@ -13,7 +13,8 @@
     "momentjs": "~2.10.6",
     "normalize-scss": "~3.0.3",
     "susy": "~2.2.9",
-    "PubSubJS": "pubsub-js#~1.5.3"
+    "PubSubJS": "pubsub-js#~1.5.3",
+    "ajax": "^1.0.10"
   },
   "license": "MIT",
   "private": true,

@@ -23,6 +23,7 @@ var scripts = {
    main: [
       src.bower + "handlebars/handlebars.runtime.js",
       src.bower + "PubSubJS/src/pubsub.js",
+      src.bower + "ajax/dist/ajax.min.js",
       src.js    + src.templates,
       src.js    + "main.js",
       src.js    + "resources/**/*.js",

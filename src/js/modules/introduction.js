@@ -10,6 +10,7 @@ App.Modules.Introduction = function () {
       init: function() { return this; },
       events: function() {
          Events.bind("click", ".js-mouse-test").to(hello, this);
+
          return this;
       }
    };
