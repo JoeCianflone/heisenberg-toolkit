@@ -38,5 +38,4 @@ var Binder = (function() {
          return false;
       }
    };
-
 }());
