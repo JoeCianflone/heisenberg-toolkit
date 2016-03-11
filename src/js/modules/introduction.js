@@ -3,13 +3,13 @@ App.Modules.Introduction = function () {
    var o = { };
 
    var hello = function(data) {
-
+      console.log("HELLO");
    };
 
    return {
       init: function() { return this; },
       events: function() {
-         Events.when("body[class]==bodyFoo").bind("click", ".js-foo").to(hello, this);
+         Events.bind("click", ".js-mouse-test").to(hello, this);
          return this;
       }
    };

@@ -4,22 +4,22 @@ var Events = (function() {
 
    return {
       when: function(contextString) {
-         var isEqualTo = contextString.indexOf("==") > 0 ? true : false,
-             contextArray = contextString.split("==");
+         var isEqualTo    = contextString.indexOf("==") > 0 ? true : false,
+             contextArray = (isEqualTo) ? contextString.split("==") : contextString.split("!="),
+             tag          = contextArray[0].substring(0, contextArray[0].indexOf("[")),
+             attribute    = contextArray[0].match(/\[(.*?)\]/)[1];
 
-         if (! isEqualTo) {
-            contextArray = contextString.split("!=");
+         if (isEqualTo) {
+            eo.when = document.getElementsByTagName(tag)[0].getAttribute(attribute) === contextArray[1]
+         } else {
+            eo.when = document.getElementsByTagName(tag)[0].getAttribute(attribute) !== contextArray[1]
          }
 
-         var tag = contextArray[0].substring(0, contextArray[0].indexOf("["));
-         var attrib = contextArray[0].match(/\[(.*?)\]/);
-         console.log(attrib[1]);
-
-         console.log(document.getElementsByTagName(tag)[0].getAttribute(attrib[1]) === contextArray[1]);
-         return false;
+         return this;
       },
 
       bind: function(bindEvent, selector, key) {
+         eo.when       = typeof eo.when == 'undefined' ? true : eo.when;
          eo.bindEvent  = bindEvent;
          eo.selector   = ! selector ? false : selector;
          eo.keyPress   = ! key ? false : key;
@@ -42,9 +42,12 @@ var Events = (function() {
          eo.userData    = ! userData ? {} : userData;
          eo.context     = ! context ? window : context;
 
-         Binder.bindEvent(eo, funcName);
+         if (eo.when) {
+            Binder.bindEvent(eo, funcName);
+         }
 
-         // Once you've done the bindEvent clear the eventObject
+         // Once you've done the bindEvent
+         // clear the eventObject
          eo = {};
          return eo;
       },
