@@ -1,1 +1,1 @@
-var PubSub = amplify;
+var PubSub = PubSub;

@@ -13,11 +13,7 @@ var Utils = (function(){
       },
 
       generateEventName: function(asEventName) {
-         if (! asEventName) {
-            return "app/event/" + Utils.generateUUID();
-         }
-
-         return asEventName;
+         return "app/event/" + Utils.generateUUID();;
       },
 
       mergeObjects: function(obj, src) {
