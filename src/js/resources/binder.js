@@ -14,7 +14,6 @@ var Binder = (function() {
       }
    };
 
-
    return {
       bindSubscription: function(eo, funcName) {
          PubSub.subscribe(eo.asEventName, function(msg, data) {
