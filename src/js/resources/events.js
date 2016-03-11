@@ -3,6 +3,21 @@ var Events = (function() {
    var eo = {};
 
    return {
+      when: function(contextString) {
+         var isEqualTo = contextString.indexOf("==") > 0 ? true : false,
+             contextArray = contextString.split("==");
+
+         if (! isEqualTo) {
+            contextArray = contextString.split("!=");
+         }
+
+         var tag = contextArray[0].substring(0, contextArray[0].indexOf("["));
+         var attrib = contextArray[0].match(/\[(.*?)\]/);
+         console.log(attrib[1]);
+
+         console.log(document.getElementsByTagName(tag)[0].getAttribute(attrib[1]) === contextArray[1]);
+         return false;
+      },
 
       bind: function(bindEvent, selector, key) {
          eo.bindEvent  = bindEvent;
