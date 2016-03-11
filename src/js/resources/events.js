@@ -29,6 +29,7 @@ var Events = (function() {
 
          Binder.bindEvent(eo, funcName);
 
+         // Once you've done the bindEvent clear the eventObject
          eo = {};
          return eo;
       },
@@ -38,7 +39,7 @@ var Events = (function() {
       },
 
       subscribe: function(eventName, funcName, context) {
-         PubSub.subscribe(eventName, function(data) {
+         PubSub.subscribe(eventName, function(msg, data) {
             return funcName.call(context, data);
          });
       }

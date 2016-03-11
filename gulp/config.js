@@ -18,12 +18,11 @@ var src = {
 };
 
 var scripts = {
-   jquery:     [src.bower +"jquery/dist/jquery.js"],
    modernizr:  [src.js    +"modernizr.js"],
 
    main: [
       src.bower + "handlebars/handlebars.runtime.js",
-      src.bower + "amplify/lib/amplify.js",
+      src.bower + "PubSubJS/src/pubsub.js",
       src.js    + src.templates,
       src.js    + "main.js",
       src.js    + "resources/**/*.js",

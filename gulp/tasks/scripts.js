@@ -18,13 +18,6 @@ gulp.task('scripts', ['handlebars'], function() {
       .pipe(gulp.dest(config.dest.js))
       .pipe(livereload());
 
-   gulp.src(config.scripts.jquery)
-      .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
-      .pipe(concat("jquery.min.js"))
-      .pipe(gulpif(yargs.production, uglify()))
-      .pipe(gulp.dest(config.dest.js))
-      .pipe(livereload());
-
    gulp.src(config.scripts.main)
       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
       .pipe(sourcemaps.init())

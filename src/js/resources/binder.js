@@ -17,7 +17,7 @@ var Binder = (function() {
 
    return {
       bindSubscription: function(eo, funcName) {
-         PubSub.subscribe(eo.asEventName, function(data) {
+         PubSub.subscribe(eo.asEventName, function(msg, data) {
             if (Array.isArray(funcName)) {
                funcName.forEach(function(userFunc) {
                   userFunc.call(eo.context, data);
