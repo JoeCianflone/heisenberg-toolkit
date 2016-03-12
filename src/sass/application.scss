@@ -30,6 +30,7 @@
 @import 'utilities/getters-setters';
 @import 'utilities/pseudo-elements';
 @import 'utilities/flexbox';
+@import 'utilities/spriter';
 @import 'utilities/font';
 @import 'utilities/bem';
 
@@ -72,3 +73,8 @@
 
 // Modules ....................................................................
 @import 'modules/example-module';
+
+.bodyFoo {
+   @include sprite($small1)
+   border: 1px solid red;
+}
