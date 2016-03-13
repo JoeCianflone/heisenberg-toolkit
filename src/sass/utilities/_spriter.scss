@@ -1,0 +1,6 @@
+@mixin spriter($name) {
+   background: transparent url("../images/sprite.png") 0 0 no-repeat;
+   width: #{$name}-width;
+   height: #{$name}-height;
+   background-position: #{$name}-offset-x #{$name}-offset-y;
+}

@@ -19,7 +19,7 @@
 // if they don't happen to exist
 
 // Sprites ....................................................................
-@import 'sprites/bitmapSprite';
+@import 'sprites/sprite-bitmap';
 @import 'sprites/svgSprite';
 
 /// These are just some functions and mixins that I end up bringing into
@@ -74,7 +74,8 @@
 // Modules ....................................................................
 @import 'modules/example-module';
 
-.bodyFoo {
-   @include sprite($small1)
+.js-foo {
+   @include sprite($shot-1);
+   text-indent: -9999px;
    border: 1px solid red;
 }
