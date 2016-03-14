@@ -5,18 +5,18 @@
    @if $type == 'svg' {
       $image: map-get($svgmap, $name);
       $sprite: map-get($svgmap, sprite);
-      width: map-get($image, width);
+      background-image: url(map-get($sprite, svg-path));
+      background-position: map-get($image, offset-x) map-get($image, offset-y);
       height: map-get($image, height);
-      background-image: url(map-get($sprite, svgPath));
-      background-position: map-get($image, backgroundX) map-get($image, backgroundY);
+      width: map-get($image, width);
    }
 
    @if $type == 'png' or $type == 'jpg' or $type == 'jpeg' {
       $image: map-get($bpmsprites, $name);
-      width: map-get($image, width);
-      height: map-get($image, height);
       background-image: url(map-get($image, image));
       background-position: map-get($image, offset-x) map-get($image, offset-y);
+      height: map-get($image, height);
+      width: map-get($image, width);
    }
 }
 
