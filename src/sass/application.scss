@@ -19,8 +19,8 @@
 // if they don't happen to exist
 
 // Sprites ....................................................................
-@import 'sprites/sprite-bitmap';
-@import 'sprites/svgSprite';
+@import 'utilities/spriter';
+
 
 /// These are just some functions and mixins that I end up bringing into
 /// every project I create. Particulary I use the @include font-size() mixin
@@ -30,7 +30,6 @@
 @import 'utilities/getters-setters';
 @import 'utilities/pseudo-elements';
 @import 'utilities/flexbox';
-@import 'utilities/spriter';
 @import 'utilities/font';
 @import 'utilities/bem';
 
@@ -75,7 +74,8 @@
 @import 'modules/example-module';
 
 .js-foo {
-   @include sprite($shot-1);
+   @include spriter('png', shot-1);
+
    text-indent: -9999px;
    border: 1px solid red;
 }
