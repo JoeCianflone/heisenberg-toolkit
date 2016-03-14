@@ -1,5 +1,19 @@
 $svgmap: (
-      sprite: (width: 522px, height: 298px, svgPath: '../images/svg-sprite.svg'),
-    shot-svg-1: (width: 271px, height: 149px, backgroundX: 0px, backgroundY: 0px),
-    shot-svg-2: (width: 251px, height: 149px, backgroundX: -271px, backgroundY: -149px),
+   sprite: (
+      width: 522px,
+      height: 298px,
+      svg-path: '../images/svg-sprite.svg'
+   ),
+   shot-svg-1: (
+      width: 271px,
+      height: 149px,
+      offset-x: 0px,
+      offset-y: 0px
+   ),
+   shot-svg-2: (
+      width: 251px,
+      height: 149px,
+      offset-x: -271px,
+      offset-y: -149px
+   ),
 );

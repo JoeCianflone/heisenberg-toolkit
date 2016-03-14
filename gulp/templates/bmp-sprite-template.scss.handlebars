@@ -1,22 +1,19 @@
 {
-  // Default options
-  'functions': true,
-  'variableNameTransforms': ['dasherize']
+   'functions': true,
+   'variableNameTransforms': ['dasherize']
 }
 
 {{#block "sprites"}}
-$bpmsprites: (
-{{#each sprites}}
-{{strings.name}}: (
-  {{strings.bare_x}}: {{px.x}},
-  {{strings.bare_y}}: {{px.y}},
-  {{strings.bare_offset_x}}: {{px.offset_x}},
-  {{strings.bare_offset_y}}: {{px.offset_y}},
-  {{strings.bare_width}}: {{px.width}},
-  {{strings.bare_height}}: {{px.height}},
-  {{strings.bare_image}}: '{{{escaped_image}}}'
-   ),
-{{/each}}
-);
+   $bpmsprites: (
+      {{#each sprites}}
+         {{strings.name}}: (
+            {{strings.bare_offset_x}}: {{px.offset_x}},
+            {{strings.bare_offset_y}}: {{px.offset_y}},
+            {{strings.bare_width}}:    {{px.width}},
+            {{strings.bare_height}}:   {{px.height}},
+            {{strings.bare_image}}:    '{{{escaped_image}}}'
+         ),
+      {{/each}}
+   );
 {{/block}}
 

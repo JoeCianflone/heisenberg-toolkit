@@ -1,48 +1,31 @@
-/*
-SCSS variables are information about icon's compiled state, stored under its original file name
-
-.icon-home {
-  width: map-get($icon-home, 'width');
-}
-
-At the bottom of this section, we provide information about the spritesheet itself
-*/
-$bpmsprites: (
-shot-1: (
-  x: 1816px,
-  y: 1450px,
-  offset-x: -1816px,
-  offset-y: -1450px,
-  width: 260px,
-  height: 413px,
-  image: '../images/sprite.png'
-   ),
-shot-2: (
-  x: 0px,
-  y: 1450px,
-  offset-x: 0px,
-  offset-y: -1450px,
-  width: 958px,
-  height: 624px,
-  image: '../images/sprite.png'
-   ),
-shot-3: (
-  x: 958px,
-  y: 1450px,
-  offset-x: -958px,
-  offset-y: -1450px,
-  width: 858px,
-  height: 624px,
-  image: '../images/sprite.png'
-   ),
-shot-4: (
-  x: 0px,
-  y: 0px,
-  offset-x: 0px,
-  offset-y: 0px,
-  width: 2794px,
-  height: 1450px,
-  image: '../images/sprite.png'
-   ),
-);
+   $bpmsprites: (
+         shot-1: (
+            offset-x: -1816px,
+            offset-y: -1450px,
+            width:    260px,
+            height:   413px,
+            image:    '../images/sprite.png'
+         ),
+         shot-2: (
+            offset-x: 0px,
+            offset-y: -1450px,
+            width:    958px,
+            height:   624px,
+            image:    '../images/sprite.png'
+         ),
+         shot-3: (
+            offset-x: -958px,
+            offset-y: -1450px,
+            width:    858px,
+            height:   624px,
+            image:    '../images/sprite.png'
+         ),
+         shot-4: (
+            offset-x: 0px,
+            offset-y: 0px,
+            width:    2794px,
+            height:   1450px,
+            image:    '../images/sprite.png'
+         ),
+   );
 

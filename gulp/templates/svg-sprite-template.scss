@@ -1,5 +1,14 @@
 $svgmap: (
-      sprite: (width: {{spriteWidth}}px, height: {{spriteHeight}}px, svgPath: '../images/svg-sprite.svg'),
+   sprite: (
+      width: {{spriteWidth}}px,
+      height: {{spriteHeight}}px,
+      svg-path: '../images/svg-sprite.svg'
+   ),
 {{#shapes}}
-    {{base}}: (width: {{width.inner}}px, height: {{height.inner}}px, backgroundX: {{position.absolute.x}}px, backgroundY: {{position.absolute.y}}px),
+   {{base}}: (
+      width: {{width.inner}}px,
+      height: {{height.inner}}px,
+      offset-x: {{position.absolute.x}}px,
+      offset-y: {{position.absolute.y}}px
+   ),
 {{/shapes}});
