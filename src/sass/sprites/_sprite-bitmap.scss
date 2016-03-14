@@ -2,121 +2,47 @@
 SCSS variables are information about icon's compiled state, stored under its original file name
 
 .icon-home {
-  width: $icon-home-width;
+  width: map-get($icon-home, 'width');
 }
-
-The large array-like variables contain all information about a single icon
-$icon-home: x y offset_x offset_y width height total_width total_height image_path;
 
 At the bottom of this section, we provide information about the spritesheet itself
-$spritesheet: width height image $spritesheet-sprites;
 */
-$shot-1-name: 'shot-1';
-$shot-1-x: 1816px;
-$shot-1-y: 1450px;
-$shot-1-offset-x: -1816px;
-$shot-1-offset-y: -1450px;
-$shot-1-width: 260px;
-$shot-1-height: 413px;
-$shot-1-total-width: 2794px;
-$shot-1-total-height: 2074px;
-$shot-1-image: '../images/sprite.png';
-$shot-1: (1816px, 1450px, -1816px, -1450px, 260px, 413px, 2794px, 2074px, '../images/sprite.png', 'shot-1', );
-$shot-2-name: 'shot-2';
-$shot-2-x: 0px;
-$shot-2-y: 1450px;
-$shot-2-offset-x: 0px;
-$shot-2-offset-y: -1450px;
-$shot-2-width: 958px;
-$shot-2-height: 624px;
-$shot-2-total-width: 2794px;
-$shot-2-total-height: 2074px;
-$shot-2-image: '../images/sprite.png';
-$shot-2: (0px, 1450px, 0px, -1450px, 958px, 624px, 2794px, 2074px, '../images/sprite.png', 'shot-2', );
-$shot-3-name: 'shot-3';
-$shot-3-x: 958px;
-$shot-3-y: 1450px;
-$shot-3-offset-x: -958px;
-$shot-3-offset-y: -1450px;
-$shot-3-width: 858px;
-$shot-3-height: 624px;
-$shot-3-total-width: 2794px;
-$shot-3-total-height: 2074px;
-$shot-3-image: '../images/sprite.png';
-$shot-3: (958px, 1450px, -958px, -1450px, 858px, 624px, 2794px, 2074px, '../images/sprite.png', 'shot-3', );
-$shot-4-name: 'shot-4';
-$shot-4-x: 0px;
-$shot-4-y: 0px;
-$shot-4-offset-x: 0px;
-$shot-4-offset-y: 0px;
-$shot-4-width: 2794px;
-$shot-4-height: 1450px;
-$shot-4-total-width: 2794px;
-$shot-4-total-height: 2074px;
-$shot-4-image: '../images/sprite.png';
-$shot-4: (0px, 0px, 0px, 0px, 2794px, 1450px, 2794px, 2074px, '../images/sprite.png', 'shot-4', );
-$spritesheet-width: 2794px;
-$spritesheet-height: 2074px;
-$spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($shot-1, $shot-2, $shot-3, $shot-4, );
-$spritesheet: (2794px, 2074px, '../images/sprite.png', $spritesheet-sprites, );
+$bpmsprites: (
+shot-1: (
+  x: 1816px,
+  y: 1450px,
+  offset-x: -1816px,
+  offset-y: -1450px,
+  width: 260px,
+  height: 413px,
+  image: '../images/sprite.png'
+   ),
+shot-2: (
+  x: 0px,
+  y: 1450px,
+  offset-x: 0px,
+  offset-y: -1450px,
+  width: 958px,
+  height: 624px,
+  image: '../images/sprite.png'
+   ),
+shot-3: (
+  x: 958px,
+  y: 1450px,
+  offset-x: -958px,
+  offset-y: -1450px,
+  width: 858px,
+  height: 624px,
+  image: '../images/sprite.png'
+   ),
+shot-4: (
+  x: 0px,
+  y: 0px,
+  offset-x: 0px,
+  offset-y: 0px,
+  width: 2794px,
+  height: 1450px,
+  image: '../images/sprite.png'
+   ),
+);
 
-/*
-The provided mixins are intended to be used with the array-like variables
-
-.icon-home {
-  @include sprite-width($icon-home);
-}
-
-.icon-email {
-  @include sprite($icon-email);
-}
-
-Here are example usages in HTML:
-
-`display: block` sprite:
-<div class="icon-home"></div>
-
-`display: inline-block` sprite:
-<img class="icon-home" />
-*/
-@mixin sprite-width($sprite) {
-  width: nth($sprite, 5);
-}
-
-@mixin sprite-height($sprite) {
-  height: nth($sprite, 6);
-}
-
-@mixin sprite-position($sprite) {
-  $sprite-offset-x: nth($sprite, 3);
-  $sprite-offset-y: nth($sprite, 4);
-  background-position: $sprite-offset-x  $sprite-offset-y;
-}
-
-@mixin sprite-image($sprite) {
-  $sprite-image: nth($sprite, 9);
-  background-image: url(#{$sprite-image});
-}
-
-@mixin sprite($sprite) {
-  @include sprite-image($sprite);
-  @include sprite-position($sprite);
-  @include sprite-width($sprite);
-  @include sprite-height($sprite);
-}
-
-/*
-The `sprites` mixin generates identical output to the CSS template
-  but can be overridden inside of SCSS
-
-@include sprites($spritesheet-sprites);
-*/
-@mixin sprites($sprites) {
-  @each $sprite in $sprites {
-    $sprite-name: nth($sprite, 10);
-    .#{$sprite-name} {
-      @include sprite($sprite);
-    }
-  }
-}

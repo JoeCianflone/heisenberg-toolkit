@@ -7,6 +7,7 @@ var gulp       = require('gulp'),
     merge      = require('merge-stream'),
     vBuffer     = require('vinyl-buffer'),
     spritesmith = require('gulp.spritesmith'),
+    svgSprite  = require('gulp-svg-sprite'),
     config     = require('../config.js');
 
 
@@ -15,17 +16,15 @@ gulp.task('sprite-bitmap', [], function() {
   var spriteData = gulp.src('src/images/**/*.png').pipe(spritesmith({
     imgName: 'sprite.png',
     imgPath: '../images/sprite.png',
-    cssName: '_sprite-bitmap.scss'
+    cssName: '_sprite-bitmap.scss',
+    cssTemplate: 'gulp/templates/bmp-sprite-template.scss.handlebars'
   }));
 
-  // Pipe image stream through image optimizer and onto disk
   var imgStream = spriteData.img
-    // // DEV: We must buffer our stream into a Buffer for `imagemin`
     // .pipe(vBuffer())
     // .pipe(imagemin())
     .pipe(gulp.dest('assets/images/'));
 
-  // Pipe CSS stream through CSS optimizer and onto disk
   var cssStream = spriteData.css
     .pipe(gulp.dest('src/sass/sprites/'));
 
@@ -34,19 +33,25 @@ gulp.task('sprite-bitmap', [], function() {
 });
 
 gulp.task('sprite-svg', ['minification'], function() {
-    return gulp.src("**/*.svg", {cwd: config.dest.imgs})
+    return gulp.src("**/*.svg", {cwd: config.src.imgs})
         .pipe(plumber({errorHandler: notify.onError("SVG Sprite Error: Error:\n<%= error.message %>")}))
         .pipe(svgSprite({
-            "dest": config.dest.base,
             "mode": {
-               "view": {
-                  "dest": config.dest.imgs,
-                  "render": {
-                     "scss": {
-                        "dest": "../../"+config.src.sass+"/sprites/_svgSprite.scss"
-                     }
-                  }
-               }
+                "css": {
+                    "spacing": {
+                        "padding": 5
+                    },
+                    "dest": "./",
+                    "layout": "diagonal",
+                    "sprite": "assets/images/svg-sprite.svg",
+                    "bust": false,
+                    "render": {
+                        "scss": {
+                            "dest": "src/sass/sprites/_sprite-svg.scss",
+                            "template": "gulp/templates/svg-sprite-template.scss"
+                        }
+                    }
+                }
             }
          }))
         .pipe(gulp.dest('.'))

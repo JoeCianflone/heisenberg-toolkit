@@ -1,6 +1,22 @@
-@mixin spriter($name) {
-   background: transparent url("../images/sprite.png") 0 0 no-repeat;
-   width: #{$name}-width;
-   height: #{$name}-height;
-   background-position: #{$name}-offset-x #{$name}-offset-y;
+@import 'sprites/sprite-bitmap';
+@import 'sprites/sprite-svg';
+
+@mixin spriter($type, $name) {
+   @if $type == 'svg' {
+      $image: map-get($svgmap, $name);
+      $sprite: map-get($svgmap, sprite);
+      width: map-get($image, width);
+      height: map-get($image, height);
+      background-image: url(map-get($sprite, svgPath));
+      background-position: map-get($image, backgroundX) map-get($image, backgroundY);
+   }
+
+   @if $type == 'png' or $type == 'jpg' or $type == 'jpeg' {
+      $image: map-get($bpmsprites, $name);
+      width: map-get($image, width);
+      height: map-get($image, height);
+      background-image: url(map-get($image, image));
+      background-position: map-get($image, offset-x) map-get($image, offset-y);
+   }
 }
+
