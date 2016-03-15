@@ -10,8 +10,7 @@
       height: map-get($image, height);
       width: map-get($image, width);
    }
-
-   @if $type == 'png' or $type == 'jpg' or $type == 'jpeg' {
+   @elseif $type == 'png' or $type == 'jpg' or $type == 'jpeg' {
       $image: map-get($bpmsprites, $name);
       background-image: url(map-get($image, image));
       background-position: map-get($image, offset-x) map-get($image, offset-y);

@@ -2,7 +2,6 @@ var gulp       = require('gulp'),
     notify     = require('gulp-notify'),
     plumber    = require('gulp-plumber'),
     livereload = require('gulp-livereload'),
-    del        = require('del'),
     imagemin   = require('gulp-imagemin'),
     merge      = require('merge-stream'),
     vBuffer     = require('vinyl-buffer'),
@@ -21,8 +20,6 @@ gulp.task('sprite-bitmap', [], function() {
   }));
 
   var imgStream = spriteData.img
-    // .pipe(vBuffer())
-    // .pipe(imagemin())
     .pipe(gulp.dest('assets/images/'));
 
   var cssStream = spriteData.css
@@ -32,7 +29,7 @@ gulp.task('sprite-bitmap', [], function() {
   return merge(imgStream, cssStream);
 });
 
-gulp.task('sprite-svg', ['minification'], function() {
+gulp.task('sprite-svg', [], function() {
     return gulp.src("**/*.svg", {cwd: config.src.imgs})
         .pipe(plumber({errorHandler: notify.onError("SVG Sprite Error: Error:\n<%= error.message %>")}))
         .pipe(svgSprite({

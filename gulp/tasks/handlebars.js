@@ -8,7 +8,7 @@ var gulp       = require('gulp'),
     livereload = require('gulp-livereload'),
     config     = require('../config.js');
 
-gulp.task('handlebars', function () {
+gulp.task('handlebars', [], function () {
    gulp.src(config.src.hbs+'*.hbs')
       .pipe(plumber({errorHandler: notify.onError("Handlebars Error:\n<%= error.message %>")}))
       .pipe(handlebars({
