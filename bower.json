@@ -10,7 +10,6 @@
     "handlebars": "~4.0.5",
     "include-media": "~1.4.2",
     "modernizr": "~3.2.0",
-    "momentjs": "~2.10.6",
     "normalize-scss": "~3.0.3",
     "susy": "~2.2.9",
     "PubSubJS": "pubsub-js#~1.5.3",

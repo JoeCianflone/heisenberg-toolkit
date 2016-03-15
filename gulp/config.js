@@ -21,6 +21,7 @@ var scripts = {
    modernizr:  [src.js    +"modernizr.js"],
 
    main: [
+      // Your files go here...
       src.bower + "handlebars/handlebars.runtime.js",
       src.bower + "PubSubJS/src/pubsub.js",
       src.bower + "ajax/dist/ajax.min.js",
