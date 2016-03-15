@@ -9,7 +9,7 @@
     "fontawesome": "~4.5.0",
     "handlebars": "~4.0.5",
     "include-media": "~1.4.2",
-    "modernizr": "~3.2.0",
+    "modernizr": "~3.3.1",
     "normalize-scss": "~3.0.3",
     "susy": "~2.2.9",
     "PubSubJS": "pubsub-js#~1.5.3",
