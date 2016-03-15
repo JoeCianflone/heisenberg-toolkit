@@ -8,6 +8,6 @@ gulp.task('cleaner', [], function () {
       config.dest.js    + "**/*.*",
       config.dest.imgs  + "**/*.*",
       config.dest.fonts + "**/*.*",
-      config.src.scss + "sprites/**/*.*"
+      config.src.sass + "sprites/**/*.*"
    ]);
 });

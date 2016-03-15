@@ -14,12 +14,31 @@ var src = {
    imgs:      "src/images/",
    bower:     "src/bower/",
    fonts:     "src/fonts/",
-   sprites:   "src/sass/sprites",
    templates: "templates.tpl"
 };
 
+// TODO: need to add some documentation on how to change this, its a bit involved...
+var sprites = {
+   svg: {
+      imgName:         "svg-sprite.svg",
+      imgPath:         "assets/images/",
+      scssName:        "_sprite-svg.scss",
+      scssPath:        "src/sass/sprites/",
+      template:        "gulp/templates/svg-sprite-template.scss",
+      imgRelativePath: "../images/svg-sprite.svg"
+   },
+   bitmap: {
+      imgName:         "sprite.png",
+      imgPath:         "assets/images/sprite.png",
+      scssName:        "_sprite-bitmap.scss",
+      scssPath:        "src/sass/sprites/",
+      template:        "gulp/templates/bmp-sprite-template.scss.handlebars",
+      imgRelativePath: "../images/sprite.png"
+   }
+};
+
 var scripts = {
-   modernizr:  [src.js    +"modernizr.js"],
+   modernizr:  [src.js + "modernizr.js"],
 
    main: [
       // Your files go here...
@@ -38,5 +57,6 @@ var scripts = {
 module.exports = {
    dest: dest,
    src: src,
-   scripts: scripts
+   scripts: scripts,
+   sprites: sprites
 };
