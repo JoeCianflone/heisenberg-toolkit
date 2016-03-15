@@ -14,6 +14,6 @@ gulp.task('minification', [], function () {
          svgoPlugins: [{removeViewBox: false}],
          use: [pngquant()]
       }))
-      .pipe(gulp.dest(config.dest.imgs))
+      .pipe(gulp.dest(config.dest.imgs + "/tmp/"))
       .pipe(livereload());
 });
