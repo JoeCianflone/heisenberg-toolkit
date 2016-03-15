@@ -10,7 +10,7 @@ var gulp       = require('gulp'),
     livereload = require('gulp-livereload'),
     config     = require('../config.js');
 
-gulp.task('scripts', ['handlebars'], function() {
+gulp.task('scripts', [], function() {
    gulp.src(config.scripts.modernizr)
       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
       .pipe(concat("modernizr.min.js"))
@@ -23,7 +23,7 @@ gulp.task('scripts', ['handlebars'], function() {
       .pipe(sourcemaps.init())
          .pipe(concat("app.min.js"))
          .pipe(gulpif(yargs.production, uglify()))
-      .pipe(sourcemaps.write("maps"))
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(config.dest.js))
       .pipe(livereload());
 });

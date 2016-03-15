@@ -10,7 +10,7 @@ var gulp       = require('gulp'),
     pngquant   = require('imagemin-pngquant'),
     config     = require('../config.js');
 
-gulp.task('sass', ['bower', 'sprite'], function () {
+gulp.task('sass', [], function () {
    gulp.src(config.src.sass + '*.scss')
       .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
       .pipe(sourcemaps.init())
@@ -22,7 +22,7 @@ gulp.task('sass', ['bower', 'sprite'], function () {
          cascade: false,
          remove: true
       }))
-      .pipe(sourcemaps.write())
+      .pipe(sourcemaps.write("."))
       .pipe(gulp.dest(config.dest.css))
       .pipe(livereload());
 });

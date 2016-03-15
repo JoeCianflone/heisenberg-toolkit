@@ -8,7 +8,7 @@ gulp.task('watch', function () {
       livereload.listen();
    }
 
-   gulp.watch(config.src.imgs + '**/*',      ['imageProcess']);
+   //gulp.watch(config.src.imgs + '**/*',      ['minification']);
    gulp.watch(config.src.js   + '**/*.js',   ['scripts']);
    gulp.watch(config.src.hbs  + '**/*.hbs',  ['handlebars', 'scripts']);
    gulp.watch(config.src.sass + '**/*.scss', ['sass']);
