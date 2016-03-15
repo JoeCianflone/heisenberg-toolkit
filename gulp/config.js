@@ -10,10 +10,11 @@ var src = {
    base:      "src/",
    js:        "src/js/",
    hbs:       "src/js/templates/",
-   bower:     "src/bower/",
    sass:      "src/sass/",
    imgs:      "src/images/",
+   bower:     "src/bower/",
    fonts:     "src/fonts/",
+   sprites:   "src/sass/sprites",
    templates: "templates.tpl"
 };
 
