@@ -20,14 +20,15 @@
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svg-sprite": "^1.2.19",
-    "gulp-uglify": "^1.5.1",
+    "gulp-uglify": "^1.5.3",
     "gulp-wrap": "^0.11.0",
     "gulp.spritesmith": "^6.2.0",
-    "imagemin-pngquant": "^4.1.2",
+    "handlebars": "^4.0.5",
+    "imagemin-pngquant": "^4.2.2",
     "merge-stream": "^1.0.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
-    "yargs": "^3.31.0"
+    "yargs": "^4.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -44,8 +45,6 @@
   },
   "homepage": "https://github.com/joecianflone/heisenberg-toolkit",
   "devDependencies": {
-    "gulp-notify": "^2.2.0",
-    "gulp-svg-sprite": "^1.2.19",
-    "handlebars": "^4.0.5"
+    "gulp-notify": "^2.2.0"
   }
 }
