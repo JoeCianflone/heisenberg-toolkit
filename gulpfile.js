@@ -33,7 +33,7 @@ gulp.task('boot', function(callback) {
 });
 
 gulp.task('images', function(callback) {
-   runSequence('minification', 'sprite-bitmap', 'sprite-svg', callback);
+   runSequence('minification', 'sprite-bitmap', 'sprite-svg', 'sprite-check', callback);
 });
 
 gulp.task('css', function(callback) {

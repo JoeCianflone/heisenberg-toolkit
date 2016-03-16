@@ -52,3 +52,20 @@ gulp.task('sprite-svg', [], function() {
         .pipe(gulp.dest('.'))
         .pipe(livereload());
 });
+
+gulp.task('sprite-check', [], function() {
+   var f1 = config.sprites.bitmap.scssPath + config.sprites.bitmap.scssName;
+   var f2 = config.sprites.svg.scssPath + config.sprites.svg.scssName;
+
+   fs.stat(f1, function(err, stat) {
+      if(err !== null) {
+         fs.writeFileSync(f1, '');
+      }
+   });
+
+   fs.stat(f2, function(err, stat) {
+      if(err !== null) {
+         fs.writeFileSync(f2, '');
+      }
+   });
+});
