@@ -6,6 +6,7 @@ var gulp       = require('gulp'),
     merge      = require('merge-stream'),
     spritesmith = require('gulp.spritesmith'),
     svgSprite  = require('gulp-svg-sprite'),
+    fs         = require('fs'),
     config     = require('../config.js');
 
 
