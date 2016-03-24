@@ -2,41 +2,24 @@
 
 ## Introduction
 
-Heisenberg is a toolkit of code to help you speed up the development of your front end projects.
+Heisenberg is a toolkit of code to help you speed up the development of your front end projects that do not rely on frameworks like Angular or Vuejs.
 
-### Toolkit? You Mean Framework?
+### What's in the Box?
 
-No, Heisenberg isn't what I could call a framework. A framework is the support structure for code. Frameworks *should* make your life a lot easier by building out a bunch of boilerplate code and helping you out with convenience methods and objects.
+Heisenberg wants to get a whole bunch of low-level tasks out of your way so you can jump into coding your app.
 
-This doesn't really do that.
+When you download Heisenberg you get the following out-of-the-box:
 
-Heisenberg does give you a base to build on, but it's more of a foundation--bits of code that you'll almost always use on every project, put together and ready to go.
-
-## What's in the Box?
-
-Heisenberg comes with some base things for you:
-
-1. Gulp and all the gulp tasks ready to go
-2. Sass
-3. Vanilla JavaScript put together in a sensible way
-4. Image minification
-5. Spriteing capabilities
-6. Bower
-7. Handlebars
-8. Easy Configuration
-9. Editor Config files
-10. JS/CSS uglification and minification
-11. Browser normalization
-12. A standard sane way to write your code
-
-That's a lot to say, so let's take a look at some stuff to see what we mean.
-
-## Gulp
-
-Gulp tasks come ready to go and everything is highly configurable just check out `gulp/config.js`
++ Basic gulp tasks: Sass, Image Minification, PNG/SVG Sprites, JS/Sass Concatenation and Minification
++ A sensible way of organizing your Sass and Javascript
++ Mixins that will make your life easier
++ Grids with Susy, Media Queries, Normalized CSS with some sane defaults
++ Bower, HandlebarsJS and EditorConfig files
++ VanillaJS that helps you with events and ajax calls without the weight of jQuery
 
 
-## License
+
+# License
 
 The MIT License (MIT)
 Copyright (c) 2015-2016 Joe Cianflone
