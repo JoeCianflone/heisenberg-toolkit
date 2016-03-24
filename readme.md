@@ -17,6 +17,40 @@ When you download Heisenberg you get the following out-of-the-box:
 + Bower, HandlebarsJS and EditorConfig files
 + VanillaJS that helps you with events and ajax calls without the weight of jQuery
 
+## Installing and Usage
+
+There are a couple of pretty simple ways to get started with Heisenberg: clone this repo, download the zip, or use our installer.
+
+### Heisenberg Installer
+
+The [toolkit installer](https://github.com/JoeCianflone/heisenberg-toolkit-installer) is the easy way to pull down the latest Heisenberg release and to update its folder structure should you not like our defaults.
+
+Once you've got it installed you just need to create a new directory on your system and from in there use the `install` command.
+
+```bash
+$ walt install --deps
+```
+
+The `--deps` flag will pull down all the dependencies from NPM and Bower and compile everything the first time.
+
+By default Heisenberg puts all your sass, javascript and images into a `src` folder and outputs everything to an `assets` folder. If you want to change that you can through the installer too.
+
+```bash
+$ walt install --src="raw-files" --dest="dist"
+```
+
+This will make sure that the `bowerrc` files and all any gulp configuration files are correctly updated so when you next run `gulp compile` everything will work as expected.
+
+## Features
+
+### Gulp
+Coming soon
+
+### Sass
+Coming soon
+
+### Javascript
+Coming soon
 
 
 # License
