@@ -50,7 +50,128 @@ Coming soon
 Coming soon
 
 ### Javascript
-Coming soon
+
+Heisenberg is set up to make the javascript you write be more readable for humans. This tries to solve the big problem, when you don't have a framework like Angular, of where should something go.
+
+Once your apps start getting to a certain size you start to run into the issue where all your JS starts to become a mess. You have one external file that looks a lot like this:
+
+```javascript
+$(function(){
+   // All your JS in here...
+});
+```
+
+Now obviously, when you started this file, you expected to have only a couple onClick events...now you've got some crazy logic and it's difficult to keep track of anything.
+
+#### Modules
+Heisenberg has all your boilerplate JS baked in all you need to do is create a new module and start adding your events. If you take a look at the `/src/js/modules/introduction.js` you'll see a basic module template.
+
+```javascript
+   App.Modules = App.Modules || {};
+   App.Modules.Introduction = function () {
+      var o = { };
+
+      return {
+         init: function() {
+            return this;
+         },
+         events: function() {
+            return this;
+         }
+      };
+   }();
+```
+
+This is a basic module. It utilizes the [revealing module design pattern](https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript) to keep your code private. The `init` method is where you write any code that you want *executed immediately* and code that you want available every time this module runs. `events` is where you will put your code to trigger events.
+
+#### Events
+The event system in Heisenberg is really just a fluent wrapper about modern javascript. We just wanted a way to make the code A) easier to read and B) easily repeatable. A simple event inside a module would work like the following:
+
+```javascript
+   App.Modules = App.Modules || {};
+   App.Modules.Introduction = function () {
+      var o = { };
+
+      var foo = function(data) {
+         console.log("You clicked me");
+      };
+
+      return {
+         init: function() {
+            return this;
+         },
+         events: function() {
+            Events.bind("click", ".js-clicker").to(foo, this);
+            return this;
+         }
+      };
+   }();
+```
+
+Thats it. With that one line, you've tied a click on an element with class `js-clicker` to the `foo` function in your module.
+
+There's a lot more you can do here too. Lets say you only want that click event to bind when you're on a specific page.
+
+```javascript
+Events.bind("click",".js-clicker").when("body[class]==about").to(foo, this);
+```
+
+`when()` events can be triggered on equal (`==`) or not equal (`!=`) situations.
+
+You also get a special `data` variable that is always passed to the function so you can pass in your own extra data or get access to the special `eventElement` so you know what was clicked or triggered in general.
+
+```javascript
+   App.Modules = App.Modules || {};
+   App.Modules.Introduction = function () {
+      var o = { };
+
+      var foo = function(data) {
+         console.log(data.eventElement);
+      };
+
+      return {
+         init: function() {
+            return this;
+         },
+         events: function() {
+            Events.bind("click", ".js-clicker").to(foo, this);
+            return this;
+         }
+      };
+   }();
+```
+
+You can also check for keys to be pressed
+
+```javascript
+   App.Modules = App.Modules || {};
+   App.Modules.Introduction = function () {
+      var o = { };
+
+      var foo = function(data) {
+         // now this won't get called unless you hit key 13!
+      };
+
+      var bar = function(data) {
+         //this gets called on every keyup...
+      };
+
+      return {
+         init: function() {
+            return this;
+         },
+         events: function() {
+            Events.bind("keypress", ".js-enter-only", [13]).to(foo, this);
+            Events.bind("keyup", ".js-all-keys").to(bar, this);
+            return this;
+         }
+      };
+   }();
+```
+
+#### PubSub
+
+The whole system is built on PubSub and passing messages back-and-forth between different modules. You can use these PubSub methods inside your own code too, that way code in different modules can listen for events happening in other modules. *You should not just dump all your logic in to one module, you should make your modules logical and publish and subscribe to events*.
 
 
 # License
