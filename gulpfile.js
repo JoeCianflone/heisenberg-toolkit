@@ -33,7 +33,7 @@ gulp.task('boot', function(callback) {
 });
 
 gulp.task('images', function(callback) {
-   runSequence('minification', 'sprite-bitmap', 'sprite-svg', 'sprite-check', callback);
+   runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
 });
 
 gulp.task('css', function(callback) {
@@ -45,7 +45,7 @@ gulp.task('js', function(callback) {
 });
 
 gulp.task('compile', function(callback) {
-   runSequence('boot', 'images', 'css', 'js', callback);
+   runSequence('boot', 'images', 'css', 'js',  callback);
 });
 
 gulp.task('default', function(callback) {

@@ -11,7 +11,7 @@ var gulp       = require('gulp'),
     config     = require('../config.js');
 
 gulp.task('sass', [], function () {
-   gulp.src(config.src.sass + '*.scss')
+   return gulp.src(config.src.sass + '**/*.scss')
       .pipe(plumber({errorHandler: notify.onError("Sass Error:\n<%= error.message %>")}))
       .pipe(sourcemaps.init())
       .pipe(sass({

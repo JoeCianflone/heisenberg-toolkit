@@ -6,13 +6,12 @@ var gulp       = require('gulp'),
     merge      = require('merge-stream'),
     spritesmith = require('gulp.spritesmith'),
     svgSprite  = require('gulp-svg-sprite'),
-    fs         = require('fs'),
     config     = require('../config.js');
 
 
 gulp.task('sprite-bitmap', [], function() {
 
-  var spriteData = gulp.src(config.dest.imgs+'tmp/**/*.png').pipe(spritesmith({
+  var spriteData = gulp.src(config.dest.minify+'**/*.png').pipe(spritesmith({
     imgName:     config.sprites.bitmap.imgName,
     imgPath:     config.sprites.bitmap.imgRelativePath,
     cssName:     config.sprites.bitmap.scssName,
@@ -29,13 +28,13 @@ gulp.task('sprite-bitmap', [], function() {
 });
 
 gulp.task('sprite-svg', [], function() {
-    return gulp.src("**/*.svg", {cwd: config.dest.imgs + "tmp/"})
+    return gulp.src("**/*.svg", {cwd: config.dest.minify})
         .pipe(plumber({errorHandler: notify.onError("SVG Sprite Error: Error:\n<%= error.message %>")}))
         .pipe(svgSprite({
             "mode": {
                 "css": {
                     "spacing": {
-                        "padding": 5
+                        "padding": 4
                     },
                     "dest": "./",
                     "layout": "diagonal",
@@ -54,19 +53,3 @@ gulp.task('sprite-svg', [], function() {
         .pipe(livereload());
 });
 
-gulp.task('sprite-check', [], function() {
-   var f1 = config.sprites.bitmap.scssPath + config.sprites.bitmap.scssName;
-   var f2 = config.sprites.svg.scssPath + config.sprites.svg.scssName;
-
-   fs.stat(f1, function(err, stat) {
-      if(err !== null) {
-         fs.writeFileSync(f1, '');
-      }
-   });
-
-   fs.stat(f2, function(err, stat) {
-      if(err !== null) {
-         fs.writeFileSync(f2, '');
-      }
-   });
-});

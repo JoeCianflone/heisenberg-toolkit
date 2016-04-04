@@ -9,7 +9,7 @@ var gulp       = require('gulp'),
     config     = require('../config.js');
 
 gulp.task('handlebars', [], function () {
-   gulp.src(config.src.hbs+'*.hbs')
+   return gulp.src(config.src.hbs+'*.hbs')
       .pipe(plumber({errorHandler: notify.onError("Handlebars Error:\n<%= error.message %>")}))
       .pipe(handlebars({
          handlebars: require('handlebars')

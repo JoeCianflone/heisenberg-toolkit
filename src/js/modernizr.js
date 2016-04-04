@@ -1406,20 +1406,6 @@
   ;
 /*!
 {
-  "name": "ES5 String.prototype.contains",
-  "property": "contains",
-  "authors": ["Robert Kowalski"],
-  "tags": ["es6"]
-}
-!*/
-/* DOC
-Check if browser implements ECMAScript 6 `String.prototype.contains` per specification.
-*/
-
-  Modernizr.addTest('contains', is(String.prototype.contains, 'function'));
-
-/*!
-{
   "name": "CSS Supports",
   "property": "supports",
   "caniuse": "css-featurequeries",
@@ -1441,6 +1427,20 @@ Check if browser implements ECMAScript 6 `String.prototype.contains` per specifi
   var newSyntax = 'CSS' in window && 'supports' in window.CSS;
   var oldSyntax = 'supportsCSS' in window;
   Modernizr.addTest('supports', newSyntax || oldSyntax);
+
+/*!
+{
+  "name": "ES5 String.prototype.contains",
+  "property": "contains",
+  "authors": ["Robert Kowalski"],
+  "tags": ["es6"]
+}
+!*/
+/* DOC
+Check if browser implements ECMAScript 6 `String.prototype.contains` per specification.
+*/
+
+  Modernizr.addTest('contains', is(String.prototype.contains, 'function'));
 
 
   // Run each test

@@ -3,11 +3,11 @@ var gulp       = require('gulp'),
     config     = require('../config.js');
 
 gulp.task('cleaner', [], function () {
-   del([
-      config.dest.css   + "**/*.*",
-      config.dest.js    + "**/*.*",
-      config.dest.imgs  + "**/*.*",
-      config.dest.fonts + "**/*.*",
-      config.src.sass + "sprites/**/*.*"
+   return del([
+      config.dest.css   + "**",
+      config.dest.js    + "**",
+      config.dest.imgs  + "**",
+      config.dest.fonts + "**"
    ]);
 });
+

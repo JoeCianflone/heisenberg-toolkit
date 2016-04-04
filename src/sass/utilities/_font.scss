@@ -6,10 +6,10 @@
 /// @param String|Number $font-size:   The pixel based font size you'd like an element to be
 @mixin font-size($font-size) {
    $base-size: get-value(get-stack(base-size) / 100);
-   $base-px-size: 16 * $base-size; // 16 is a constant because 16px is the base sie of all browser text, everything scales from there
+   $base-px-size: 16 * $base-size;
 
-   font-size: unquote($font-size);
-   font-size: unquote((get-value($font-size) / $base-px-size) + rem);
+   font-size: $font-size;
+   font-size: (get-value($font-size) / $base-px-size) + rem;
 }
 
  /// Bringing in fonts that you need to load from your own server isn't difficult
