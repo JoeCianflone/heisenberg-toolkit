@@ -54,3 +54,7 @@
 @function get-line-height($font-size, $line-height) {
    @return get-value($line-height / $font-size);
 }
+
+@function get-breakpoint($name) {
+   @return get-by($name, $breakpoints);
+}

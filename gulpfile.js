@@ -36,7 +36,7 @@ gulp.task('images', function(callback) {
    runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
 });
 
-gulp.task('css', function(callback) {
+gulp.task('scss', function(callback) {
    runSequence('sass', callback);
 });
 
@@ -45,7 +45,7 @@ gulp.task('js', function(callback) {
 });
 
 gulp.task('compile', function(callback) {
-   runSequence('boot', 'images', 'css', 'js',  callback);
+   runSequence('boot', 'images', 'scss', 'js',  callback);
 });
 
 gulp.task('default', function(callback) {

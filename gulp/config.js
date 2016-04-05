@@ -20,12 +20,9 @@ var src = {
 
 var scripts = {
    modernizr:  [src.js + "modernizr.js"],
-
+   user: [],
    main: [
-      // Your files go here...literally right here above all the rest
-      // Note: you don't need to add any modules in here this is
-      // just for new plugins or things you might bring into
-      // the project
+      src.bower + "picturefill/dist/picturefill.js",
       src.bower + "handlebars/handlebars.runtime.js",
       src.bower + "PubSubJS/src/pubsub.js",
       src.bower + "ajax/dist/ajax.min.js",

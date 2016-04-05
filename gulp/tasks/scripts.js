@@ -18,7 +18,7 @@ gulp.task('scripts', [], function() {
       .pipe(gulp.dest(config.dest.js))
       .pipe(livereload());
 
-   gulp.src(config.scripts.main)
+   gulp.src(config.scripts.user.concat(config.scripts.main))
       .pipe(plumber({errorHandler: notify.onError("JS Error:\n<%= error.message %>")}))
       .pipe(sourcemaps.init())
          .pipe(concat("app.min.js"))
