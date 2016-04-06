@@ -4,7 +4,6 @@
 /vendor
 /node_modules
 src/bower/
-src/sass/sprites/
 assets/js/
 assets/css/
 assets/fonts/
