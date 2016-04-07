@@ -1,6 +1,6 @@
 {
   "name": "HeisenbergToolkit",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "A project base for building large apps with lots of JavaScript and Sass but no framework",
   "main": "index.html",
   "dependencies": {

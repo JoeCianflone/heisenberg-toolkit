@@ -1,20 +1,28 @@
+/**
+ * If you pulled this down directly from Github you will need
+ * to replace the {{dest}} and {{src}} with the correct
+ * path to where you placed these files. You will also need
+ * to update the .heisenberg file so if you run walt update
+ * it knows how to correctly update your  files without
+ * blowing making you do a bunch of manual work
+ */
 var dest = {
-   base:     "assets/",
-   js:       "assets/js/",
-   css:      "assets/css/",
-   imgs:     "assets/images/",
-   fonts:    "assets/fonts/",
-   minify:   "assets/images/minified/"
+   base:     "{{dest}}/",
+   js:       "{{dest}}/js/",
+   css:      "{{dest}}/css/",
+   imgs:     "{{dest}}/images/",
+   fonts:    "{{dest}}/fonts/",
+   minify:   "{{dest}}/images/minified/"
 };
 
 var src = {
-   base:      "src/",
-   js:        "src/js/",
-   hbs:       "src/js/templates/",
-   sass:      "src/sass/",
-   imgs:      "src/images/",
-   bower:     "src/bower/",
-   fonts:     "src/fonts/",
+   base:      "{{src}}/",
+   js:        "{{src}}/js/",
+   hbs:       "{{src}}/js/templates/",
+   sass:      "{{src}}/sass/",
+   imgs:      "{{src}}/images/",
+   bower:     "{{src}}/bower/",
+   fonts:     "{{src}}/fonts/",
    templates: "templates.tpl"
 };
 
