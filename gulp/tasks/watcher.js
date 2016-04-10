@@ -5,7 +5,7 @@ var gulp       = require('gulp'),
     livereload = require('gulp-livereload'),
     config     = require('../config.js');
 
-gulp.task('watch', function () {
+gulp.task('watcher', function () {
    if (!yargs.noreload && !yargs.production) {
       livereload.listen();
    }

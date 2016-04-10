@@ -48,6 +48,10 @@ gulp.task('compile', function(callback) {
    runSequence('boot', 'images', 'scss', 'js',  callback);
 });
 
+gulp.task('watch', function(callback) {
+   runSequence('compile', 'watcher',  callback);
+});
+
 gulp.task('default', function(callback) {
-   runSequence('compile', 'watch', callback);
+   runSequence('compile', callback);
 });
