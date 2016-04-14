@@ -28,18 +28,20 @@ The [toolkit installer](https://github.com/JoeCianflone/heisenberg-toolkit-insta
 Once you've got it installed you just need to create a new directory on your system and from in there use the `install` command.
 
 ```bash
-$ walt install --deps
+$ walt install
 ```
 
-The `--deps` flag will pull down all the dependencies from NPM and Bower and compile everything the first time.
+This is using the Laravel Console components, so if your familiar with the way it formats arguments vs options here is the install commands signature:
 
-By default Heisenberg puts all your sass, javascript and images into a `src` folder and outputs everything to an `assets` folder. If you want to change that you can through the installer too.
-
-```bash
-$ walt install --src="raw-files" --dest="dist"
+```Bash
+$ walt install <src="src"> <dest="assets"> --dev --force --deps
 ```
 
-This will make sure that the `bowerrc` files and all any gulp configuration files are correctly updated so when you next run `gulp compile` everything will work as expected.
+Out-of-the-box `walt` will install all your source code (the code you should be working with) into the `src` directory. It will all compile to the `assets` folder, but since that's compiled unless you've run the `--deps` option you won't see that folder right away.
+
+*Please note that order of `src` and `dest` is important.*
+
+For more information please visit the [toolkit installer](https://github.com/JoeCianflone/heisenberg-toolkit-installer) repo.
 
 ## Features
 
@@ -51,9 +53,9 @@ Coming soon
 
 ### Javascript
 
-Heisenberg is set up to make the javascript you write be more readable for humans. This tries to solve the big problem, when you don't have a framework like Angular, of where should something go.
+Heisenberg is set up to make the javascript you write be more readable for humans. This tries to solve the problem of--when you don't have a framework-- where should something go?
 
-Once your apps start getting to a certain size you start to run into the issue where all your JS starts to become a mess. You have one external file that looks a lot like this:
+Once your code start getting to a certain size you start to run into the issue where all your JS starts to become hot a mess. You have one external file that looks a lot like this:
 
 ```javascript
 $(function(){
