@@ -5,13 +5,7 @@ var Binder = (function() {
    };
 
    var asDocumentEvent = function(eo) {
-      if (eo.selector.startsWith('#')) {
-         Attach.singleEvent(document.getElementById(eo.selector.replace('#', '')), eo);
-      } else if (eo.selector.startsWith('.')) {
-         Attach.multipleEvents(document.querySelectorAll(eo.selector), eo);
-      } else {
-         Attach.multipleEvents(document.getElementsByTagName(eo.selector), eo);
-      }
+      Attach.multipleEvents(document.querySelectorAll(eo.selector), eo);
    };
 
    return {

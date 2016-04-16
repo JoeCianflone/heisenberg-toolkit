@@ -25,13 +25,9 @@ var Events = (function() {
          eo.keyPress   = ! key ? false : key;
          eo.isKeyEvent = eo.bindEvent.startsWith("key") ? true : false;
 
-         // Basically we're checking to see if the user is trying to
-         // globally capture some keystrokes, this is probably a
-         // pretty rare thing, so instead of making the tirnary
-         // operator crazy to read we just add an if after
-         if (Array.isArray(eo.selector)) {
-            eo.keyPress = eo.selector;
+         if (Array.isArray(selector)) {
             eo.selector = false;
+            eo.keyPress = selector;
          }
 
          return this;
