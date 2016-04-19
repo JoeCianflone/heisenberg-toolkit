@@ -24,9 +24,9 @@ html {
    letter-spacing: get-stack(letter-spacing);
 }
 
-// :focus {
-//    outline: none;
-// }
+:focus {
+   outline: none;
+}
 
 body {
    background: get-color(white);
