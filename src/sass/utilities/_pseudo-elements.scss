@@ -1,10 +1,10 @@
-@mixin first() {
+@mixin first-elem() {
    &:first-of-type {
       @content
    }
 }
 
-@mixin last() {
+@mixin last-elem() {
    &:last-of-type {
       @content
    }

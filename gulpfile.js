@@ -23,35 +23,60 @@
  */
 
 var gulp        = require('gulp'),
-    requireDir  = require('require-dir');
+    config      = require('./gulp/config.js'),
+    requireDir  = require('require-dir'),
     runSequence = require('run-sequence');
 
 requireDir('./gulp/tasks', { recurse: true });
 
+var foldersSetUpCorrect = function() {
+   if (!config.dest.base.startsWith("{{dest}}") && !config.src.base.startsWith("{{src}}")) {
+      return true;
+   }
+
+   console.log("Unable to run this gulp task because your directories are not set up correctly...");
+   console.log("For more information, please see https://github.com/JoeCianflone/heisenberg-toolkit/wiki/Error-Messages for more information");
+   return false;
+};
+
 gulp.task('boot', function(callback) {
-   runSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
+   }
 });
 
 gulp.task('images', function(callback) {
-   runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
+   }
 });
 
 gulp.task('scss', function(callback) {
-   runSequence('sass', callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('sass', callback);
+   }
 });
 
 gulp.task('js', function(callback) {
-   runSequence('handlebars', 'scripts', callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('handlebars', 'scripts', callback);
+   }
 });
 
 gulp.task('compile', function(callback) {
-   runSequence('boot', 'images', 'scss', 'js',  callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('boot', 'images', 'scss', 'js',  callback);
+   }
 });
 
 gulp.task('watch', function(callback) {
-   runSequence('compile', 'watcher',  callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('compile', 'watcher',  callback);
+   }
 });
 
 gulp.task('default', function(callback) {
-   runSequence('compile', callback);
+   if (foldersSetUpCorrect()) {
+      runSequence('compile', callback);
+   }
 });
