@@ -3,22 +3,24 @@ var Attach = (function() {
    var pub = function(eo, event) {
       PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.userData, {
          eventElement: event.currentTarget,
-         eventTarget: event.target || event.srcElement
+         eventTarget: event.target || event.srcElement,
+         key: parseInt((event.keyCode ? event.keyCode : event.which)),
+         event: event,
       }));
    };
 
-   var specificKeyEvent = function(event, eo) {
-      eo.keyPress.forEach(function(key, i) {
-         var code = parseInt((event.keyCode ? event.keyCode : event.which));
-         if (code === key) {
-            pub(eo, event);
-         }
-      });
-   };
-
-   var typingEvent = function(event, eo) {
+   var keyEvent = function(event, eo) {
+      if (eo.keyPress.length > 0) {
+         eo.keyPress.forEach(function(key, i) {
+            var code = parseInt((event.keyCode ? event.keyCode : event.which));
+            if (code === key) {
+               pub(eo, event);
+            }
+         });
+         return false;
+      }
       pub(eo, event);
-   };
+   }
 
    var genericEvent = function(event, eo) {
       pub(eo, event);
@@ -27,38 +29,17 @@ var Attach = (function() {
 
    return {
       singleEvent: function(item, eo) {
-         if (item === window) {
-            if (eo.isKeyEvent && eo.keyPress) {
-               window.addEventListener(eo.bindEvent, function(event) {
-                  specificKeyEvent(event, eo);
-               });
-            } else if (eo.isKeyEvent && ! eo.keypress) {
-               window.addEventListener(eo.bindEvent, function(event) {
-                  typingEvent(event, eo);
-               });
-            } else {
-               item.addEventListener(eo.bindEvent, function(event) {
-                  genericEvent(event, eo);
-               });
+         item.addEventListener(eo.bindEvent, function(event) {
+            if (eo.isKeyEvent) {
+               keyEvent(event, eo);
+
+               return false;
             }
 
-            return false;
-         }
-
-         if (eo.isKeyEvent && eo.keyPress) {
-            item.addEventListener(eo.bindEvent, function(event) {
-               specificKeyEvent(event, eo);
-            });
-         } else if (eo.isKeyEvent && ! eo.keypress) {
-            item.addEventListener(eo.bindEvent, function(event) {
-               typingEvent(event, eo);
-            });
-         } else {
-            item.addEventListener(eo.bindEvent, function(event) {
-               genericEvent(event, eo);
-            });
-         }
+            genericEvent(event, eo);
+         });
       },
+
       multipleEvents: function(items, eo) {
          Utils.forEach(items, function(index, element) {
             Attach.singleEvent(element, eo);

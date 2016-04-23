@@ -1,9 +1,9 @@
 .DS_Store
 *.sublime-*
 .sass-cache
-/vendor
-/node_modules
-{{src}}/bower/
+vendor/
+node_modules/
+bower/
 {{dest}}/js/
 {{dest}}/css/
 {{dest}}/fonts/
