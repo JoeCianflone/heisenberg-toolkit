@@ -136,18 +136,33 @@
    margin-right: percent(_get-width(true) * $cols);
 }
 
-@mixin flex-container2() {
+$flexMap: (
+   columns: 12,
+   gutter: 0.25,
+   direction: row,
+   wrap: nowrap,
+   justify-content: flex-start,
+   align-items: flex-start,
+   align-content: flex-start,
+);
+
+@mixin flex-wrapper() {
    display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   justify-content: flex-start;
-   align-items: flex-start;
-   align-content: center;
+   flex-direction: map-get($flexMap, direction);
+   flex-wrap: map-get($flexMap, wrap);
+   justify-content: map-get($flexMap, justify-content);
+   align-items: map-get($flexMap, align-items);
+   align-content: map-get($flexMap, align-content);
 }
 
-@mixin flex-cell($cols) {
-   display: flex;
+@mixin flex-cell($cols, $grow: 0) {
+   $totalCols: map-get($flexMap, columns);
+   $width: (100 * $cols) / $totalCols;
+   $gutter: (map-get($flexMap, gutter) * ((100 * 1)/$totalCols));
+   margin: 0 $gutter/2 * 1%;
+   padding: $gutter/2 * 1%;
    order: 1;
-   flex: 0 0 100%;
-   align-self: auto;
+   flex: $grow 0 (($width - ($gutter)) * 1%);
+   align-self: stretch;
+   min-height: 100%;
 }
