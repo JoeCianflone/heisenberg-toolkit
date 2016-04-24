@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @function _getOpt($key, $overrides: ()) {
    @if (map-has-key($overrides, $key)) {
       @return map-get($overrides, $key);
