@@ -1,3 +1,7 @@
-var qs = function(el) {
-   return document.querySelectorAll(el);
-};
+function $$(el, base) {
+   var b = (! base) ? document : base;
+   if (el.startsWith("#")) {
+      return document.getElementById(el);
+   }
+   return b.querySelectorAll(el);
+}

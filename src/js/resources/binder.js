@@ -1,11 +1,11 @@
 var Binder = (function() {
 
-   var asWindowEvent = function(eo) {
-      Attach.singleEvent(window, eo);
-   };
+   var attachAsDocumentEvent = function(eo) {
+      if (el.selector.startsWith("#")) {
+         return Attach.singleEvent(document.getElementById(el.selector), eo);
+      }
 
-   var asDocumentEvent = function(eo) {
-      Attach.multipleEvents(document.querySelectorAll(eo.selector), eo);
+      return Attach.multipleEvents(document.querySelectorAll(eo.selector), eo);
    };
 
    return {
@@ -23,13 +23,12 @@ var Binder = (function() {
 
       bindEvent: function(eo, funcName) {
          if (! eo.selector) {
-            asWindowEvent(eo);
+            Attach.singleEvent(window, eo);
          } else {
-            asDocumentEvent(eo)
+            attachAsDocumentEvent(eo)
          }
 
-         this.bindSubscription(eo, funcName);
-         return false;
+         return this.bindSubscription(eo, funcName);
       }
    };
 }());
