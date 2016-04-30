@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @function _getOpt($key, $overrides: ()) {
    @if (map-has-key($overrides, $key)) {
       @return map-get($overrides, $key);
@@ -142,27 +141,81 @@ $flexMap: (
    direction: row,
    wrap: nowrap,
    justify-content: flex-start,
-   align-items: flex-start,
-   align-content: flex-start,
 );
+
+$flexCellOptions: (
+   order: 0,
+   flex-grow: 0,
+   flex-shrink: 0,
+   align-self: stretch,
+);
+
+@mixin flex-init($options: ()) {
+   $flexOptions: merge($flexOptions, $options);
+}
+
+@function merge($list1, $list2) {
+   @return map-merge($list1, $list2);
+}
+
+@function opt($option) {
+   @return map-get($flexOptions, $option);
+}
+
+@function cell-opt($option) {
+   @return map-get($flexCellOptions, $option);
+}
+
+@function width-setup($gutter) {
+   @if (opt(gutter-type) != none) {
+      @return ($width - $gutter) * 1%;
+   }
+
+   @return ($width) * 1%;
+}
 
 @mixin flex-wrapper() {
    display: flex;
-   flex-direction: map-get($flexMap, direction);
-   flex-wrap: map-get($flexMap, wrap);
-   justify-content: map-get($flexMap, justify-content);
-   align-items: map-get($flexMap, align-items);
-   align-content: map-get($flexMap, align-content);
+   flex-direction: opt(direction);
+   flex-wrap: opt(wrap);
+   justify-content: opt(justify-content);
+   align-items: opt(align-items);
+   align-content: opt(align-content);
 }
 
-@mixin flex-cell($cols, $grow: 0) {
-   $totalCols: map-get($flexMap, columns);
-   $width: (100 * $cols) / $totalCols;
-   $gutter: (map-get($flexMap, gutter) * ((100 * 1)/$totalCols));
-   margin: 0 $gutter/2 * 1%;
-   padding: $gutter/2 * 1%;
-   order: 1;
-   flex: $grow 0 (($width - ($gutter)) * 1%);
-   align-self: stretch;
+@mixin gutter-setup($gutter) {
+   @if (opt(gutter-type) !== none) {
+
+      @if (opt(gutter-type) == split) {
+         margin-left:   $gutter/2 * 1%;
+         margin-right:  $gutter/2 * 1%;
+         padding-left:  $gutter/2 * 1%;
+         padding-right: $gutter/2 * 1%;
+      }
+
+      @if (opt(gutter-type) == inside) {
+         padding-left: $gutter * 1%;
+         padding-right: $gutter * 1%;
+      }
+
+      @if (opt(gutter-type) == outside) {
+         margin-left: $gutter * 1%;
+         margin-right: $gutter * 1%;
+      }
+   }
+}
+
+@mixin flex-cell($cols, $cell-options: ()) {
+
+   $width: (100 * $cols) / opt(columns);
+   $gutter: (opt(gutter-width) * ((100 * 1)/opt(columns)));
+
+   @include gutter-setup($gutter);
+
+   $cell-width: width-setup($gutter);
+
+   order: cell-opt(order);
+   flex: cell-opt(flex-grow) cell-opt(flex-shrink) width-setup($gutter));
+   align-self: cell-opt(align-self);
    min-height: 100%;
 }
