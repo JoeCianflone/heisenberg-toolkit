@@ -150,72 +150,79 @@ $flexCellOptions: (
    align-self: stretch,
 );
 
+$fullOptions: merge($flexContainerOptions, $flexCellOptions);
+
+$singleCellWidth: (100 * $cols) / get(columns);
+$cellGutter:      (get(gutter-width) * (100/get(columns)));
+$cell:            width-setup($cellGutter);
+
+
 @mixin flex-init($options: ()) {
-   $flexOptions: merge($flexOptions, $options);
+   $fullOptions: map-merge($fullOptions, $options);
 }
 
-@function merge($list1, $list2) {
-   @return map-merge($list1, $list2);
+@function get($option) {
+   @return map-get($fullOptions, $option);
 }
 
-@function opt($option) {
-   @return map-get($flexOptions, $option);
+@function percent($x) {
+   @return ($x * 1%);
 }
 
-@function cell-opt($option) {
-   @return map-get($flexCellOptions, $option);
-}
-
-@function width-setup($gutter) {
-   @if (opt(gutter-type) != none) {
-      @return ($width - $gutter) * 1%;
+@function width-setup() {
+   @if (get(gutter-type) != none) {
+      @return percent($cell - $cellGutter);
    }
 
-   @return ($width) * 1%;
+   @return percent($cell);
 }
 
 @mixin flex-wrapper() {
-   display: flex;
-   flex-direction: opt(direction);
-   flex-wrap: opt(wrap);
-   justify-content: opt(justify-content);
-   align-items: opt(align-items);
-   align-content: opt(align-content);
+   align-content:   get(align-content);
+   align-items:     get(align-items);
+   display:         flex;
+   flex-direction:  get(direction);
+   flex-wrap:       get(wrap);
+   justify-content: get(justify-content);
 }
 
 @mixin gutter-setup($gutter) {
-   @if (opt(gutter-type) !== none) {
+   @if (get(gutter-type) !== none) {
 
-      @if (opt(gutter-type) == split) {
-         margin-left:   $gutter/2 * 1%;
-         margin-right:  $gutter/2 * 1%;
-         padding-left:  $gutter/2 * 1%;
-         padding-right: $gutter/2 * 1%;
+      @if (get(gutter-type) == split) {
+         margin-left:   percent($cellGutter/2);
+         margin-right:  percent($cellGutter/2);
+         padding-left:  percent($cellGutter/2);
+         padding-right: percent($cellGutter/2);
       }
 
-      @if (opt(gutter-type) == inside) {
-         padding-left: $gutter * 1%;
-         padding-right: $gutter * 1%;
+      @if (get(gutter-type) == inside) {
+         padding-left: percent($cellGutter);
+         padding-right: percent($cellGutter);
       }
 
-      @if (opt(gutter-type) == outside) {
-         margin-left: $gutter * 1%;
-         margin-right: $gutter * 1%;
+      @if (get(gutter-type) == outside) {
+         margin-left: percent($cellGutter);
+         margin-right: percent($cellGutter);
       }
    }
 }
 
-@mixin flex-cell($cols, $cell-options: ()) {
+@mixin flex-cell($cols, $options: ()) {
+   @include gutter-setup($cellGutter);
 
-   $width: (100 * $cols) / opt(columns);
-   $gutter: (opt(gutter-width) * ((100 * 1)/opt(columns)));
-
-   @include gutter-setup($gutter);
-
-   $cell-width: width-setup($gutter);
-
-   order: cell-opt(order);
-   flex: cell-opt(flex-grow) cell-opt(flex-shrink) width-setup($gutter));
-   align-self: cell-opt(align-self);
+   align-self: get(align-self);
+   flex:       get(flex-grow) get(flex-shrink) $cell);
    min-height: 100%;
+   order:      get(order);
+}
+
+@include flex-push(2);
+
+@mixin flex-push($cell) {
+
+}
+
+@mixin flex-pull($cell) {
+
 }
