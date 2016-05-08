@@ -3,7 +3,7 @@
  * to replace the {{dest}} and {{src}} with the correct
  * path to where you placed these files. You will also need
  * to update the .heisenberg file so if you run walt update
- * it knows how to correctly update your  files without
+ * it knows how to correctly update your files without
  * blowing making you do a bunch of manual work
  */
 var dest = {
@@ -36,9 +36,8 @@ var scripts = {
       src.bower + "ajax/dist/ajax.min.js",
       src.js    + src.templates,
       src.js    + "main.js",
-      src.js    + "resources/**/*.js",
       src.js    + "helpers/**/*.js",
-      src.js    + "transformers/**/*.js",
+      src.js    + "resources/**/*.js",
       src.js    + "modules/**/*.js"
    ]
 };

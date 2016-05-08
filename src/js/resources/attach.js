@@ -4,8 +4,8 @@ var Attach = (function() {
       PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.userData, {
          eventElement: event.currentTarget,
          eventTarget: event.target || event.srcElement,
-         key: parseInt((event.keyCode ? event.keyCode : event.which)),
-         event: event,
+         eventKey: parseInt((event.keyCode ? event.keyCode : event.which)),
+         event: event
       }));
    };
 
@@ -32,7 +32,6 @@ var Attach = (function() {
          item.addEventListener(eo.bindEvent, function(event) {
             if (eo.isKeyEvent) {
                keyEvent(event, eo);
-
                return false;
             }
 

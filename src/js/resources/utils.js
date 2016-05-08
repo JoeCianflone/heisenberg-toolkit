@@ -26,10 +26,6 @@ var Utils = (function(){
          for (var i = 0, len=array.length; i < len; ++i) {
             callback.call(scope, i, array[i]);
          }
-      },
-
-      startsWith = function(searchString, position) {
-
       }
    };
 }());

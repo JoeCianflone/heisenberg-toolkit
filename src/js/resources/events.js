@@ -4,16 +4,7 @@ var Events = (function() {
 
    return {
       when: function(contextString) {
-         var isEqualTo    = contextString.indexOf("==") > 0 ? true : false,
-             contextArray = (isEqualTo) ? contextString.split("==") : contextString.split("!="),
-             tag          = contextArray[0].substring(0, contextArray[0].indexOf("[")),
-             attribute    = contextArray[0].match(/\[(.*?)\]/)[1];
-
-         if (isEqualTo) {
-            eo.when = document.getElementsByTagName(tag)[0].getAttribute(attribute) === contextArray[1]
-         } else {
-            eo.when = document.getElementsByTagName(tag)[0].getAttribute(attribute) !== contextArray[1]
-         }
+         eo.when = !!document.querySelector(contextString);
 
          return this;
       },
