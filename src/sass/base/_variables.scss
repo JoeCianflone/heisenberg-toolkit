@@ -59,4 +59,6 @@ $colors: (
   global-box-sizing: border-box
 ));
 
+@include flex-init();
+
 $current-zindex:        100;

@@ -1,44 +1,4 @@
-@function _getOpt($key, $overrides: ()) {
-   @if (map-has-key($overrides, $key)) {
-      @return map-get($overrides, $key);
-   }
-
-   @return map-get($_fOpts, $key);
-}
-
-@mixin flex-init($options: ()) {
-   $__flexDefaults__: (
-      wrap:            nowrap,
-      columns:         12,
-      direction:       row,
-      align-items:     flex-start,
-      gutter-type:     split,
-      gutter-width:    0.25,
-      gutter-position: none,
-      align-content:   flex-start,
-      justify-content: flex-start,
-      order:           0,
-      flex-grow:       0,
-      flex-shrink:     0,
-      align-self:      stretch,
-      position:        first,
-   );
-   $_fOpts: map-merge($__flexDefaults__, $options) !global;
-   $singleCellWidth: 100 / _getOpt(columns) !global;
-   $cellGutter:      _getOpt(gutter-width) * $singleCellWidth !global;
-}
-
-@function percent($x) {
-   @return ($x * 1%);
-}
-
-@function _get-width($gutterOverride: false) {
-   @if (_getOpt(gutter-type) != none and $gutterOverride == false) {
-      @return percent($singleCellWidth - $cellGutter);
-   }
-
-   @return $singleCellWidth;
-}
+@import 'flex-helpers';
 
 @mixin flex-wrapper($overrides: ()) {
    align-content:   _getOpt(align-content, $overrides);
@@ -47,63 +7,6 @@
    flex-direction:  _getOpt(direction, $overrides);
    flex-wrap:       _getOpt(wrap, $overrides);
    justify-content: _getOpt(justify-content, $overrides);
-}
-
-// TODO: this looks stupid, but it works, need to refactor...
-@mixin _gutter-setup($overrides: ()) {
-      @if (_getOpt(gutter-type, $overrides) == split) {
-         @if (_getOpt(gutter-position, $overrides) == full) {
-            margin:  percent($cellGutter/2);
-            padding: percent($cellGutter/2);
-         } @else if (_getOpt(gutter-position, $overrides) == top or _getOpt(gutter-position, $overrides) == bottom) {
-            margin-#{_getOpt(gutter-position, $overrides)}:  percent($cellGutter/2);
-            padding-#{_getOpt(gutter-position, $overrides)}:  percent($cellGutter/2);
-            margin-left:   percent($cellGutter/2);
-            margin-right:  percent($cellGutter/2);
-            padding-left:  percent($cellGutter/2);
-            padding-right: percent($cellGutter/2);
-         } @else {
-            margin-left:   percent($cellGutter/2);
-            margin-right:  percent($cellGutter/2);
-            padding-left:  percent($cellGutter/2);
-            padding-right: percent($cellGutter/2);
-         }
-
-      }
-
-      @if (_getOpt(gutter-override, $overrides) == inside) {
-         @if (_getOpt(wrap-type, $overrides) == full) {
-            padding: percent($cellGutter);
-         } @else if (_getOpt(wrap-type, $overrides) == top) {
-            padding-top: percent($cellGutter);
-            padding-left:  percent($cellGutter);
-            padding-right: percent($cellGutter);
-         } @else if (_getOpt(wrap-type, $overrides) == bottom) {
-            padding-bottom: percent($cellGutter);
-            padding-left:  percent($cellGutter);
-            padding-right: percent($cellGutter);
-         } @else {
-            padding-left:  percent($cellGutter);
-            padding-right: percent($cellGutter);
-         }
-      }
-
-      @if (_getOpt(gutter-override, $overrides) == outside) {
-         @if (_getOpt(wrap-type, $overrides) == full) {
-            margin: percent($cellGutter);
-         } @else if (_getOpt(wrap-type, $overrides) == top) {
-            margin-top: percent($cellGutter);
-            margin-left:  percent($cellGutter);
-            margin-right: percent($cellGutter);
-         } @else if (_getOpt(wrap-type, $overrides) == bottom) {
-            margin-bottom: percent($cellGutter);
-            margin-left:  percent($cellGutter);
-            margin-right: percent($cellGutter);
-         } @else {
-            margin-left:  percent($cellGutter);
-            margin-right: percent($cellGutter);
-         }
-      }
 }
 
 @mixin flex-cell($cols, $overrides: ()) {
@@ -119,18 +22,9 @@
 }
 
 @mixin flex-push($cols) {
-   $gutter: $cellGutter;
-   @if (_getOpt(gutter-type) == split) {
-      $gutter: $cellGutter/2;
-   }
-   margin-left: percent((_get-width(true) * $cols) + $gutter);
+   margin-left: percent((_get-width(true) * $cols) + _single-gutter-size());
 }
 
 @mixin flex-pull($cols) {
-   $gutter: $cellGutter;
-   @if (_getOpt(gutter-type) == split) {
-      $gutter: $cellGutter/2;
-   }
-
-   margin-right: percent(_get-width(true) * $cols);
+   margin-right: percent((_get-width(true) * $cols) + _single-gutter-size());
 }
