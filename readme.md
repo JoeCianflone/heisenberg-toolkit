@@ -49,7 +49,17 @@ For more information please visit the [toolkit installer](https://github.com/Joe
 Coming soon
 
 ### Sass
-Coming soon
+
+#### Basic Usage
+
+#### Normalized Elements
+
+#### Susy Grids
+
+#### Flexbox
+
+#### Sprites
+
 
 ### Javascript
 
@@ -115,10 +125,20 @@ Thats it. With that one line, you've tied a click on an element with class `js-c
 There's a lot more you can do here too. Lets say you only want that click event to bind when you're on a specific page.
 
 ```javascript
-Events.bind("click",".js-clicker").when("body[class]==about").to(foo, this);
+Events.bind("click",".js-clicker").when("body[class=about]").to(foo, this);
 ```
 
-`when()` events can be triggered on equal (`==`) or not equal (`!=`) situations.
+`when()` events are booleans that check if an element is/is not on the page. In the back, it's using `querySelector` to see we can find an element then allow the binding to occur on that particular page.
+
+Since `when()` uses `querySelector` you can do things like the following:
+
+```javascript
+Events.bind("click",".js-clicker").when("body:not(.foo)").to(foo, this);
+```
+
+this makes sure the `<body>` does not have a class of `foo`.
+
+Please note that this is *only* using `querySelector` and will not iterate over multiple elements, it's going to find the first item and check that, so make sure you're using this clause correctly.
 
 You also get a special `data` variable that is always passed to the function so you can pass in your own extra data or get access to the special `eventElement` so you know what was clicked or triggered in general.
 
