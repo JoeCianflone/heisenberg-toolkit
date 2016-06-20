@@ -76,4 +76,15 @@ module.exports = {
    scripts: scripts,
    sprites: sprites,
    hasChangedPath: dest.base.startsWith("{{") || src.base.startsWith("{{") ? false : true,
+   // We need to check to make sure the user has downloaded and set up their folders
+   // correctly. If they still have {{src}} or {{dest}} things are going to get
+   // a bit funny. This just makes sure we're all set up before calling...
+   attemptRunSequence: function(fn) {
+      if (this.hasChangedPath) {
+         fn.call();
+      } else {
+         console.log("Paths have not been set correctly in Heisenberg");
+         console.log("For more information, please see https://github.com/JoeCianflone/heisenberg-toolkit/wiki/Error-Messages");
+      }
+   }
 };

@@ -29,39 +29,51 @@ var gulp        = require('gulp'),
 
 requireDir('./gulp/tasks', { recurse: true });
 
-var attemptRunSequence = function(...args) {
-   if (config.hasChangedPath) {
-      runSequence(args);
-   } else {
-      console.log("Paths have not been set correctly in Heisenberg");
-      console.log("For more information, please see https://github.com/JoeCianflone/heisenberg-toolkit/wiki/Error-Messages");
-   }
-};
-
 gulp.task('boot', function(callback) {
-   attemptRunSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
+   config.attemptRunSequence(function() {
+      runSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
+   });
+
 });
 
 gulp.task('images', function(callback) {
-   attemptRunSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
+   config.attemptRunSequence(function() {
+      runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
+   });
+
 });
 
 gulp.task('scss', function(callback) {
-   attemptRunSequence('sass', callback);
+   config.attemptRunSequence(function() {
+      runSequence('sass', callback);
+   });
+
 });
 
 gulp.task('js', function(callback) {
-   attemptRunSequence('handlebars', 'scripts', callback);
+   config.attemptRunSequence(function() {
+      runSequence('handlebars', 'scripts', callback);
+   });
+
 });
 
 gulp.task('compile', function(callback) {
-   attemptRunSequence('boot', 'images', 'scss', 'js',  callback);
+   config.attemptRunSequence(function() {
+      runSequence('boot', 'images', 'scss', 'js',  callback);
+   });
+
 });
 
 gulp.task('watch', function(callback) {
-   attemptRunSequence('compile', 'watcher',  callback);
+   config.attemptRunSequence(function() {
+      runSequence('compile', 'watcher',  callback);
+   });
+
 });
 
 gulp.task('default', function(callback) {
-   attemptRunSequence('compile', callback);
+   config.attemptRunSequence(function() {
+      runSequence('compile', callback);
+   });
+
 });
