@@ -74,5 +74,6 @@ module.exports = {
    dest: dest,
    src: src,
    scripts: scripts,
-   sprites: sprites
+   sprites: sprites,
+   hasChangedPath: dest.base.startsWith("{{") || src.base.startsWith("{{") ? false : true,
 };

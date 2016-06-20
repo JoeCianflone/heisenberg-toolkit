@@ -29,54 +29,39 @@ var gulp        = require('gulp'),
 
 requireDir('./gulp/tasks', { recurse: true });
 
-var foldersSetUpCorrect = function() {
-   if (!config.dest.base.startsWith("{{dest}}") && !config.src.base.startsWith("{{src}}")) {
-      return true;
+var attemptRunSequence = function(...args) {
+   if (config.hasChangedPath) {
+      runSequence(args);
+   } else {
+      console.log("Paths have not been set correctly in Heisenberg");
+      console.log("For more information, please see https://github.com/JoeCianflone/heisenberg-toolkit/wiki/Error-Messages");
    }
-
-   console.log("Unable to run this gulp task because your directories are not set up correctly...");
-   console.log("For more information, please see https://github.com/JoeCianflone/heisenberg-toolkit/wiki/Error-Messages for more information");
-   return false;
 };
 
 gulp.task('boot', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
-   }
+   attemptRunSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
 });
 
 gulp.task('images', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
-   }
+   attemptRunSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
 });
 
 gulp.task('scss', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('sass', callback);
-   }
+   attemptRunSequence('sass', callback);
 });
 
 gulp.task('js', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('handlebars', 'scripts', callback);
-   }
+   attemptRunSequence('handlebars', 'scripts', callback);
 });
 
 gulp.task('compile', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('boot', 'images', 'scss', 'js',  callback);
-   }
+   attemptRunSequence('boot', 'images', 'scss', 'js',  callback);
 });
 
 gulp.task('watch', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('compile', 'watcher',  callback);
-   }
+   attemptRunSequence('compile', 'watcher',  callback);
 });
 
 gulp.task('default', function(callback) {
-   if (foldersSetUpCorrect()) {
-      runSequence('compile', callback);
-   }
+   attemptRunSequence('compile', callback);
 });
