@@ -2,6 +2,9 @@
 
 ## Introduction
 
+Current Version:
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a"><rect width="90" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="#555" d="M0 0h51v20H0z"/><path fill="#97CA00" d="M51 0h39v20H51z"/><path fill="url(#b)" d="M0 0h90v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="25.5" y="15" fill="#010101" fill-opacity=".3">version</text><text x="25.5" y="14">version</text><text x="69.5" y="15" fill="#010101" fill-opacity=".3">1.4.0</text><text x="69.5" y="14">1.4.0</text></g></svg>
+
 Heisenberg is a toolkit of code to help you speed up the development of your front end projects that do not rely on frameworks like Angular or Vuejs.
 
 ### What's in the Box?
