@@ -76,7 +76,7 @@ $(function(){
 Now obviously, when you started this file, you expected to have only a couple onClick events...now you've got some crazy logic and it's difficult to keep track of anything.
 
 #### Modules
-Heisenberg has all your boilerplate JS baked in all you need to do is create a new module and start adding your events. If you take a look at the `/src/js/modules/introduction.js` you'll see a basic module template.
+Heisenberg has all your boilerplate JS baked in all you need to do is create a new module and start adding your events. If you take a look at the `/src/js/modules/example.js` you'll see a basic module template.
 
 ```javascript
    App.Modules = App.Modules || {};
@@ -113,7 +113,7 @@ The event system in Heisenberg is really just a fluent wrapper about modern java
             return this;
          },
          events: function() {
-            Events.bind("click", ".js-clicker").to(foo, this);
+            Events.bind("click", ".js-clicker").to(foo, {context: this});
             return this;
          }
       };
@@ -125,7 +125,7 @@ Thats it. With that one line, you've tied a click on an element with class `js-c
 There's a lot more you can do here too. Lets say you only want that click event to bind when you're on a specific page.
 
 ```javascript
-Events.bind("click",".js-clicker").when("body[class=about]").to(foo, this);
+Events.bind("click",".js-clicker").when("body[class=about]").to(foo, {context: this});
 ```
 
 `when()` events are booleans that check if an element is/is not on the page. In the back, it's using `querySelector` to see we can find an element then allow the binding to occur on that particular page.
@@ -133,7 +133,7 @@ Events.bind("click",".js-clicker").when("body[class=about]").to(foo, this);
 Since `when()` uses `querySelector` you can do things like the following:
 
 ```javascript
-Events.bind("click",".js-clicker").when("body:not(.foo)").to(foo, this);
+Events.bind("click",".js-clicker").when("body:not(.foo)").to(foo, {context: this});
 ```
 
 this makes sure the `<body>` does not have a class of `foo`.
@@ -156,7 +156,7 @@ You also get a special `data` variable that is always passed to the function so 
             return this;
          },
          events: function() {
-            Events.bind("click", ".js-clicker").to(foo, this);
+            Events.bind("click", ".js-clicker").to(foo, {context: this});
             return this;
          }
       };
@@ -183,8 +183,8 @@ You can also check for keys to be pressed
             return this;
          },
          events: function() {
-            Events.bind("keypress", ".js-enter-only", [13]).to(foo, this);
-            Events.bind("keyup", ".js-all-keys").to(bar, this);
+            Events.bind("keypress", ".js-enter-only", [13]).to(foo, {context: this});
+            Events.bind("keyup", ".js-all-keys").to(bar, {context: this});
             return this;
          }
       };

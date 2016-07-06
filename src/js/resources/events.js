@@ -2,6 +2,10 @@ var Events = (function() {
    // eventObject
    var eo = {};
 
+   var mapper = function() {
+
+   };
+
    return {
       when: function(contextString) {
          eo.when = !!document.querySelector(contextString);
@@ -24,19 +28,17 @@ var Events = (function() {
          return this;
       },
 
-      to: function(funcName, context, userData, prevent) {
+      to: function(funcName, options) {
          eo.asEventName = Utils.generateEventName();
 
-         eo.context  = ! context ? window : context;
-         eo.userData  = ! userData ? {} : userData;
-         eo.prevent  = typeof prevent === "undefined" ? true : prevent;
+         eo.context   = ! options.context ? window : options.context;
+         eo.userData  = ! options.data ? {} : options.data;
+         eo.prevent   = (typeof options.prevent === "undefined") ? true : options.prevent;
 
          if (eo.when) {
             Binder.bindEvent(eo, funcName);
          }
 
-         // Once you've done the bindEvent
-         // clear the eventObject
          eo = {};
          return eo;
       },
