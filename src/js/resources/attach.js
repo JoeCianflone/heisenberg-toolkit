@@ -24,7 +24,9 @@ var Attach = (function() {
 
    var genericEvent = function(event, eo) {
       pub(eo, event);
-      event.preventDefault();
+      if (eo.prevent) {
+         event.preventDefault();
+      }
    };
 
    return {

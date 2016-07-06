@@ -24,10 +24,12 @@ var Events = (function() {
          return this;
       },
 
-      to: function(funcName, context, userData) {
+      to: function(funcName, context, userData, prevent) {
          eo.asEventName = Utils.generateEventName();
-         eo.userData    = ! userData ? {} : userData;
-         eo.context     = ! context ? window : context;
+
+         eo.context  = ! context ? window : context;
+         eo.userData  = ! userData ? {} : userData;
+         eo.prevent  = typeof prevent === "undefined" ? true : prevent;
 
          if (eo.when) {
             Binder.bindEvent(eo, funcName);
