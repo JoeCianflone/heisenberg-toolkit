@@ -1,9 +1,8 @@
 # Heisenberg Toolkit
 
+![1.4.0](https://img.shields.io/badge/version-1.4.0-green.svg)
+
 ## Introduction
-
-Current Version: ![1.4.0](https://img.shields.io/badge/version-1.4.0-green.svg)
-
 
 Heisenberg is a toolkit of code to help you speed up the development of your front end projects that do not rely on frameworks like Angular or Vuejs.
 
@@ -62,7 +61,6 @@ Coming soon
 #### Flexbox
 
 #### Sprites
-
 
 ### Javascript
 
