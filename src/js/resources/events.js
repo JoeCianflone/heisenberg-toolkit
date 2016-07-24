@@ -1,10 +1,7 @@
 var Events = (function() {
-   // eventObject
    var eo = {};
 
-   var mapper = function() {
-
-   };
+   var mapper = function() { };
 
    return {
       when: function(contextString) {
