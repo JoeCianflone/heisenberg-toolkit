@@ -1,6 +1,6 @@
 # Heisenberg Toolkit
 
-![1.4.0](https://img.shields.io/badge/version-1.4.0-green.svg)
+![1.5.0](https://img.shields.io/badge/version-1.4.0-green.svg)
 
 ## Introduction
 

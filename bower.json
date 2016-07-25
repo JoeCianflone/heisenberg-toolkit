@@ -1,19 +1,17 @@
 {
   "name": "HisenbergToolkit",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "homepage": "https://github.com/joecianflone/heisenberg-toolkit",
   "authors": [
     "Joe Cianflone <joe@cianflone.co>"
   ],
   "dependencies": {
     "PubSubJS": "pubsub-js#1.5.3",
-    "ajax": "2.1.2",
     "fontawesome": "4.6.3",
     "handlebars": "4.0.5",
     "include-media": "1.4.6",
     "modernizr": "3.3.1",
     "normalize-scss": "3.0.3",
-    "picturefill": "3.0.2",
     "susy": "2.2.12"
   },
   "license": "MIT",
