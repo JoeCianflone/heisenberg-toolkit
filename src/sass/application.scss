@@ -27,11 +27,11 @@
 /// everwhere.
 
 // Functions & Mixins .........................................................
-@import 'utilities/getters-setters';
-@import 'utilities/pseudo-elements';
-@import 'utilities/flexbox';
-@import 'utilities/font';
-@import 'utilities/bem';
+@import 'utilities/general-sass-functions';
+@import 'utilities/general-sass-mixins';
+@import 'utilities/flexygrid';
+
+
 
 /// This should be where you start editing. We have some simple defaults already
 /// in _elements.scss and _variables.scss already, but they're still pretty
