@@ -4,6 +4,7 @@
 vendor/
 node_modules/
 bower/
+bower_components/
 {{dest}}/js/
 {{dest}}/css/
 {{dest}}/fonts/

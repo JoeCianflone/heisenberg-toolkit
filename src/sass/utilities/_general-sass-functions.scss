@@ -6,12 +6,12 @@
  * @return String
  */
 @function get-by($key, $map) {
-   @if isset($map, $key) {
-      @return map-get($map, $key);
-   } @else {
-      @error "Unknown #{$key}";
-   }
-}
+    @if isset($map, $key) {
+        @return map-get($map, $key);
+        } @else {
+            @error "Unknown #{$key}";
+        }
+    }
 
 /**
  * Checks if the map/list has a specific key
@@ -20,11 +20,11 @@
  * @return Boolean
  */
 @function isset($map, $key) {
-   @if map-has-key($map, $key) {
-      @return true;
-   }
+    @if map-has-key($map, $key) {
+        @return true;
+    }
 
-   @return false
+    @return false
 }
 
 /**
@@ -33,16 +33,19 @@
  * @return Integer
  */
 @function get-zindex($increment: 1) {
-   @return $current-zindex + $increment;
+    @return $current-zindex + $increment;
 }
 
+@function z($increment: 1) {
+    @return get-zindex($increment);
+}
 /**
  * This will strip a unit off a number turning it from a string to a number
  * @param  String $n
  * @return Number
  */
 @function get-value($n) {
-   @return $n / ($n * 0 + 1);
+    @return $n / ($n * 0 + 1);
 }
 
 /**
@@ -51,7 +54,7 @@
  * @return String
  */
 @function get-color($name) {
-   @return get-by($name, $colors);
+    @return get-by($name, $colors);
 }
 
 /**
@@ -60,7 +63,7 @@
  * @return Number
  */
 @function get-font-weight($size) {
-   @return get-by($size, $font-weights);
+    @return get-by($size, $font-weights);
 }
 
 /**
@@ -69,7 +72,7 @@
  * @return String
  */
 @function get-font($setting) {
-   @return get-by($setting, $stack-settings);
+    @return get-by($setting, $stack-settings);
 }
 
 /**
@@ -80,7 +83,7 @@
  * @return Number
  */
 @function get-line-height($font-size, $line-height) {
-   @return get-value($line-height / $font-size);
+    @return get-value($line-height / $font-size);
 }
 
 /**
@@ -89,5 +92,5 @@
  * @return Number
  */
 @function get-breakpoint($name) {
-   @return get-by($name, $breakpoints);
+    @return get-by($name, $breakpoints);
 }

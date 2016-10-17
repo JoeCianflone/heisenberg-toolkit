@@ -18,15 +18,12 @@ html {
       family: get-font(primary-font);
       size: get-font(base-size);
       weight: get-font-weight(normal);
-
    }
    height: 100vh;
    letter-spacing: get-font(primary-letter-spacing);
 }
 
-:focus {
-   outline: none;
-}
+:focus { outline: none; }
 
 body {
    background: get-color(white);

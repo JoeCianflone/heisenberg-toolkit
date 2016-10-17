@@ -4,4 +4,4 @@ linters:
 
   Indentation:
     severity: warning
-    width: 3
+    width: 4
