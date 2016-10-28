@@ -1,22 +1,22 @@
 @if ($sprites) {
-   @import 'sprites/sprite-bitmap';
-   @import 'sprites/sprite-svg';
+    @import 'sprites/sprite-bitmap';
+    @import 'sprites/sprite-svg';
 
-   @mixin get-sprite($name) {
-      @if (str-index($name, '.svg') != null) {
-         $image: map-get($svgmap, $name);
-         $sprite: map-get($svgmap, sprite);
-         background-image: url(map-get($sprite, svg-path));
-         background-position: map-get($image, offset-x) map-get($image, offset-y);
-         height: map-get($image, height);
-         width: map-get($image, width);
-      }
-      @else {
-         $image: map-get($bpmsprites, $name);
-         background-image: url(map-get($image, image));
-         background-position: map-get($image, offset-x) map-get($image, offset-y);
-         height: map-get($image, height);
-         width: map-get($image, width);
-      }
-   }
+    @mixin get-sprite($name) {
+        @if (str-index($name, '.svg') != null) {
+            $image: map-get($svgmap, $name);
+            $sprite: map-get($svgmap, sprite);
+            background-image: url(map-get($sprite, svg-path));
+            background-position: map-get($image, offset-x) map-get($image, offset-y);
+            height: map-get($image, height);
+            width: map-get($image, width);
+        }
+        @else {
+            $image: map-get($bpmsprites, $name);
+            background-image: url(map-get($image, image));
+            background-position: map-get($image, offset-x) map-get($image, offset-y);
+            height: map-get($image, height);
+            width: map-get($image, width);
+        }
+    }
 }

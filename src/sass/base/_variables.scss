@@ -1,23 +1,23 @@
 /**
- * Fonts
- * ----------------------------------------------------------------------------
- * I'm a simple guy with simple needs, I don't like to mix a lot of different
- * fonts in my designs.  To keep it simple, I have two different font types:
- * copy and headlines.  They are exactly what they sound like.
- *
- * Make sure you also define "fallbacks" on the off chance Google fonts goes
- * down or your user is on a crappy connection.
- *
- */
+* Fonts
+* ----------------------------------------------------------------------------
+* I'm a simple guy with simple needs, I don't like to mix a lot of different
+* fonts in my designs.  To keep it simple, I have two different font types:
+* copy and headlines.  They are exactly what they sound like.
+*
+* Make sure you also define "fallbacks" on the off chance Google fonts goes
+* down or your user is on a crappy connection.
+*
+*/
 
 $stack-settings: (
-   primary-font:             #{"Roboto", "Helvetica Neue", sans-serif},
-   secondary-font:           #{"Montserrat", "Helvetica Neue", sans-serif},
-   primary-line-height:      1.3,
-   primary-letter-spacing:   0,
-   secondary-line-height:    1.5,
-   secondary-letter-spacing: -1px,
-   base-size:                100%,
+    primary-font:             #{"Roboto", "Helvetica Neue", sans-serif},
+    secondary-font:           #{"Montserrat", "Helvetica Neue", sans-serif},
+    primary-line-height:      1.3,
+    primary-letter-spacing:   0,
+    secondary-line-height:    1.5,
+    secondary-letter-spacing: -1px,
+    base-size:                100%,
 );
 
 
@@ -34,11 +34,11 @@ $font-weights: (
 );
 
 /**
- * Use this breakpoints for your media queries
- * the X-2's are the numbers directly between
- * the surrounding keys. So puny-2 is really
- * (tiny+puny)/2 => (480+320)/2 = 400px
- */
+* Use this breakpoints for your media queries
+* the X-2's are the numbers directly between
+* the surrounding keys. So puny-2 is really
+* (tiny+puny)/2 => (480+320)/2 = 400px
+*/
 $breakpoints: (
     'puny':       320px,
     'puny-2':     400px,
@@ -78,4 +78,9 @@ $colors: (
 $sprites:        false;
 $current-zindex: 100;
 
-@include flexy-grid-settings();
+@include layout((
+    columns: 12,
+    gutter-position: split,
+    gutters: 1/4,
+    global-box-sizing: border-box
+));
