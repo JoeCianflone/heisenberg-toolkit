@@ -1,6 +1,6 @@
 # Heisenberg Toolkit
 
-![1.4.0](https://img.shields.io/badge/version-1.4.0-green.svg)
+![2.0.0](https://img.shields.io/badge/version-2.0.0-green.svg)
 
 ## Introduction
 
@@ -16,7 +16,7 @@ When you download Heisenberg you get the following out-of-the-box:
 + A sensible way of organizing your Sass and Javascript
 + Mixins that will make your life easier
 + Grids with Susy, Media Queries, Normalized CSS with some sane defaults
-+ Bower, HandlebarsJS and EditorConfig files
++ Yarn, HandlebarsJS and EditorConfig files
 + VanillaJS that helps you with events and ajax calls without the weight of jQuery
 
 ## Installing and Usage

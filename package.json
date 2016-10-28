@@ -32,7 +32,15 @@
     "merge-stream": "^1.0.0",
     "require-dir": "^0.3.0",
     "run-sequence": "^1.1.5",
-    "yargs": "^4.3.1"
+    "yargs": "^4.3.1",
+    "PubSubJS": "pubsub-js#1.5.3",
+    "fontawesome": "4.6.3",
+    "handlebars": "4.0.5",
+    "font-awesome": "4.6.3",
+    "include-media": "1.4.8",
+    "normalize-css": "git://github.com/joecianflone/normalize.css.git#master",
+    "pubsub-js": "^1.5.4",
+    "susy": "^2.2.12"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

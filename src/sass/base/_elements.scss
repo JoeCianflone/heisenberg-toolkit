@@ -6,7 +6,7 @@
  */
 * {
    box-sizing: inherit;
-   // -webkit-overflow-scrolling: touch;
+   -webkit-overflow-scrolling: touch;
    &:before, &:after {
       box-sizing: inherit;
    }
@@ -15,13 +15,12 @@
 html {
    box-sizing: border-box;
    font: {
-      family: get-stack(sans-serif);
-      size: get-stack(base-size);
-      weight: get-font-weight(normal);
-
+      family: get-font(primary-font);
+      size: get-font(base-size);
+      weight: get-font-weight(light);
    }
-   height: 100%;
-   letter-spacing: get-stack(letter-spacing);
+   height: 100vh;
+   letter-spacing: get-font(primary-letter-spacing);
 }
 
 :focus {
@@ -29,34 +28,37 @@ html {
 }
 
 body {
-   background: get-color(white);
-   color: get-color(black);
-   height: 100%;
+   background: get-color(alabaster);
+   color: get-color(charcoal);
+   height: 100vh;
    margin: 0;
-   min-width: get-breakpoint(tiny);
+   min-width: get-breakpoint(puny);
    -webkit-font-smoothing: antialiased !important;
    -moz-osx-font-smoothing: grayscale !important;
 }
 
 img {
-   .responsive {
-      height: auto;
-      width: 100%;
+   display: inline-block;
+   height: auto;
+   max-width: 100%;
+
+   &.fixed {
+      max-width: auto;
    }
 }
 
 h1, h2, h3, h4, h5, h6 {
    font: {
-      family: get-stack(sans-serif);
+      family: get-font(secondary-font);
       weight: get-font-weight(bold);
    }
-   letter-spacing: get-stack(letter-spacing-headlines);
+   letter-spacing: get-font(secondary-letter-spacing);
    margin: 0;
    padding: 0;
 }
 
 b, strong {
-   font-weight: get-font-weight(bold);
+   font-weight: get-font-weight(medium);
 }
 
 p, ul, ol {
@@ -64,7 +66,7 @@ p, ul, ol {
 }
 
 a {
-   color: inherit;
+   color: get-color(regal-blue);
    font: {
       family: inherit;
       weight: inherit;

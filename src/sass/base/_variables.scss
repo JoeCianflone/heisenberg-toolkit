@@ -11,13 +11,15 @@
  */
 
 $stack-settings: (
-   serif:                    #{"Patua One", Georgia, serif},
-   sans-serif:               #{"Hind", "Helvetica Neue", sans-serif},
-   base-size:                62.5%,
-   line-height:              1.3,
-   letter-spacing:           0,
-   letter-spacing-headlines: -1px,
+   primary-font:             #{"Roboto", "Helvetica Neue", sans-serif},
+   secondary-font:           #{"Montserrat", "Helvetica Neue", sans-serif},
+   primary-line-height:      1.3,
+   primary-letter-spacing:   0,
+   secondary-line-height:    1.5,
+   secondary-letter-spacing: -1px,
+   base-size:                100%,
 );
+
 
 $font-weights: (
    thin:         100,
