@@ -30,10 +30,8 @@ var scripts = {
    modernizr:  [src.js + "modernizr.js"],
    user: [],
    main: [
-      src.bower + "picturefill/dist/picturefill.js",
       src.bower + "handlebars/handlebars.runtime.js",
       src.bower + "PubSubJS/src/pubsub.js",
-      src.bower + "ajax/dist/ajax.min.js",
       src.js    + src.templates,
       src.js    + "main.js",
       src.js    + "helpers/**/*.js",

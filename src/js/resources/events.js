@@ -15,12 +15,13 @@ var Events = (function() {
          eo.bindEvent  = bindEvent;
          eo.selector   = ! selector ? false : selector;
          eo.keyPress   = ! key ? false : key;
-         eo.isKeyEvent = eo.bindEvent.startsWith("key") ? true : false;
+         eo.isKeyEvent = eo.bindEvent.substr(0, 3) === "key" ? true : false;
 
          if (Array.isArray(selector)) {
             eo.selector = false;
             eo.keyPress = selector;
          }
+
 
          return this;
       },

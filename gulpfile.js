@@ -33,47 +33,40 @@ gulp.task('boot', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('cleaner', 'installer', 'copy', 'modernizr', callback);
    });
-
 });
 
 gulp.task('images', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('minify', 'sprite-bitmap', 'sprite-svg', callback);
    });
-
 });
 
 gulp.task('scss', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('sass', callback);
    });
-
 });
 
 gulp.task('js', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('handlebars', 'scripts', callback);
    });
-
 });
 
 gulp.task('compile', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('boot', 'images', 'scss', 'js',  callback);
    });
-
 });
 
 gulp.task('watch', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('compile', 'watcher',  callback);
    });
-
 });
 
 gulp.task('default', function(callback) {
    config.attemptRunSequence(function() {
       runSequence('compile', callback);
    });
-
 });

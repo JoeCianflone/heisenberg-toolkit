@@ -22,45 +22,60 @@ $stack-settings: (
 
 
 $font-weights: (
-   thin:         100,
-   extra-light:  200,
-   light:        300,
-   normal:       400,
-   medium:       500,
-   semi-bold:    600,
-   bold:         700,
-   extra-bold:   800,
-   ultra-bold:   900,
+    thin:         100,
+    extra-light:  200,
+    light:        300,
+    normal:       400,
+    medium:       500,
+    semi-bold:    600,
+    bold:         700,
+    extra-bold:   800,
+    ultra-bold:   900,
 );
 
+/**
+ * Use this breakpoints for your media queries
+ * the X-2's are the numbers directly between
+ * the surrounding keys. So puny-2 is really
+ * (tiny+puny)/2 => (480+320)/2 = 400px
+ */
 $breakpoints: (
-   'puny':      240px,
-   'tiny':      320px,
-   'bitty':     480px,
-   'small':     640px,
-   'bantam':    768px,
-   'medium':    980px,
-   'large':     1024px,
-   'xlarge':    1160px,
-   'xxlarge':   1280px,
-   'jumbo':     1440px,
-   'hulking':   1600px,
-   'titanic':   1920px
+    'puny':       320px,
+    'puny-2':     400px,
+    'tiny':       480px,
+    'tiny-2':     560px,
+    'bitty':      640px,
+    'bitty-2':    704px,
+    'small':      768px,
+    'small-2':    784px,
+    'moderate':   800px,
+    'moderate-2': 890px,
+    'bantam':     980px,
+    'bantam-2':   1002px,
+    'medium':     1024px,
+    'medium-2':   1092px,
+    'large':      1160px,
+    'large-2':    1220px,
+    'xlarge':     1280px,
+    'xxlarge-2':  1308px,
+    'xxlarge':    1366px,
+    'xxlarge-2':  1403px,
+    'xxxlarge':   1440px,
+    'xxxlarge-2': 1520px,
+    'jumbo':      1600px,
+    'jumbo-2':    1760px,
+    'hulking':    1920px,
+    'hulking-2':  2400px,
+    'titanic':    2880px
 );
 
 $colors: (
-   black:     #000,
-   white:     #fff,
-   charcoal:  #444,
+    black:     #000,
+    white:     #fff,
+    charcoal:  #444,
 );
 
-@include layout((
-  columns: 16,
-  gutter-position: no-gutter,
-  gutters: 0,
-  global-box-sizing: border-box
-));
+$sprites:        false;
+$current-zindex: 100;
 
-@include flex-init();
-
-$current-zindex:        100;
+@include flexy-grid-settings();

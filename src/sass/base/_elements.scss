@@ -23,12 +23,10 @@ html {
    letter-spacing: get-font(primary-letter-spacing);
 }
 
-:focus {
-   outline: none;
-}
+:focus { outline: none; }
 
 body {
-   background: get-color(alabaster);
+   background: get-color(white);
    color: get-color(charcoal);
    height: 100vh;
    margin: 0;
