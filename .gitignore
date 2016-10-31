@@ -1,7 +1,6 @@
 .DS_Store
 *.sublime-*
 .sass-cache
-vendor/
 node_modules/
 {{dest}}/js/
 {{dest}}/css/
