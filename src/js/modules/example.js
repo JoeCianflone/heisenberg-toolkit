@@ -17,18 +17,9 @@ App.Modules.Introduction = function () {
     return {
         init: function() { return this; },
         events: function() {
-            // standard call to a click event
-            Events.bind("click", ".foo").to(hello, {context: this});
+            Events.bind("click", ".foo").to(hello, this);
 
-            // keydown capture on all textareas, we're also passing "extra"
-            // data by way of the `foo` variable
-            Events.bind("keydown", "textarea").to(captureKeys, {data: {
-                foo: true
-            } });
-
-            // This will be bound to the `window` context by default
-            Events.bind("resize").to(resizer);
-
+            Events.bind("keydown").withData({foo: true, bar: false}).to(captureKeys);
             return this;
         }
     };

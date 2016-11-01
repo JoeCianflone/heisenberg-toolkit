@@ -16,7 +16,7 @@ var scripts = {
     main: [
         "./" + folders.vendor + "/handlebars/dist/handlebars.runtime.js",
         "./" + folders.vendor + "/pubsub-js/src/pubsub.js",
-        "templates.tpl",
+        //"templates.tpl",
         "main.js",
         "helpers/**/*.js",
         "resources/**/*.js",

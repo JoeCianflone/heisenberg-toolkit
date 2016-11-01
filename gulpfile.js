@@ -29,7 +29,7 @@ elixir(function(mix) {
         .copy(hConfig.folders.localFonts, hConfig.folders.fonts)
         .copy(fontAwesome, hConfig.folders.fonts)
         .sass(hConfig.sass.main)
-        .webpack(hConfig.scripts.main)
+        .scripts(hConfig.scripts.main)
         .imagemin();
 });
 

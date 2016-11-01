@@ -1,7 +1,7 @@
 var Events = (function() {
+
     var eo = {};
 
-    var mapper = function() { };
 
     return {
         when: function(contextString) {
@@ -10,34 +10,54 @@ var Events = (function() {
             return this;
         },
 
-        bind: function(bindEvent, selector, key) {
-            eo.when       = typeof eo.when == 'undefined' ? true : eo.when;
-            eo.bindEvent  = bindEvent;
-            eo.selector   = ! selector ? false : selector;
-            eo.keyPress   = ! key ? false : key;
-            eo.isKeyEvent = eo.bindEvent.substr(0, 3) === "key" ? true : false;
-
-            if (Array.isArray(selector)) {
-                eo.selector = false;
-                eo.keyPress = selector;
+        with: function(key, value) {
+            if (key == 'data') {
+                this.with('userData', value)
             }
 
+            eo[key] = value;
 
             return this;
         },
 
-        to: function(funcName, options) {
-            eo.asEventName = Utils.generateEventName();
+        withData: function(data) {
+            this.with('userData', data);
 
-            eo.context   = ! options.context ? window : options.context;
-            eo.userData  = ! options.data ? {} : options.data;
-            eo.prevent   = (typeof options.prevent === "undefined") ? true : options.prevent;
+            return this;
+        },
+        withNoBubble: function() {
+            this.with('prevent', true);
+
+            return this;
+        },
+
+        onKey: function(keyList) {
+            this.with('keyPress', keyList);
+
+            return this;
+        },
+
+        bind: function(bindEvent, selector) {
+            eo.when       = Utils.isUndefined(eo.when) ? true : eo.when;
+            eo.bindEvent  = bindEvent;
+            eo.selector   = Utils.isUndefined(selector) ? false : selector;
+            eo.isKeyEvent = Utils.startsWith("key", eo.bindEvent) ? true : false;
+            eo.keyPress   = Utils.isUndefined(eo.keyPress) ? [] : eo.keyPress;
+            eo.prevent    = false;
+
+            return this;
+        },
+
+        to: function(funcName, context) {
+            eo.asEventName = Utils.generateEventName();
+            eo.context = Utils.isUndefined(context) ? window : context;
 
             if (eo.when) {
                 Binder.bindEvent(eo, funcName);
             }
 
             eo = {};
+
             return eo;
         },
 

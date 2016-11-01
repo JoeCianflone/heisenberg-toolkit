@@ -1,6 +1,14 @@
 var Utils = (function(){
 
     return {
+        isUndefined: function(elem) {
+            return (typeof elem == "undefined");
+        },
+
+        startsWith: function(needle, haystack) {
+            return haystack.substr(0, needle.length) === needle;
+        },
+
         generateUUID: function() {
             var d = Date.now();
             var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
