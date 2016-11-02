@@ -1,16 +1,12 @@
 App.Modules = App.Modules || {};
-App.Modules.Introduction = function () {
+App.Modules.Example = function () {
     var o = { };
 
     var hello = function(data) {
-        console.log(data);
+        console.log();
     };
 
     var captureKeys = function(data) {
-        console.log(data);
-    };
-
-    var resizer = function(data) {
         console.log(data);
     };
 
@@ -18,8 +14,8 @@ App.Modules.Introduction = function () {
         init: function() { return this; },
         events: function() {
             Events.bind("click", ".foo").to(hello, this);
-
             Events.bind("keydown").withData({foo: true, bar: false}).to(captureKeys);
+
             return this;
         }
     };

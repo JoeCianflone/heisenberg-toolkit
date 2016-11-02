@@ -1,10 +1,10 @@
 var Attach = (function() {
 
     var pub = function(eo, event) {
-        PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.userData, {
-            eventElement: event.currentTarget,
-            eventTarget: event.target || event.srcElement,
-            eventKey: parseInt((event.keyCode ? event.keyCode : event.which)),
+        PubSub.publish(eo.asEventName, Utils.mergeObjects(eo.data, {
+            elem: event.currentTarget,
+            target: event.target || event.srcElement,
+            key: eo.isKeyEvent ? parseInt((event.keyCode ? event.keyCode : event.which)) : false,
             event: event
         }));
     };

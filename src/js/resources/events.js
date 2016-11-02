@@ -1,7 +1,5 @@
 var Events = (function() {
-
     var eo = {};
-
 
     return {
         when: function(contextString) {
@@ -11,21 +9,18 @@ var Events = (function() {
         },
 
         with: function(key, value) {
-            if (key == 'data') {
-                this.with('userData', value)
-            }
-
             eo[key] = value;
 
             return this;
         },
 
         withData: function(data) {
-            this.with('userData', data);
+            this.with('data', data);
 
             return this;
         },
-        withNoBubble: function() {
+
+        withoutBubble: function() {
             this.with('prevent', true);
 
             return this;
@@ -38,12 +33,13 @@ var Events = (function() {
         },
 
         bind: function(bindEvent, selector) {
-            eo.when       = Utils.isUndefined(eo.when) ? true : eo.when;
             eo.bindEvent  = bindEvent;
             eo.selector   = Utils.isUndefined(selector) ? false : selector;
+            eo.when       = Utils.isUndefined(eo.when) ? true : eo.when;
             eo.isKeyEvent = Utils.startsWith("key", eo.bindEvent) ? true : false;
             eo.keyPress   = Utils.isUndefined(eo.keyPress) ? [] : eo.keyPress;
             eo.prevent    = false;
+            eo.data       = {};
 
             return this;
         },
@@ -57,12 +53,11 @@ var Events = (function() {
             }
 
             eo = {};
-
-            return eo;
+            return false;
         },
 
-        publish: function(eventName, userData) {
-            PubSub.publish(eventName, userData);
+        publish: function(eventName, data) {
+            PubSub.publish(eventName, data);
         },
 
         subscribe: function(eventName, funcName, context) {
