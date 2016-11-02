@@ -12,12 +12,11 @@ Heisenberg wants to get a whole bunch of low-level tasks out of your way so you 
 
 When you download Heisenberg you get the following out-of-the-box:
 
-+ Basic gulp tasks: Sass, Image Minification, PNG/SVG Sprites, JS/Sass Concatenation and Minification
++ Basic gulp tasks: Sass, Image Minification, JS/Sass Concatenation and Minification
 + A sensible way of organizing your Sass and Javascript
 + Mixins that will make your life easier
 + Grids with Susy, Media Queries, Normalized CSS with some sane defaults
-+ Yarn, HandlebarsJS and EditorConfig files
-+ VanillaJS that helps you with events and ajax calls without the weight of jQuery
++ Yarn and EditorConfig files
 
 ## Installing and Usage
 

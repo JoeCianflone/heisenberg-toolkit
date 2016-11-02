@@ -3,7 +3,7 @@ App.Modules.Example = function () {
     var o = { };
 
     var hello = function(data) {
-        console.log();
+        console.log(data);
     };
 
     var captureKeys = function(data) {

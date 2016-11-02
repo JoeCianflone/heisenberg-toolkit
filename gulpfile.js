@@ -1,8 +1,39 @@
-var hConfig = require('./gulp/config.js').config;
 var elixir = require('laravel-elixir');
-
 require('laravel-elixir-imagemin');
 require('laravel-elixir-del');
+
+var folders = {
+    js:        'js',
+    css:       'css',
+    src:       '{{src}}',
+    sass:      'sass',
+    imgs:      'images',
+    dest:      '{{dest}}',
+    fonts:     '{{dest}}/fonts',
+    localFonts: '{{src}}/fonts',
+    vendor:    './node_modules',
+};
+
+var vendor = {
+    fontAwesome: folders.vendor + '/font-awesome/fonts'
+};
+
+var scripts = {
+    main: [
+        folders.vendor + "/handlebars/dist/handlebars.runtime.js",
+        folders.vendor + "/pubsub-js/src/pubsub.js",
+        "main.js",
+        "helpers/**/*.js",
+        "resources/**/*.js",
+        "modules/**/*.js"
+    ]
+};
+
+var sass = {
+    main: [
+        "application.scss"
+    ]
+};
 
 /**
  * ............................................................................
@@ -11,26 +42,23 @@ require('laravel-elixir-del');
  * ............................................................................
  */
 elixir.config.sourcemaps      = true;
-elixir.config.assetsPath      = hConfig.folders.src;
-elixir.config.publicPath      = hConfig.folders.dest;
-elixir.config.css.sass.folder = hConfig.folders.sass;
-elixir.config.js.folder       = hConfig.folders.js;
-elixir.config.js.outputFolder = hConfig.folders.js;
+elixir.config.assetsPath      = folders.src;
+elixir.config.publicPath      = folders.dest;
+elixir.config.css.sass.folder = folders.sass;
+elixir.config.js.folder       = folders.js;
+elixir.config.js.outputFolder = folders.js;
 elixir.config.images = {
-    folder:       hConfig.folders.imgs,
-    outputFolder: hConfig.folders.imgs
+    folder:       folders.imgs,
+    outputFolder: folders.imgs
 };
 
-var fontAwesome = "./"+ hConfig.folders.vendor + '/font-awesome/fonts';
+
 
 elixir(function(mix) {
-    mix
-        .del(hConfig.folders.dest)
-        .copy(hConfig.folders.localFonts, hConfig.folders.fonts)
-        .copy(fontAwesome, hConfig.folders.fonts)
-        .sass(hConfig.sass.main)
-        .scripts(hConfig.scripts.main)
-        .imagemin();
+    mix.del(folders.dest)
+       .copy(folders.localFonts, folders.fonts)
+       .copy(vendor.fontAwesome, folders.fonts)
+       .sass(sass.main)
+       .scripts(scripts.main)
+       .imagemin();
 });
-
-

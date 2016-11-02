@@ -2,11 +2,8 @@
 *.sublime-*
 .sass-cache
 node_modules/
-public/
-www/
 {{dest}}/js/
 {{dest}}/css/
 {{dest}}/fonts/
 {{dest}}/images/
-{{src}}/js/templates.tpl
 
