@@ -5,12 +5,12 @@ require('laravel-elixir-del');
 var folders = {
     js:        'js',
     css:       'css',
-    src:       '{{src}}',
+    src:       'src',
     sass:      'sass',
     imgs:      'images',
-    dest:      '{{dest}}',
-    fonts:     '{{dest}}/fonts',
-    localFonts: '{{src}}/fonts',
+    dest:      'public/assets',
+    fonts:     'public/assets/fonts',
+    localFonts: 'src/fonts',
     vendor:    './node_modules',
 };
 
@@ -20,7 +20,6 @@ var vendor = {
 
 var scripts = {
     main: [
-        folders.vendor + "/handlebars/dist/handlebars.runtime.js",
         folders.vendor + "/pubsub-js/src/pubsub.js",
         "main.js",
         "helpers/**/*.js",
@@ -52,10 +51,8 @@ elixir.config.images = {
     outputFolder: folders.imgs
 };
 
-
-
 elixir(function(mix) {
-    mix.del(folders.dest)
+    mix.del(folders.dest, {useSync: true, force: true})
        .copy(folders.localFonts, folders.fonts)
        .copy(vendor.fontAwesome, folders.fonts)
        .sass(sass.main)

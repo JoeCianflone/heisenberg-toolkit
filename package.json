@@ -5,9 +5,10 @@
   "main": "index.html",
   "dependencies": {
     "font-awesome": "^4.6.3",
+    "gulp": "^3.9.1",
     "include-media": "^1.4.8",
     "laravel-elixir": "^6.0.0-11",
-    "laravel-elixir-del": "^0.1.1",
+    "laravel-elixir-del": "git://github.com/joecianflone/laravel-elixir-del.git#master",
     "laravel-elixir-imagemin": "^0.2.3",
     "laravel-elixir-webpack-official": "^1.0.9",
     "normalize-css": "git://github.com/joecianflone/normalize.css.git#master",
