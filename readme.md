@@ -68,15 +68,68 @@ Because Elixir is going to take care of the concatenation for you, Heisenberg is
 
 #### Normalized Elements
 
-We've already pulled in the latest `normalize.css` so you're going to start every project with a good sensible base of clean HTML. Nothing you need to do here.
+We've already pulled in the latest `normalize.css` so you're going to start every project with a good sensible base of clean HTML. Nothing you need to do here. Learn more about [Normalize](https://necolas.github.io/normalize.css/)
 
-#### Variables
+#### Media Queries
+Media queries are awesome and Sass makes them super-easy to use. Now, there are about a million different things out there that make it easier to work with media queries, my personal favorite is [include-media](http://include-media.com/) because I can stop thinking about numbers and think in terms of sizes. Heisenberg comes with the following breakpoints ready for you to use:
 
-#### Media Queiries
+```sass
+$breakpoints: (
+    'puny':       320px,
+    'tiny':       480px,
+    'bitty':      640px,
+    'small':      768px,
+    'moderate':   800px,
+    'bantam':     980px,
+    'medium':     1024px,
+    'large':      1160px,
+    'xlarge':     1280px,
+    'xxlarge':    1366px,
+    'xxxlarge':   1440px,
+    'jumbo':      1600px,
+    'hulking':    1920px,
+    'titanic':    2880px
+);
+```
+
+All you need to do to use a breakpoint is this:
+
+```sass
+.foo {
+    color: blue;
+
+    @include media("<medium") {
+        color: red;
+    }
+
+    @include media(>xxlarge) {
+        color: #ddd;
+    }
+}
+```
+
+To learn more about include media head over to their [website](http://include-media.com/)
 
 #### Grid
+I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, they're great, but I'd rather build my own grid. Heisenberg comes with [Susy](http://susy.oddbird.net/) grids installed. Again with some sensible defaults.
+
+```sass
+@include layout((
+    columns: 12,
+    gutter-position: split,
+    gutters: 1/4,
+    global-box-sizing: border-box
+));
+```
+
+You've got a 12 column grid with gutters split and box-sizing correctly set. If you'd like to change this head over to the `_variables.scss` file and update as you wish.
 
 #### Modules
+I'm a fan of keeping your Sass neat and in modules. To that end, Heisenberg has a `modules` folder and that's where all your different modules should go.
+
+#### Other Sass Notes
+
+Heisenberg has a bunch of mixins and functions.
 
 ### Javascript
 
@@ -150,28 +203,19 @@ Both the `init` and the `events` function are called on `DOMContentLoaded` so yo
 #### Events
 The event system in Heisenberg is really just a fluent wrapper about modern javascript. We just wanted a way to make the code A) easier to read and B) easily repeatable. A simple event inside a module would work like the following:
 
-
-
 Thats it. With that one line, you've tied a click on an element with class `js-clicker` to the `foo` function in your module.
 
 There's a lot more you can do here too. Lets say you only want that click event to bind when you're on a specific page.
 
 ```javascript
-Events.bind("click",".js-clicker").when("body[class=about]").to(foo, {context: this});
+Events.bind("click",".js-clicker").when("body[class=about]").to(foo, this);
 ```
 
 `when()` events are booleans that check if an element is/is not on the page. In the back, it's using `querySelector` to see we can find an element then allow the binding to occur on that particular page.
 
-Since `when()` uses `querySelector` you can do things like the following:
-
-```javascript
- ```
-
-this makes sure the `<body>` does not have a class of `foo`.
-
 Please note that this is *only* using `querySelector` and will not iterate over multiple elements, it's going to find the first item and check that, so make sure you're using this clause correctly.
 
-You also get a special `data` variable that is always passed to the function so you can pass in your own extra data or get access to the special `eventElement` so you know what was clicked or triggered in general.
+You also get a special `data` variable that is always passed to the function so you can pass in your own extra data or get access to the special `elem` so you know what was clicked or triggered in general.
 
 ```javascript
    App.Modules = App.Modules || {};
@@ -179,7 +223,7 @@ You also get a special `data` variable that is always passed to the function so 
       var o = { };
 
       var foo = function(data) {
-         console.log(data.eventElement);
+         console.log(data.elem);
       };
 
       return {
@@ -187,11 +231,21 @@ You also get a special `data` variable that is always passed to the function so 
             return this;
          },
          events: function() {
-            Events.bind("click", ".js-clicker").to(foo, {context: this});
+            Events.bind("click", ".js-clicker").to(foo, this);
             return this;
          }
       };
    }();
+```
+
+The `data` object will always have the following properties on it:
+
+```javascript
+
+data.elem   // the element acted on
+data.target // event.target || event.srcElement,
+data.key    // false if no key is pressed or the integer for the key
+data.event  // the full event object
 ```
 
 You can also check for keys to be pressed
@@ -214,8 +268,8 @@ You can also check for keys to be pressed
             return this;
          },
          events: function() {
-            Events.bind("keypress", ".js-enter-only", [13]).to(foo, {context: this});
-            Events.bind("keyup", ".js-all-keys").to(bar, {context: this});
+            Events.bind("keypress", ".js-enter-only").onKey([13]).to(foo, this);
+            Events.bind("keyup", ".js-all-keys").to(bar, this);
             return this;
          }
       };
@@ -225,6 +279,16 @@ You can also check for keys to be pressed
 #### PubSub
 
 The whole system is built on PubSub and passing messages back-and-forth between different modules. You can use these PubSub methods inside your own code too, that way code in different modules can listen for events happening in other modules. *You should not just dump all your logic in to one module, you should make your modules logical and publish and subscribe to events*.
+
+If you want to publish or subscribe to your own calls:
+
+```javascript
+Events.publish('eventName', {foo: true});
+
+Events.subscribe('eventName', func);
+```
+
+Pub/Sub methods register global events so you can publish something in one module and subscribe to it in another.
 
 
 # License
