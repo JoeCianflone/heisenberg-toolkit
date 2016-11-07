@@ -26,8 +26,8 @@ html {
 :focus { outline: none; }
 
 body {
-    background: get-color(white);
-    color: get-color(charcoal);
+    background: get-color(gainsboro);
+    color: get-color(davys-grey);
     height: 100vh;
     margin: 0;
     min-width: get-breakpoint(puny);

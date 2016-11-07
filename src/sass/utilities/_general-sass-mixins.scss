@@ -1,27 +1,42 @@
+/**
+ * Convenience mixin for :first-of-type
+ */
 @mixin first-elem() {
     &:first-of-type {
         @content
     }
 }
 
+/**
+ * Convenience mixin to get all the odd elements of a type
+ */
 @mixin odd-elem() {
     &:nth-of-type(2n+1) {
         @content
     }
 }
 
+/**
+ * Convenience mixin to style all the even elements of a type
+ */
 @mixin even-elem() {
     &:nth-of-type(2n) {
         @content
     }
 }
 
+/**
+ * Convenience mixin to style the last element of a type
+ */
 @mixin last-elem() {
     &:last-of-type {
         @content
     }
 }
 
+/**
+ * Simple clearfix mixin
+ */
 @mixin clearfix() {
     &:after {
         clear: both;

@@ -5,12 +5,12 @@ require('laravel-elixir-del');
 var folders = {
     js:        'js',
     css:       'css',
-    src:       'src',
+    src:       '{{src}}',
     sass:      'sass',
     imgs:      'images',
-    dest:      'public/assets',
-    fonts:     'public/assets/fonts',
-    localFonts: 'src/fonts',
+    dest:      '{{dest}}',
+    fonts:     '{{dest}}/fonts',
+    localFonts: '{{src}}/fonts',
     vendor:    './node_modules',
 };
 

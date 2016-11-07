@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Heisenberg is a toolkit of code to help you speed up the development of your front end projects that do not rely on frameworks like Angular or Vuejs.
+Heisenberg is a toolkit/skeleton of code to help you speed up the development of your front end projects that do not rely on frameworks like Angular or Vuejs.
 
 ### What's in the Box?
 
@@ -129,7 +129,45 @@ I'm a fan of keeping your Sass neat and in modules. To that end, Heisenberg has 
 
 #### Other Sass Notes
 
-Heisenberg has a bunch of mixins and functions.
+Heisenberg has a bunch of mixins and functions that you can use to make life a bit easier:
+
+`@include first-elem()` - Convenience mixin for :first-of-type
+
+`@include odd-elem()` - Convenience mixin to get all the odd elements of a type
+
+`@include even-elem()` - Convenience mixin to style all the even elements of a type
+
+`@include last-elem()` - Convenience mixin to style the last element of a type
+
+`@include clearfix()` - Simple clearfix mixin
+
+`@include transition($transition-property, $transition-time, $method)` - transition--because I always forget
+
+`@include font-size(font);` - Correctly convert your pixel fonts into REMs. This uses your base-font size (set in _variables.scss) to correctly calculate the REM size your font needs to be and this will also give you the correct pixel based fallback for super-old browsers
+
+
+`@include font-face()` - Bringing in fonts that you need to load from your own server isn't difficult but it has a bit of tedium to it. If you need to bring in a bunch of fonts then it's easier to use this mixin.
+
+```sass
+ @include font-face((font-family: 'Open Sans', path: '/public/assets/fonts/OpenSansXYZ', weight: 'normal', style: 'normal'));
+```
+
+`z($increment: 1)` - I wanted a simple way to always increment/decrement my z-index value
+
+`get-value($n)` - This will strip a unit off a number turning it from a string to a number
+
+`get-color($name)` - Pulls the hex code out of the color map
+
+`get-font-weight($size)` - Pulls the font-weight number out of the font-weight map
+
+`get-font($setting)` - Pulls the value from the stack map
+
+`get-line-height($font-size, $line-height)` - Calculates the correct unitless line-height based on the given font-size and line-height in pixels
+
+`get-breakpoint($name)` - Returns the pixel number of a specific breakpoint
+
+`rem($pxl)` - Returns the REM value based on the pixel value
+
 
 ### Javascript
 
