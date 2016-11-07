@@ -1,64 +1,72 @@
 /**
- * Fonts
- * ----------------------------------------------------------------------------
- * I'm a simple guy with simple needs, I don't like to mix a lot of different
- * fonts in my designs.  To keep it simple, I have two different font types:
- * copy and headlines.  They are exactly what they sound like.
- *
- * Make sure you also define "fallbacks" on the off chance Google fonts goes
- * down or your user is on a crappy connection.
- *
- */
+* Fonts
+* ----------------------------------------------------------------------------
+* I'm a simple guy with simple needs, I don't like to mix a lot of different
+* fonts in my designs.  To keep it simple, I have two different font types:
+* copy and headlines.  They are exactly what they sound like.
+*
+* Make sure you also define "fallbacks" on the off chance Google fonts goes
+* down or your user is on a crappy connection.
+*
+*/
 
 $stack-settings: (
-   serif:                    #{"Patua One", Georgia, serif},
-   sans-serif:               #{"Hind", "Helvetica Neue", sans-serif},
-   base-size:                62.5%,
-   line-height:              1.3,
-   letter-spacing:           0,
-   letter-spacing-headlines: -1px,
+    primary-font:             #{"Source Sans Pro", "Helvetica Neue", sans-serif},
+    secondary-font:           #{"Source Sans Pro", "Helvetica Neue", sans-serif},
+    primary-line-height:      1.3,
+    primary-letter-spacing:   0,
+    secondary-line-height:    1.5,
+    secondary-letter-spacing: -1px,
+    base-size:                100%,
 );
+
 
 $font-weights: (
-   thin:         100,
-   extra-light:  200,
-   light:        300,
-   normal:       400,
-   medium:       500,
-   semi-bold:    600,
-   bold:         700,
-   extra-bold:   800,
-   ultra-bold:   900,
+    thin:         100,
+    extra-light:  200,
+    light:        300,
+    normal:       400,
+    medium:       500,
+    semi-bold:    600,
+    bold:         700,
+    extra-bold:   800,
+    ultra-bold:   900,
 );
 
+/**
+* Use this breakpoints for your media queries
+*/
 $breakpoints: (
-   'puny':      240px,
-   'tiny':      320px,
-   'bitty':     480px,
-   'small':     640px,
-   'bantam':    768px,
-   'medium':    980px,
-   'large':     1024px,
-   'xlarge':    1160px,
-   'xxlarge':   1280px,
-   'jumbo':     1440px,
-   'hulking':   1600px,
-   'titanic':   1920px
+    'puny':       320px,
+    'tiny':       480px,
+    'bitty':      640px,
+    'small':      768px,
+    'moderate':   800px,
+    'bantam':     980px,
+    'medium':     1024px,
+    'large':      1160px,
+    'xlarge':     1280px,
+    'xxlarge':    1366px,
+    'xxxlarge':   1440px,
+    'jumbo':      1600px,
+    'hulking':    1920px,
+    'titanic':    2880px
 );
 
 $colors: (
-   black:     #000,
-   white:     #fff,
-   charcoal:  #444,
+    black:     #000,
+    white:     #fff,
+    charcoal:  #444,
+    gainsboro: #dcdcdc,
+    davys-grey: #545657,
+    lion: #b69c6f,
 );
 
+$current-zindex: 100;
+
 @include layout((
-  columns: 16,
-  gutter-position: no-gutter,
-  gutters: 0,
-  global-box-sizing: border-box
+    columns: 12,
+    gutter-position: split,
+    gutters: 1/4,
+    global-box-sizing: border-box
 ));
-
-@include flex-init();
-
-$current-zindex:        100;

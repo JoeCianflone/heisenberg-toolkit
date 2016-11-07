@@ -1,0 +1,106 @@
+/**
+ * Convenience mixin for :first-of-type
+ */
+@mixin first-elem() {
+    &:first-of-type {
+        @content
+    }
+}
+
+/**
+ * Convenience mixin to get all the odd elements of a type
+ */
+@mixin odd-elem() {
+    &:nth-of-type(2n+1) {
+        @content
+    }
+}
+
+/**
+ * Convenience mixin to style all the even elements of a type
+ */
+@mixin even-elem() {
+    &:nth-of-type(2n) {
+        @content
+    }
+}
+
+/**
+ * Convenience mixin to style the last element of a type
+ */
+@mixin last-elem() {
+    &:last-of-type {
+        @content
+    }
+}
+
+/**
+ * Simple clearfix mixin
+ */
+@mixin clearfix() {
+    &:after {
+        clear: both;
+        content: '';
+        display: table;
+    }
+}
+
+/**
+ * transition--because I always forget
+ */
+ @mixin transition($transition-property, $transition-time, $method) {
+     transition: $transition-property $transition-time $method;
+ }
+
+/**
+ * Correctly convert your pixel fonts into REMs.
+ * This uses your base-font size (set in _variables.scss) to correctly
+ * calculate the REM size your font needs to be and this will also
+ * give you the correct pixel based fallback for super-old
+ * browsers
+ *
+ * @param String|Number $font-size
+ */
+ @mixin font-size($font-size) {
+     $base-size: get-value(get-font(base-size) / 100);
+     $base-px-size: 16 * $base-size;
+
+     font-size: $font-size;
+     font-size: (get-value($font-size) / $base-px-size) + rem;
+ }
+
+/**
+ * Bringing in fonts that you need to load from your own server isn't difficult
+ * but it has a bit of tedium to it. If you need to bring in a bunch of fonts
+ * then it's easier to use this mixin.
+ *
+ * Usage: @include font-face((font-family: 'Open Sans', path: '/public/assets/fonts/OpenSansXYZ', weight: 'normal', style: 'normal'));
+ */
+ @mixin font-face($info: ()) {
+     @font-face {
+         $family: map-get(font-family, $info);
+         $font: map-get(font-family, $info);
+         $ottf: ttf;
+         $ottf-format: truetype;
+
+         @if isset(path, $info) {
+             $font: map-get(path, $info);
+         }
+
+         @if isset(otf, $info) {
+             $ottf: otf;
+             $ottf-format: OpenType;
+         }
+
+         font: {
+             family: $family;
+             style: map-get(style, $info);
+             weight: map-get(weight, $info);
+         }
+         src: font-url('#{$font}.eot');
+         src: font-url('#{$font}.eot?#iefix')          format('embedded-opentype'),
+         font-url('#{$font}.woff')                     format('woff'),
+         font-url('#{$font}.#{$ottf}')                 format('#{$ottf-format}'),
+         font-url('#{$font}.svg##{$family}')      format('svg');
+     }
+ }

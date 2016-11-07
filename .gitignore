@@ -1,13 +1,9 @@
 .DS_Store
 *.sublime-*
 .sass-cache
-vendor/
 node_modules/
-bower/
 {{dest}}/js/
 {{dest}}/css/
 {{dest}}/fonts/
 {{dest}}/images/
-{{src}}/sass/sprites/
-{{src}}/js/templates.tpl
 

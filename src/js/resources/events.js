@@ -1,53 +1,69 @@
 var Events = (function() {
-   var eo = {};
+    var eo = {};
 
-   var mapper = function() { };
+    return {
+        when: function(contextString) {
+            eo.when = !!document.querySelector(contextString);
 
-   return {
-      when: function(contextString) {
-         eo.when = !!document.querySelector(contextString);
+            return this;
+        },
 
-         return this;
-      },
+        with: function(key, value) {
+            eo[key] = value;
 
-      bind: function(bindEvent, selector, key) {
-         eo.when       = typeof eo.when == 'undefined' ? true : eo.when;
-         eo.bindEvent  = bindEvent;
-         eo.selector   = ! selector ? false : selector;
-         eo.keyPress   = ! key ? false : key;
-         eo.isKeyEvent = eo.bindEvent.startsWith("key") ? true : false;
+            return this;
+        },
 
-         if (Array.isArray(selector)) {
-            eo.selector = false;
-            eo.keyPress = selector;
-         }
+        withData: function(data) {
+            this.with('data', data);
 
-         return this;
-      },
+            return this;
+        },
 
-      to: function(funcName, options) {
-         eo.asEventName = Utils.generateEventName();
+        withoutBubble: function() {
+            this.with('prevent', true);
 
-         eo.context   = ! options.context ? window : options.context;
-         eo.userData  = ! options.data ? {} : options.data;
-         eo.prevent   = (typeof options.prevent === "undefined") ? true : options.prevent;
+            return this;
+        },
 
-         if (eo.when) {
-            Binder.bindEvent(eo, funcName);
-         }
+        onKey: function(keyList) {
+            this.with('keyPress', keyList);
 
-         eo = {};
-         return eo;
-      },
+            return this;
+        },
 
-      publish: function(eventName, userData) {
-         PubSub.publish(eventName, userData);
-      },
+        bind: function(bindEvent, selector) {
+            eo.bindEvent  = bindEvent;
+            eo.selector   = Utils.isUndefined(selector) ? false : selector;
+            eo.when       = Utils.isUndefined(eo.when) ? true : eo.when;
+            eo.isKeyEvent = Utils.startsWith("key", eo.bindEvent) ? true : false;
+            eo.keyPress   = Utils.isUndefined(eo.keyPress) ? [] : eo.keyPress;
+            eo.prevent    = false;
+            eo.data       = {};
 
-      subscribe: function(eventName, funcName, context) {
-         PubSub.subscribe(eventName, function(msg, data) {
-            return funcName.call(context, data);
-         });
-      }
-   };
+            return this;
+        },
+
+        to: function(funcName, context) {
+            eo.asEventName = Utils.generateEventName();
+            eo.context = Utils.isUndefined(context) ? window : context;
+
+            if (eo.when) {
+                Binder.bindEvent(eo, funcName);
+            }
+
+            eo = {};
+            return false;
+        },
+
+        publish: function(eventName, data) {
+            PubSub.publish(eventName, data);
+        },
+
+        subscribe: function(eventName, funcName, context) {
+            PubSub.subscribe(eventName, function(msg, data) {
+                return funcName.call(context, data);
+            });
+        }
+    };
 }());

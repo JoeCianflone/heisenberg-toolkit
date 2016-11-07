@@ -1,31 +1,39 @@
 var Utils = (function(){
 
-   return {
-      generateUUID: function() {
-         var d = Date.now();
-         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-         });
+    return {
+        isUndefined: function(elem) {
+            return (typeof elem == "undefined");
+        },
 
-         return uuid;
-      },
+        startsWith: function(needle, haystack) {
+            return haystack.substr(0, needle.length) === needle;
+        },
 
-      generateEventName: function(asEventName) {
-         return "app/event/" + Utils.generateUUID();;
-      },
+        generateUUID: function() {
+            var d = Date.now();
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = (d + Math.random()*16)%16 | 0;
+                d = Math.floor(d/16);
+                return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+            });
 
-      mergeObjects: function(obj, src) {
-         Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+            return uuid;
+        },
 
-         return obj;
-      },
+        generateEventName: function(asEventName) {
+            return "app/event/" + Utils.generateUUID();;
+        },
 
-      forEach: function(array, callback, scope) {
-         for (var i = 0, len=array.length; i < len; ++i) {
-            callback.call(scope, i, array[i]);
-         }
-      }
-   };
+        mergeObjects: function(obj, src) {
+            Object.keys(src).forEach(function(key) { obj[key] = src[key]; });
+
+            return obj;
+        },
+
+        forEach: function(array, callback, scope) {
+            for (var i = 0, len=array.length; i < len; ++i) {
+                callback.call(scope, i, array[i]);
+            }
+        }
+    };
 }());

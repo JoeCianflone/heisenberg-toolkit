@@ -1,7 +1,7 @@
 {
-   "version": "1.4.0",
-   "path": {
-      "src": "{{src}}",
-      "dest": "{{dest}}"
-   }
+    "version": "2.0.0",
+    "path": {
+        "src": "{{src}}",
+        "dest": "{{dest}}"
+    }
 }
