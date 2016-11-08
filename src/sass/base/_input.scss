@@ -1,0 +1,49 @@
+/**
+ * Basics of how Heisenberg sets up buttons and forms. This is a BEM-inspired
+ * syntax.
+ */
+.button {
+    &__primary { }
+    &__secondary { }
+
+    &--cancel { }
+    &--submit { }
+}
+
+.text {
+    &__primary { }
+    &__secondary { }
+
+    &--password { }
+    &--search { }
+    &--email { }
+    &--url { }
+    &--tel { }
+    &--number { }
+}
+
+.date {
+    &--time { }
+    &--week { }
+    &--datetime { }
+}
+
+.color { }
+
+.select {
+    &__primary { }
+    &__secondary { }
+
+    &--range { }
+    &--multi { }
+}
+
+.radio {
+    &__primary { }
+    &__secondary { }
+}
+
+.checkbox {
+    &__primary { }
+    &__secondary { }
+}

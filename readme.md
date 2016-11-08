@@ -73,7 +73,7 @@ We've already pulled in the latest `normalize.css` so you're going to start ever
 #### Media Queries
 Media queries are awesome and Sass makes them super-easy to use. Now, there are about a million different things out there that make it easier to work with media queries, my personal favorite is [include-media](http://include-media.com/) because I can stop thinking about numbers and think in terms of sizes. Heisenberg comes with the following breakpoints ready for you to use:
 
-```sass
+```scss
 $breakpoints: (
     'puny':       320px,
     'tiny':       480px,
@@ -94,7 +94,7 @@ $breakpoints: (
 
 All you need to do to use a breakpoint is this:
 
-```sass
+```scss
 .foo {
     color: blue;
 
@@ -113,7 +113,7 @@ To learn more about include media head over to their [website](http://include-me
 #### Grid
 I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, they're great, but I'd rather build my own grid. Heisenberg comes with [Susy](http://susy.oddbird.net/) grids installed. Again with some sensible defaults.
 
-```sass
+```scss
 @include layout((
     columns: 12,
     gutter-position: split,
@@ -148,7 +148,7 @@ Heisenberg has a bunch of mixins and functions that you can use to make life a b
 
 `@include font-face()` - Bringing in fonts that you need to load from your own server isn't difficult but it has a bit of tedium to it. If you need to bring in a bunch of fonts then it's easier to use this mixin.
 
-```sass
+```scss
  @include font-face((font-family: 'Open Sans', path: '/public/assets/fonts/OpenSansXYZ', weight: 'normal', style: 'normal'));
 ```
 
@@ -169,13 +169,33 @@ Heisenberg has a bunch of mixins and functions that you can use to make life a b
 `rem($pxl)` - Returns the REM value based on the pixel value
 
 
+`box($mps...)` - Returns the REM values for margins/paddings in typical "box" notation: top, right, bottom, left OR top/bottom left/right
+
+Example:
+
+```scss
+.foo {
+    margin: box(10px, 10px, 10px 10px);
+    padding: box(10px, 20px);
+}
+
+
+// compiles to...
+.foo {
+    margin: 0.625rem, 0.625rem, 0.625rem, 0.625rem;
+    padding: 0.625rem 1.25rem;
+}
+```
+
+
+
 ### Javascript
 
 Heisenberg is set up to make the javascript you write be more readable for humans. This tries to solve the problem of--when you don't have a framework-- where should something go? Heisenberg is pretty lightweight, we don't use jQuery or any other frameworks, if you would like to use jQuery, you can, but it's not required.
 
 Once your code start getting to a certain size you start to run into the issue where all your JS starts to become hot a mess. You have one external file that looks a lot like this:
 
-```javascript
+```js
 $(function(){
    // All your JS in here...
 });
@@ -188,7 +208,7 @@ The solution to this problem is to use a more modular style of coding, but setti
 
 Heisenberg has all your boilerplate JS baked in all you need to do is create a new module and start adding your events. If you take a look at the `/src/js/modules/example.js` you'll see a basic module template.
 
-```javascript
+```js
    App.Modules = App.Modules || {};
    App.Modules.<ModuleName> = function () {
       var o = { };
@@ -209,7 +229,7 @@ This is the [revealing module design pattern](https://addyosmani.com/resources/e
 ##### The public functions
 Both the `init` and the `events` function are called on `DOMContentLoaded` so you don't need to wrap anything in load events. So why have both an `init` and `events` function? Because it's a great way to keep your code organized. Let's look at a more complete example to understand:
 
-```javascript
+```js
    App.Modules = App.Modules || {};
    App.Modules.Demo = function () {
       var o = { };
@@ -245,7 +265,7 @@ Thats it. With that one line, you've tied a click on an element with class `js-c
 
 There's a lot more you can do here too. Lets say you only want that click event to bind when you're on a specific page.
 
-```javascript
+```js
 Events.bind("click",".js-clicker").when("body[class=about]").to(foo, this);
 ```
 
@@ -255,7 +275,7 @@ Please note that this is *only* using `querySelector` and will not iterate over 
 
 You also get a special `data` variable that is always passed to the function so you can pass in your own extra data or get access to the special `elem` so you know what was clicked or triggered in general.
 
-```javascript
+```js
    App.Modules = App.Modules || {};
    App.Modules.Introduction = function () {
       var o = { };
@@ -278,7 +298,7 @@ You also get a special `data` variable that is always passed to the function so 
 
 The `data` object will always have the following properties on it:
 
-```javascript
+```js
 
 data.elem   // the element acted on
 data.target // event.target || event.srcElement,
@@ -288,7 +308,7 @@ data.event  // the full event object
 
 You can also check for keys to be pressed
 
-```javascript
+```js
    App.Modules = App.Modules || {};
    App.Modules.Introduction = function () {
       var o = { };
@@ -320,7 +340,7 @@ The whole system is built on PubSub and passing messages back-and-forth between 
 
 If you want to publish or subscribe to your own calls:
 
-```javascript
+```js
 Events.publish('eventName', {foo: true});
 
 Events.subscribe('eventName', func);
