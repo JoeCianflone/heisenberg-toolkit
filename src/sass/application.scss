@@ -73,3 +73,7 @@
 // Modules ....................................................................
 // example: @import 'modules/example-module';
 
+.test {
+    margin: box(10px, 10px, 0, 10px);
+    padding: box(22px, 10px);
+}

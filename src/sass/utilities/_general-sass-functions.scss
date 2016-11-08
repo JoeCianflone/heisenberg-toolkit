@@ -106,3 +106,18 @@
 
     @return (get-value($pxl) / $base-px-size) + rem;
 }
+
+/**
+ * Returns the REM values for margins/paddings in typical "box" notation: top, right, bottom, left OR top/bottom left/right
+ * @param  List $mps...
+ * @return String
+ */
+@function box($mps...) {
+    $x: " ";
+    @each $item in $mps {
+        $x: $x + rem($item) + " ";
+    }
+
+    @return unquote($x);
+}
+

@@ -104,3 +104,11 @@
          font-url('#{$font}.svg##{$family}')      format('svg');
      }
  }
+
+@mixin abs($top, $right, $bottom, $left) {
+    bottom: $bottom;
+    left: $left;
+    position: absolute;
+    right: $right;
+    top: $top;
+}
