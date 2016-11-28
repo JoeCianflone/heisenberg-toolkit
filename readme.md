@@ -15,7 +15,7 @@ When you download Heisenberg you get the following out-of-the-box:
 + Gulp tasks with Laravel Elixir (no you don't need to be using Laravel): Sass, Image Minification, JS/Sass Concatenation and Minification
 + A sensible way of organizing your Sass and Javascript
 + Mixins that will make your life easier
-+ Grids with Susy, Media Queries, Normalized CSS with some sane defaults
++ Grids with susy and flexbox, media query breakpoints, normalized CSS with some sane defaults
 + Yarn and EditorConfig files
 
 ## Installing and Usage
@@ -71,7 +71,7 @@ Because Elixir is going to take care of the concatenation for you, Heisenberg is
 We've already pulled in the latest `normalize.css` so you're going to start every project with a good sensible base of clean HTML. Nothing you need to do here. Learn more about [Normalize](https://necolas.github.io/normalize.css/)
 
 #### Media Queries
-Media queries are awesome and Sass makes them super-easy to use. Now, there are about a million different things out there that make it easier to work with media queries, my personal favorite is [include-media](http://include-media.com/) because I can stop thinking about numbers and think in terms of sizes. Heisenberg comes with the following breakpoints ready for you to use:
+Media queries are awesome and Sass makes them super-easy to use. Now, there are about a million different things out there that make it easier to work with media queries. Heisenberg comes with the following breakpoints ready for you to use:
 
 ```scss
 $breakpoints: (
@@ -90,17 +90,16 @@ All you need to do to use a breakpoint is this:
 .foo {
     color: blue;
 
-    @include media("<medium") {
+    @media(sm) {
         color: red;
     }
 
-    @include media(>xxlarge) {
+    @media(lg) {
         color: #ddd;
     }
 }
 ```
-
-To learn more about include media head over to their [website](http://include-media.com/)
+edia head over to their [website](http://include-media.com/)
 
 #### Grid
 I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, they're great, but I'd rather build my own grid. Heisenberg comes with [Susy](http://susy.oddbird.net/) grids installed. Again with some sensible defaults.
@@ -109,7 +108,7 @@ I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, t
 @include layout((
     columns: 12,
     gutter-position: split,
-    gutters: 1/4,
+    gutters: 1/6,
     global-box-sizing: border-box
 ));
 ```
