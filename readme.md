@@ -75,20 +75,12 @@ Media queries are awesome and Sass makes them super-easy to use. Now, there are 
 
 ```scss
 $breakpoints: (
-    'puny':       320px,
-    'tiny':       480px,
-    'bitty':      640px,
-    'small':      768px,
-    'moderate':   800px,
-    'bantam':     980px,
-    'medium':     1024px,
-    'large':      1160px,
-    'xlarge':     1280px,
-    'xxlarge':    1366px,
-    'xxxlarge':   1440px,
-    'jumbo':      1600px,
-    'hulking':    1920px,
-    'titanic':    2880px
+    'sm': "min-width: 576px",
+    'ms': "min-width: 640px",
+    'md': "min-width: 768px",
+    'ml': "min-width: 800px",
+    'lg': "min-width: 992px",
+    'xl': "min-width: 1200px",
 );
 ```
 
