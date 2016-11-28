@@ -1,27 +1,4 @@
-@function grid-gutter() {
-    @if (gutter() == null) {
-        @return 0;
-    }
-
-    @return gutter();
-}
-
-@mixin filler($i, $point) {
-    .fills-#{$point}-#{$i} {
-        flex-basis: span($i);
-        max-width: span($i);
-    }
-
-    .is-column > .fills-#{$point}-#{$i},
-    .is-column-reverse > .fills-#{$point}-#{$i} {
-        padding: grid-gutter();
-        flex-basis: span($i);
-    }
-
-    .over-#{$point}-#{$i} {
-        margin-left: (grid-gutter() + span($i)) !important;
-    }
-}
+@import 'utilities/grid-utils';
 
 .grid {
     align-content: flex-start;
@@ -71,8 +48,6 @@
             &-around  { align-items: space-around;  }
             &-between { align-items: space-between; }
         }
-
-        &-no-space { margin-bottom: 0;}
     }
 
     &.blocks {
@@ -85,8 +60,12 @@
     }
 }
 
-.grid.debug .column {
-    border: 1px solid rgba(blue, 0.5);
+.grid.debug {
+    @include show-grid(susy-get(columns));
+
+    .column {
+        border: 1px solid rgba(red, 0.5) !important;
+    }
 }
 
 .column {
@@ -94,10 +73,6 @@
     padding: grid-gutter();
     margin: 0;
     flex: 0 0 100%;
-
-    &.debug {
-        border: 1px solid rgba(blue, 0.5);
-    }
 
     &.fills-leftover {
         margin: grid-gutter();

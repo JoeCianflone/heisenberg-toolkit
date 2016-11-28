@@ -43,9 +43,6 @@ $colors: (
     charcoal:  #444,
 );
 
-$current-zindex: 100;
-$site-floor: 320px;
-
 // Your defaults for Susy and for the flexbox grid.
 // For more information see:
 // http://susydocs.oddbird.net/en/latest/
@@ -53,5 +50,9 @@ $site-floor: 320px;
     columns: 12,
     gutter-position: inside,
     gutters: 1/6,
-    global-box-sizing: border-box
+    global-box-sizing: border-box,
+    debug: (image: show)
 ));
+
+$current-zindex: 100;
+$site-floor:     320px;
