@@ -1,14 +1,12 @@
-.align {
-   &--center {
-      text-align: center;
-   }
-
-   &--left {
-      text-align: left;
-   }
-
-   &--right {
-      text-align: right;
-   }
+.text-is {
+    &-left {
+        text-align: left;
+    }
+    &-right {
+        text-align: right;
+    }
+    &-centered {
+        text-align: center;
+    }
 }
 

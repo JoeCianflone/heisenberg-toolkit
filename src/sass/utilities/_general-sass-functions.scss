@@ -8,10 +8,10 @@
 @function get-by($key, $map) {
     @if isset($map, $key) {
         @return map-get($map, $key);
-        } @else {
-            @error "Unknown #{$key}";
-        }
+    } @else {
+        @error "Unknown #{$key}";
     }
+}
 
 /**
 * Checks if the map/list has a specific key
@@ -121,3 +121,11 @@
     @return unquote($x);
 }
 
+/**
+ * Converts the tracking number from Photoshop into EMs
+ * @param  Integer $tracking
+ * @return Number
+ */
+@function tracking($tracking) {
+    @return ($tracking / 1000) + em;
+}

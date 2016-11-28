@@ -46,6 +46,10 @@ elixir.config.publicPath      = folders.dest;
 elixir.config.css.sass.folder = folders.sass;
 elixir.config.js.folder       = folders.js;
 elixir.config.js.outputFolder = folders.js;
+
+// Include IE 10 support...
+elixir.config.css.autoprefix.options.browsers = ['> 1%', 'IE 10'];
+
 elixir.config.images = {
     folder:       folders.imgs,
     outputFolder: folders.imgs

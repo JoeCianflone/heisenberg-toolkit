@@ -1,0 +1,138 @@
+@function grid-gutter() {
+    @if (gutter() == null) {
+        @return 0;
+    }
+
+    @return gutter();
+}
+
+@mixin filler($i, $point) {
+    .fills-#{$point}-#{$i} {
+        flex-basis: span($i);
+        max-width: span($i);
+    }
+
+    .is-column > .fills-#{$point}-#{$i},
+    .is-column-reverse > .fills-#{$point}-#{$i} {
+        padding: grid-gutter();
+        flex-basis: span($i);
+    }
+
+    .over-#{$point}-#{$i} {
+        margin-left: (grid-gutter() + span($i)) !important;
+    }
+}
+
+.grid {
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 0;
+
+    &.is {
+        &-reversed { flex-direction: row-reverse; }
+        &-column {
+            flex-direction: column;
+            margin-bottom: grid-gutter();
+        }
+        &-column-reversed {
+            flex-direction: column-reverse;
+            margin-bottom: grid-gutter();
+        }
+
+        &-aligned {
+            &-left     { justify-content: flex-end;   }
+            &-right    { justify-content: flex-start; }
+            &-centered { justify-content: center;     }
+        }
+
+        &-valigned {
+            &-top    { align-items: flex-start; }
+            &-bottom { align-items: flex-end;   }
+            &-middle { align-items: center;     }
+            &-full   { align-items: stretch;    }
+        }
+    }
+
+    &.can {
+        &-wrap         { flex-wrap: wrap;         }
+        &-wrap-reverse { flex-wrap: wrap-reverse; }
+    }
+
+    &.has {
+        &-space {
+            &-around  { justify-content: space-around;  }
+            &-between { justify-content: space-between; }
+        }
+
+        &-vspace {
+            &-around  { align-items: space-around;  }
+            &-between { align-items: space-between; }
+        }
+
+        &-no-space { margin-bottom: 0;}
+    }
+
+    &.blocks {
+        &-are-on-top             { align-content: flex-start;    }
+        &-are-on-bottom          { align-content: flex-end;      }
+        &-are-in-middle          { align-content: center;        }
+        &-are-full               { align-content: stretch;       }
+        &-have-space-around      { align-content: space-around;  }
+        &-have-space-between     { align-content: space-between; }
+    }
+}
+
+.grid.debug .column {
+    border: 1px solid rgba(blue, 0.5);
+}
+
+.column {
+    order: 0;
+    padding: grid-gutter();
+    margin: 0;
+    flex: 0 0 100%;
+
+    &.debug {
+        border: 1px solid rgba(blue, 0.5);
+    }
+
+    &.fills-leftover {
+        margin: grid-gutter();
+        flex: 2 1 auto;
+    }
+
+    &.is {
+        &-first { order: -1; }
+        &-last  { order: 1;  }
+    }
+
+    .has-no {
+        &-padding { padding: 0; }
+        &-gutter { margin: 0; }
+        &-space {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+@for $i from 1 through susy-get(columns) {
+    @include filler($i, "xs");
+}
+
+@each $point in $breakpoints {
+    $key: nth($point, 1);
+    $val: nth($point, 2);
+
+    @media($val) {
+        @for $i from 1 through susy-get(columns) {
+            @include filler($i, $key);
+        }
+    }
+}
+
+
+

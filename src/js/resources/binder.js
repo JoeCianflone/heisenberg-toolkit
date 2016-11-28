@@ -1,7 +1,7 @@
 var Binder = (function() {
 
     var attachAsDocumentEvent = function(eo) {
-        if (eo.selector.startsWith("#")) {
+        if (Utils.startsWith("#", eo.selector)) {
             return Attach.singleEvent(document.getElementById(eo.selector.replace("#", "")), eo);
         }
 
