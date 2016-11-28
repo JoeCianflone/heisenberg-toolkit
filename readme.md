@@ -90,19 +90,23 @@ All you need to do to use a breakpoint is this:
 .foo {
     color: blue;
 
-    @media(sm) {
+    @media (sm) {
         color: red;
     }
 
-    @media(lg) {
+    @media (lg) {
         color: #ddd;
     }
 }
 ```
-edia head over to their [website](http://include-media.com/)
 
-#### Grid
-I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, they're great, but I'd rather build my own grid. Heisenberg comes with [Susy](http://susy.oddbird.net/) grids installed. Again with some sensible defaults.
+#### Grids
+
+Depending on the project, sometimes you need to roll-your-own grid and sometimes you don't. Heisenberg comes with two flavors of grids so you can choose what works best for your situation.
+
+##### Susy
+
+Susy grids are set up by default. You've got a 12 column grid with gutters split and box-sizing correctly set. If you'd like to change this head over to the `_variables.scss` file and update as you wish.
 
 ```scss
 @include layout((
@@ -113,7 +117,17 @@ I'm not a superfan of grid-systems like that in bootstrap. Don't get me wrong, t
 ));
 ```
 
-You've got a 12 column grid with gutters split and box-sizing correctly set. If you'd like to change this head over to the `_variables.scss` file and update as you wish.
+##### Flexbox Grid
+
+Heisenberg comes with a flexbox grid system that we've developed that has many similarities to the grid used by Bootstrap, but is also a bit more verbose and reads a bit better. This readability is important because, in general, flexbox has a lot of different settings and they're not always easy to understand.
+
+```html
+<div class="grid is-aligned-center is-valigned-top can-wrap">
+  <div class="column fills-lg-5 fills-md-6 fills-xs-4">foo</div>
+  <div class="column fills-leftover">bar</div>
+</div>
+```
+
 
 #### Modules
 I'm a fan of keeping your Sass neat and in modules. To that end, Heisenberg has a `modules` folder and that's where all your different modules should go.
